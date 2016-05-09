@@ -29,17 +29,17 @@ class Form
         }
 
         $mainQuestionSub = __('Answer the question to help us improve our information.', 'customer-feedback');
-        if (!empty(get_field('customer_feedback_main_question_sub', 'option'))) {
+        if (function_exists('get_field') && !empty(get_field('customer_feedback_main_question_sub', 'option'))) {
             $mainQuestionSub = get_field('customer_feedback_main_question_sub', 'option');
         }
 
         $commentLabel = __('How can we make the information better?', 'customer-feedback');
-        if (!empty(get_field('customer_feedback_feedback_label', 'option'))) {
+        if (function_exists('get_field') && !empty(get_field('customer_feedback_feedback_label', 'option'))) {
             $commentLabel = get_field('customer_feedback_feedback_label', 'option');
         }
 
         $thanksText = __('Thank you', 'customer-feedback');
-        if (!empty(get_field('customer_feedback_thanks', 'option'))) {
+        if (function_exists('get_field') && !empty(get_field('customer_feedback_thanks', 'option'))) {
             $thanksText = get_field('customer_feedback_thanks', 'option');
         }
 

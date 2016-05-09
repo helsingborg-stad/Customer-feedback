@@ -10,6 +10,12 @@ class Responses
     {
         add_action('init', array($this, 'registerPostType'));
 
+        //
+        add_action('acf/load_field/name=customer_feedback_comment', function ($field) {
+            $field['readonly'] = 1;
+            return $field;
+        });
+
         // Submit response ajax
         add_action('wp_ajax_submit_response', array($this, 'submitResponse'));
         add_action('wp_ajax_nopriv_submit_response', array($this, 'submitResponse'));
@@ -17,6 +23,14 @@ class Responses
         // Submit comment ajax
         add_action('wp_ajax_submit_comment', array($this, 'submitComment'));
         add_action('wp_ajax_nopriv_submit_comment', array($this, 'submitComment'));
+
+        // List table columns
+        add_filter('manage_edit-' . $this->postTypeSlug . '_columns', array($this, 'listColumns'));
+        add_action('manage_' . $this->postTypeSlug . '_posts_custom_column', array($this, 'listColumnsContent'), 10, 2);
+        add_filter('manage_edit-' . $this->postTypeSlug . '_sortable_columns', array($this, 'listColumnsSorting'));
+
+        // Add page link metabox
+        add_action('add_meta_boxes', array($this, 'addMetaBoxes'));
     }
 
     /**
@@ -70,6 +84,78 @@ class Responses
         register_post_type($this->postTypeSlug, $args);
     }
 
+    public function addMetaBoxes($postType)
+    {
+        if ($postType != $this->postTypeSlug) {
+            return;
+        }
+
+        add_meta_box('customer-feedback-page-url', 'Page', array($this, 'pageMetaBoxContent'), $this->postTypeSlug, 'advanced', 'high');
+    }
+
+    public function pageMetaBoxContent()
+    {
+        global $post;
+
+        $parent = get_post_meta($post->ID, 'customer_feedback_page_reference', true);
+        $parent = get_post($parent);
+
+        echo '<p><a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a> (' . get_permalink($parent) . ')</p>';
+    }
+
+    /**
+     * Setup list table columns
+     * @param  array $columns The original columns
+     * @return array          The modified columns
+     */
+    public function listColumns($columns)
+    {
+        $columns = array(
+            'cb'     => '<input type="checkbox">',
+            'title'  => __('Page', 'customer-feedback'),
+            'answer' => __('Answer', 'customer-feedback'),
+            'hasComment'   => __('Has comment', 'customer-feedback'),
+            'date'   => __('Date')
+        );
+
+        return $columns;
+    }
+
+    /**
+     * Add content to list table columns
+     * @param  string  $column Column slug
+     * @param  integer $postId Post id
+     * @return void
+     */
+    public function listColumnsContent($column, $postId)
+    {
+        switch ($column) {
+            case 'answer':
+                if (get_post_meta($postId, 'customer_feedback_answer', true) == 'no') {
+                    echo '<span style="color:#BA3030;">' . __('No') . '</span>';
+                } elseif (get_post_meta($postId, 'customer_feedback_answer', true) == 'yes') {
+                    echo '<span style="color:#30BA41;">' . __('Yes') . '</span>';
+                }
+                break;
+
+            case 'hasComment':
+                echo (!empty(get_field('customer_feedback_comment', $postId))) ? __('Yes') : __('No');
+                break;
+        }
+    }
+
+    /**
+     * Setup list table sorting
+     * @param  array $columns  Sortable columns
+     * @return array           Modified sortable columns
+     */
+    public function listColumnsSorting($columns)
+    {
+        $columns['answer'] = 'answer';
+        $columns['hasComment'] = 'hasComment';
+        return $columns;
+    }
+
     /**
      * Saves the "Yes" or "No" response as counters in metadata
      * @return integer The last inserted id from db
@@ -87,8 +173,9 @@ class Responses
                 'post_title' => get_the_title($postId)
             ));
 
-            update_field('customer_feedback_ip', $_SERVER['REMOTE_ADDR'], $insertedId);
-            update_field('customer_feedback_answer', $answer, $insertedId);
+            update_post_meta($insertedId, 'customer_feedback_page_reference', $postId);
+            update_post_meta($insertedId, 'customer_feedback_ip', $_SERVER['REMOTE_ADDR']);
+            update_post_meta($insertedId, 'customer_feedback_answer', $answer);
         }
 
         echo $insertedId;
@@ -107,8 +194,8 @@ class Responses
         $commentType = (isset($_POST['commenttype']) && strlen($_POST['commenttype']) > 0) ? $_POST['commenttype'] : null;
 
         if ($answerId && $postId) {
-            update_field('customer_feedback_comment', $comment, $answerId);
-            update_field('customer_feedback_comment_type', $commentType, $answerId);
+            update_post_meta($answerId, 'customer_feedback_comment', $comment);
+            update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
 
             echo 'true';
         } else {
