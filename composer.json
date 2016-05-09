@@ -1,0 +1,13 @@
+{
+    "name": "helsingborg-stad/customer-feedback",
+    "description": "This WordPress plugin adds a feedback form to the end of every page (or any other activated post type).",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kristoffer Svanmark",
+            "email": "kristoffer.svanmark@lexiconitkonsult.se"
+        }
+    ],
+    "require": {}
+}
