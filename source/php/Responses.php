@@ -165,7 +165,7 @@ class Responses
             return;
         }
 
-        add_meta_box('customer-feedback-summary-meta', 'Customer feedback summary', array($this, 'renderSummary'), $postType, 'side', 'default', array(
+        add_meta_box('customer-feedback-summary-meta', __('Customer feedback summary', 'customer-feedback'), array($this, 'renderSummary'), $postType, 'side', 'default', array(
             'results' => $answers
         ));
     }
