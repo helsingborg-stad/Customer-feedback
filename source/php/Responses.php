@@ -10,7 +10,7 @@ class Responses
     {
         add_action('init', array($this, 'registerPostType'));
 
-        //
+        // Set comment field as readonly
         add_action('acf/load_field/name=customer_feedback_comment', function ($field) {
             $field['readonly'] = 1;
             return $field;
@@ -31,6 +31,69 @@ class Responses
 
         // Add page link metabox
         add_action('add_meta_boxes', array($this, 'addMetaBoxes'));
+
+        // Add page metaboxes
+        add_action('add_meta_boxes', array($this, 'addPageSummaryMetaBox'), 10, 2);
+    }
+
+    public function addPageSummaryMetaBox($postType, $post)
+    {
+        global $wpdb;
+        $answers = $wpdb->get_results("
+            SELECT pm2.meta_value AS answer, COUNT(pm2.meta_value) AS count FROM {$wpdb->postmeta} pm1
+            LEFT OUTER JOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id
+            WHERE
+                pm1.meta_key = 'customer_feedback_page_reference'
+                AND pm1.meta_value = {$post->ID}
+                AND pm2.meta_key = 'customer_feedback_answer'
+            GROUP BY pm2.meta_value
+            ORDER BY count DESC
+        ");
+
+        if (count($answers) === 0) {
+            return;
+        }
+
+        add_meta_box('customer-feedback-summary-meta', 'Customer feedback summary', array($this, 'renderSummary'), $postType, 'advanced', 'default', array(
+            'results' => $answers
+        ));
+    }
+
+    public function renderSummary($postId, $data)
+    {
+        $totalCount = 0;
+        echo '<table id="customer-feedback-summary" cellspacing="0" cellpadding="0"><tbody>';
+
+        foreach ($data['args']['results'] as $answer) {
+            $totalCount += $answer->count;
+        }
+
+        foreach ($data['args']['results'] as $answer) {
+            $answerLabel = false;
+
+            switch ($answer->answer) {
+                case 'yes':
+                    $answerLabel = '<span style="color:#30BA41;">' . __('Positive', 'customer-feedback') . '</span>';
+                    break;
+
+                case 'no':
+                    $answerLabel = '<span style="color:#BA3030;">' . __('Negative', 'customer-feedback') . '</span>';
+                    break;
+            }
+
+            if (!$answerLabel) {
+                continue;
+            }
+
+            echo '
+                <tr>
+                    <td>' . $answerLabel . '</td>
+                    <td>' . round($answer->count / $totalCount, 2) * 100 . '%</td>
+                </tr>
+            ';
+        }
+
+        echo '</tbody></table>';
     }
 
     /**
