@@ -20,7 +20,7 @@ if (! defined('WPINC')) {
 
 define('CUSTOMERFEEDBACK_PATH', plugin_dir_path(__FILE__));
 define('CUSTOMERFEEDBACK_URL', plugins_url('', __FILE__));
-define('CUSTOMERFEEDBACK_TEMPLATE_PATH', CUSTOMERFEEDBACKCHAT_PATH . 'templates/');
+define('CUSTOMERFEEDBACK_TEMPLATE_PATH', CUSTOMERFEEDBACK_PATH . 'templates/');
 
 load_plugin_textdomain('CustomerFeedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
 

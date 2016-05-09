@@ -10,6 +10,7 @@ class App
 
         new Responses();
         new Form();
+        new Options();
     }
 
     /**
