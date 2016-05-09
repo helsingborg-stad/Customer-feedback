@@ -24,10 +24,18 @@ CustomerFeedbackChat.Form = (function ($) {
         $('[data-action="customer-feedback-chat-submit-comment"]').on('click', function (e) {
             e.preventDefault();
 
+            $('#customer-feedback-chat-comment-text').removeClass('invalid');
+
             var commentType = 'comment';
             var answerId = $('#customer-feedback-chat-answer-id').val();
             var postId = $('#customer-feedback-chat-post-id').val();
             var comment = $('#customer-feedback-chat-comment-text').val();
+
+            if (comment.length === 0) {
+                $('#customer-feedback-chat-comment-text').addClass('invalid');
+                $('#customer-feedback-chat-comment-text').after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">You need to write a comment before posting it.</div>');
+                return false;
+            }
 
             this.submitComment(answerId, postId, commentType, comment);
 
