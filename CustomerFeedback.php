@@ -22,7 +22,7 @@ define('CUSTOMERFEEDBACK_PATH', plugin_dir_path(__FILE__));
 define('CUSTOMERFEEDBACK_URL', plugins_url('', __FILE__));
 define('CUSTOMERFEEDBACK_TEMPLATE_PATH', CUSTOMERFEEDBACK_PATH . 'templates/');
 
-load_plugin_textdomain('CustomerFeedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
+load_plugin_textdomain('customer-feedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
 require_once CUSTOMERFEEDBACK_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once CUSTOMERFEEDBACK_PATH . 'Public.php';
