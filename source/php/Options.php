@@ -23,7 +23,7 @@ class Options
 
                 echo '<div class="wrap">';
                 echo '<h1>' . __('Needs attention', 'customer-feedback') . '</h1>';
-                echo '<p>' . __('This view shows pages that has a negative feedback rate of 30% or more. You should consider improving these pages.' , 'customer-feedback') . '</p>';
+                echo '<p>' . __('This view shows pages that has a negative feedback rate of 30% or more. You should consider improving these pages.', 'customer-feedback') . '</p>';
 
                 $table = new NeedsAttention();
                 $table->prepare_items();
