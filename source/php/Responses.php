@@ -87,7 +87,7 @@ class Responses
         register_post_type($this->postTypeSlug, $args);
     }
 
-    public function getResponses($postId)
+    public static function getResponses($postId)
     {
         global $wpdb;
 
@@ -136,7 +136,7 @@ class Responses
      */
     public function addPageSummaryMetaBox($postType, $post)
     {
-        $answers = $this->getResponses($post->ID);
+        $answers = Responses::getResponses($post->ID);
 
         if (count($answers) === 0) {
             return;
