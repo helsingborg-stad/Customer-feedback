@@ -36,66 +36,6 @@ class Responses
         add_action('add_meta_boxes', array($this, 'addPageSummaryMetaBox'), 10, 2);
     }
 
-    public function addPageSummaryMetaBox($postType, $post)
-    {
-        global $wpdb;
-        $answers = $wpdb->get_results("
-            SELECT pm2.meta_value AS answer, COUNT(pm2.meta_value) AS count FROM {$wpdb->postmeta} pm1
-            LEFT OUTER JOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id
-            WHERE
-                pm1.meta_key = 'customer_feedback_page_reference'
-                AND pm1.meta_value = {$post->ID}
-                AND pm2.meta_key = 'customer_feedback_answer'
-            GROUP BY pm2.meta_value
-            ORDER BY count DESC
-        ");
-
-        if (count($answers) === 0) {
-            return;
-        }
-
-        add_meta_box('customer-feedback-summary-meta', 'Customer feedback summary', array($this, 'renderSummary'), $postType, 'advanced', 'default', array(
-            'results' => $answers
-        ));
-    }
-
-    public function renderSummary($postId, $data)
-    {
-        $totalCount = 0;
-        echo '<table id="customer-feedback-summary" cellspacing="0" cellpadding="0"><tbody>';
-
-        foreach ($data['args']['results'] as $answer) {
-            $totalCount += $answer->count;
-        }
-
-        foreach ($data['args']['results'] as $answer) {
-            $answerLabel = false;
-
-            switch ($answer->answer) {
-                case 'yes':
-                    $answerLabel = '<span style="color:#30BA41;">' . __('Positive', 'customer-feedback') . '</span>';
-                    break;
-
-                case 'no':
-                    $answerLabel = '<span style="color:#BA3030;">' . __('Negative', 'customer-feedback') . '</span>';
-                    break;
-            }
-
-            if (!$answerLabel) {
-                continue;
-            }
-
-            echo '
-                <tr>
-                    <td>' . $answerLabel . '</td>
-                    <td>' . round($answer->count / $totalCount, 2) * 100 . '%</td>
-                </tr>
-            ';
-        }
-
-        echo '</tbody></table>';
-    }
-
     /**
     * Registers a new post type
     * @uses $wp_post_types Inserts new post type object into the list
@@ -147,6 +87,25 @@ class Responses
         register_post_type($this->postTypeSlug, $args);
     }
 
+    public function getResponses($postId)
+    {
+        global $wpdb;
+
+        return $wpdb->get_results("
+            SELECT pm2.meta_value AS answer, COUNT(pm2.meta_value) AS count FROM {$wpdb->postmeta} pm1
+            LEFT OUTER JOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id
+            WHERE
+                pm1.meta_key = 'customer_feedback_page_reference'
+                AND pm1.meta_value = $postId
+                AND pm2.meta_key = 'customer_feedback_answer'
+            GROUP BY pm2.meta_value
+            ORDER BY count DESC
+        ");
+    }
+
+    /**
+     * Add meta boxes
+     */
     public function addMetaBoxes($postType)
     {
         if ($postType != $this->postTypeSlug) {
@@ -156,6 +115,10 @@ class Responses
         add_meta_box('customer-feedback-page-url', 'Page', array($this, 'pageMetaBoxContent'), $this->postTypeSlug, 'advanced', 'high');
     }
 
+    /**
+     * Answer page parent metabox
+     * @return void
+     */
     public function pageMetaBoxContent()
     {
         global $post;
@@ -164,6 +127,67 @@ class Responses
         $parent = get_post($parent);
 
         echo '<p><a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a> (' . get_permalink($parent) . ')</p>';
+    }
+
+    /**
+     * Display summary metabox
+     * @param string $postType Post type
+     * @param object $post     Current post
+     */
+    public function addPageSummaryMetaBox($postType, $post)
+    {
+        $answers = $this->getResponses($post->ID);
+
+        if (count($answers) === 0) {
+            return;
+        }
+
+        add_meta_box('customer-feedback-summary-meta', 'Customer feedback summary', array($this, 'renderSummary'), $postType, 'advanced', 'default', array(
+            'results' => $answers
+        ));
+    }
+
+    /**
+     * Content of summary metabox
+     * @param  integer $postId Current post id
+     * @param  array   $data   Metabox args
+     * @return void
+     */
+    public function renderSummary($postId, $data)
+    {
+        $totalCount = 0;
+        echo '<table id="customer-feedback-summary" cellspacing="0" cellpadding="0"><tbody>';
+
+        foreach ($data['args']['results'] as $answer) {
+            $totalCount += $answer->count;
+        }
+
+        foreach ($data['args']['results'] as $answer) {
+            $answerLabel = false;
+
+            switch ($answer->answer) {
+                case 'yes':
+                    $answerLabel = '<span style="color:#30BA41;">' . __('Positive', 'customer-feedback') . '</span>';
+                    break;
+
+                case 'no':
+                    $answerLabel = '<span style="color:#BA3030;">' . __('Negative', 'customer-feedback') . '</span>';
+                    break;
+            }
+
+            if (!$answerLabel) {
+                continue;
+            }
+
+            echo '
+                <tr>
+                    <td>' . $answerLabel . '</td>
+                    <td>' . round($answer->count / $totalCount, 2) * 100 . '%</td>
+                </tr>
+            ';
+        }
+
+        echo '</tbody></table>';
     }
 
     /**
