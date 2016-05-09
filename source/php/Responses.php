@@ -34,6 +34,29 @@ class Responses
 
         // Add page metaboxes
         add_action('add_meta_boxes', array($this, 'addPageSummaryMetaBox'), 10, 2);
+
+        add_action('save_post', array($this, 'resetCustomerFeedback'));
+    }
+
+    public function resetCustomerFeedback($postId)
+    {
+        if (wp_is_post_revision($postId)) {
+            return;
+        }
+
+        if (isset($_POST['customer-feedback-reset'])) {
+            global $wpdb;
+
+            $toDelete = $wpdb->get_results("
+                SELECT {$wpdb->postmeta}.post_id FROM {$wpdb->postmeta}
+                WHERE {$wpdb->postmeta}.meta_key = 'customer_feedback_page_reference'
+            ");
+
+            foreach ($toDelete as $deleteId) {
+                $wpdb->delete($wpdb->postmeta, array('post_id' => $deleteId->post_id), array('%d'));
+                $wpdb->delete($wpdb->posts, array('ID' => $deleteId->post_id), array('%d'));
+            }
+        }
     }
 
     /**
@@ -188,6 +211,8 @@ class Responses
         }
 
         echo '</tbody></table>';
+
+        echo '<input class="button" type="submit" name="customer-feedback-reset" value="' . __('Reset feedback for this post', 'customer-feedback') . '" onclick="return confirm(\'' . __('Are you sure you want to reset the feedback of the post? You will not be albe to restore it.', 'customer-feedback') . '\');">';
     }
 
     /**

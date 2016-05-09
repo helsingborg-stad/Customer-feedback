@@ -3,12 +3,17 @@
         padding: 0;
         margin: 0;
     }
+
+    [name="customer-feedback-reset"] {
+        margin: 14px;
+    }
 }
 
 #customer-feedback-summary {
     box-sizing: border-box;
     table-layout: fixed;
     width: 100%;
+    border-bottom: 1px solid #E5E5E5;
 
     td {
         padding: 10px 14px;
