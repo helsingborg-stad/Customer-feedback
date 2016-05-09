@@ -1,6 +1,6 @@
 <?php
 
-namespace CustomerFeedbackChat;
+namespace CustomerFeedback;
 
 class Responses
 {
@@ -34,25 +34,25 @@ class Responses
         $description = 'Create shortlinks to your posts or pages';
 
         $labels = array(
-            'name'               => _x($nameSingular, 'post type general name', 'customer-feedback-chat'),
-            'singular_name'      => _x($nameSingular, 'post type singular name', 'customer-feedback-chat'),
-            'menu_name'          => _x($namePlural, 'admin menu', 'customer-feedback-chat'),
-            'name_admin_bar'     => _x($nameSingular, 'add new on admin bar', 'customer-feedback-chat'),
-            'add_new'            => _x('Add New', 'add new button', 'customer-feedback-chat'),
-            'add_new_item'       => sprintf(__('Add new %s', 'customer-feedback-chat'), $nameSingular),
-            'new_item'           => sprintf(__('New %s', 'customer-feedback-chat'), $nameSingular),
-            'edit_item'          => sprintf(__('Edit %s', 'customer-feedback-chat'), $nameSingular),
-            'view_item'          => sprintf(__('View %s', 'customer-feedback-chat'), $nameSingular),
-            'all_items'          => sprintf(__('All %s', 'customer-feedback-chat'), $namePlural),
-            'search_items'       => sprintf(__('Search %s', 'customer-feedback-chat'), $namePlural),
-            'parent_item_colon'  => sprintf(__('Parent %s', 'customer-feedback-chat'), $namePlural),
-            'not_found'          => sprintf(__('No %s', 'customer-feedback-chat'), $namePlural),
-            'not_found_in_trash' => sprintf(__('No %s in trash', 'customer-feedback-chat'), $namePlural)
+            'name'               => _x($nameSingular, 'post type general name', 'customer-feedback'),
+            'singular_name'      => _x($nameSingular, 'post type singular name', 'customer-feedback'),
+            'menu_name'          => _x($namePlural, 'admin menu', 'customer-feedback'),
+            'name_admin_bar'     => _x($nameSingular, 'add new on admin bar', 'customer-feedback'),
+            'add_new'            => _x('Add New', 'add new button', 'customer-feedback'),
+            'add_new_item'       => sprintf(__('Add new %s', 'customer-feedback'), $nameSingular),
+            'new_item'           => sprintf(__('New %s', 'customer-feedback'), $nameSingular),
+            'edit_item'          => sprintf(__('Edit %s', 'customer-feedback'), $nameSingular),
+            'view_item'          => sprintf(__('View %s', 'customer-feedback'), $nameSingular),
+            'all_items'          => sprintf(__('All %s', 'customer-feedback'), $namePlural),
+            'search_items'       => sprintf(__('Search %s', 'customer-feedback'), $namePlural),
+            'parent_item_colon'  => sprintf(__('Parent %s', 'customer-feedback'), $namePlural),
+            'not_found'          => sprintf(__('No %s', 'customer-feedback'), $namePlural),
+            'not_found_in_trash' => sprintf(__('No %s in trash', 'customer-feedback'), $namePlural)
         );
 
         $args = array(
             'labels'               => $labels,
-            'description'          => __($description, 'customer-feedback-chat'),
+            'description'          => __($description, 'customer-feedback'),
             'public'               => false,
             'publicly_queriable'   => false,
             'show_ui'              => true,

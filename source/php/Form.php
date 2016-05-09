@@ -1,6 +1,6 @@
 <?php
 
-namespace CustomerFeedbackChat;
+namespace CustomerFeedback;
 
 class Form
 {
@@ -22,7 +22,7 @@ class Form
         }
 
         ob_start();
-        include CUSTOMERFEEDBACKCHAT_TEMPLATE_PATH . 'form.php';
+        include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
         $form = ob_get_clean();
 
         $content .= $form;

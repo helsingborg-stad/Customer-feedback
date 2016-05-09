@@ -1,6 +1,6 @@
 <?php
 
-namespace CustomerFeedbackChat;
+namespace CustomerFeedback;
 
 class App
 {
@@ -18,6 +18,6 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script('customer-feedback-chat', CUSTOMERFEEDBACKCHAT_URL . '/dist/js/CustomerFeedbackChat.min.js', false, '1.0.0', true);
+        wp_enqueue_script('customer-feedback-chat', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', false, '1.0.0', true);
     }
 }

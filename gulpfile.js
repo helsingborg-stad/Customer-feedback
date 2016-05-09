@@ -12,7 +12,7 @@ var plumber = require('gulp-plumber');
 
 // Compile Our Sass
 gulp.task('sass-dist', function() {
-    gulp.src('source/sass/CustomerFeedbackChat.scss')
+    gulp.src('source/sass/CustomerFeedback.scss')
             .pipe(plumber())
             .pipe(sass())
             .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
@@ -35,9 +35,9 @@ gulp.task('scripts-dist', function() {
     gulp.src([
             'source/js/**/*.js',
         ])
-        .pipe(concat('CustomerFeedbackChat.dev.js'))
+        .pipe(concat('CustomerFeedback.dev.js'))
         .pipe(gulp.dest('dist/js'))
-        .pipe(rename('CustomerFeedbackChat.min.js'))
+        .pipe(rename('CustomerFeedback.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });
