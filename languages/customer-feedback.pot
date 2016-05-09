@@ -1,0 +1,182 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Customer Feedback\n"
+"POT-Creation-Date: 2016-05-09 15:50+0200\n"
+"PO-Revision-Date: 2016-05-09 15:50+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: CustomerFeedback.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/Form.php:27
+msgid "Did the information on this page help you?"
+msgstr ""
+
+#: source/php/Form.php:32
+msgid "Answer the question to help us improve our information."
+msgstr ""
+
+#: source/php/Form.php:37
+msgid "How can we make the information better?"
+msgstr ""
+
+#: source/php/Form.php:42
+msgid "Thank you"
+msgstr ""
+
+#: source/php/NeedsAttention.php:10
+msgid "Post"
+msgstr ""
+
+#: source/php/NeedsAttention.php:11
+msgid "Posts"
+msgstr ""
+
+#: source/php/NeedsAttention.php:58
+msgid "There's no posts that needs attention right now"
+msgstr ""
+
+#: source/php/NeedsAttention.php:85
+msgid "Title"
+msgstr ""
+
+#: source/php/NeedsAttention.php:86 source/php/Responses.php:197
+msgid "Negative"
+msgstr ""
+
+#: source/php/NeedsAttention.php:87 source/php/Responses.php:193
+msgid "Positive"
+msgstr ""
+
+#: source/php/Options.php:25
+msgid "Needs attention"
+msgstr ""
+
+#: source/php/Options.php:26
+#, php-format
+msgid ""
+"This view shows pages that has a negative feedback rate of 30% or more. You "
+"should consider improving these pages."
+msgstr ""
+
+#: source/php/Responses.php:81
+msgctxt "add new button"
+msgid "Add New"
+msgstr ""
+
+#: source/php/Responses.php:82
+#, php-format
+msgid "Add new %s"
+msgstr ""
+
+#: source/php/Responses.php:83
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: source/php/Responses.php:84
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: source/php/Responses.php:85
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: source/php/Responses.php:86
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: source/php/Responses.php:87
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: source/php/Responses.php:88
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: source/php/Responses.php:89
+#, php-format
+msgid "No %s"
+msgstr ""
+
+#: source/php/Responses.php:90
+#, php-format
+msgid "No %s in trash"
+msgstr ""
+
+#: source/php/Responses.php:215
+msgid "Reset feedback for this post"
+msgstr ""
+
+#: source/php/Responses.php:215
+msgid ""
+"Are you sure you want to reset the feedback of the post? You will not be "
+"albe to restore it."
+msgstr ""
+
+#: source/php/Responses.php:227
+msgid "Page"
+msgstr ""
+
+#: source/php/Responses.php:228
+msgid "Answer"
+msgstr ""
+
+#: source/php/Responses.php:229
+msgid "Has comment"
+msgstr ""
+
+#: source/php/Responses.php:230
+msgid "Date"
+msgstr ""
+
+#: source/php/Responses.php:247 source/php/Responses.php:254
+#: templates/form.php:11
+msgid "No"
+msgstr ""
+
+#: source/php/Responses.php:249 source/php/Responses.php:254
+#: templates/form.php:10
+msgid "Yes"
+msgstr ""
+
+#: templates/form.php:16
+msgid "Send"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Customer Feedback"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/Customer-feedback"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Puts a customer feedback form on each page"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Kristoffer Svanmark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad"
+msgstr ""
