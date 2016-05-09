@@ -87,8 +87,8 @@ class Responses
                 'post_title' => get_the_title($postId)
             ));
 
-            update_field('customer_feedback_ip', $_SERVER['REMOTE_ADDR'], $postId);
-            update_field('customer_feedback_answer', $answer, $postId);
+            update_field('customer_feedback_ip', $_SERVER['REMOTE_ADDR'], $insertedId);
+            update_field('customer_feedback_answer', $answer, $insertedId);
         }
 
         echo $insertedId;
