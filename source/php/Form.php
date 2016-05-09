@@ -17,7 +17,8 @@ class Form
      */
     public function appendForm($content)
     {
-        if (!in_the_loop() || strlen($content) === 0) {
+        global $post;
+        if (!in_the_loop() || strlen($content) === 0 || !in_array($post->post_type, apply_filters('CustomerFeedback/post_types', array('page')))) {
             return $content;
         }
 
