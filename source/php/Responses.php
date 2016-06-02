@@ -159,6 +159,10 @@ class Responses
      */
     public function addPageSummaryMetaBox($postType, $post)
     {
+        if (!isset($post->ID)) {
+            return;
+        }
+
         $answers = Responses::getResponses($post->ID);
 
         if (count($answers) === 0) {
