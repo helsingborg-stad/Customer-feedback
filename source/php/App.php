@@ -9,9 +9,17 @@ class App
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
         add_action('admin_enqueue_scripts', array($this, 'adminEnqueue'));
 
+        add_filter('acf/settings/load_json', array($this, 'jsonLoadPath'));
+
         new Responses();
         new Form();
         new Options();
+    }
+
+    public function jsonLoadPath($paths)
+    {
+        $paths[] = CUSTOMERFEEDBACK_PATH . 'source/acf-export';
+        return $paths;
     }
 
     /**
