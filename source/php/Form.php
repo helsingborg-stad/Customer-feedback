@@ -6,7 +6,7 @@ class Form
 {
     public function __construct()
     {
-        add_action('the_content', array($this, 'appendForm'));
+        add_action('customer-feedback', array($this, 'appendForm'));
     }
 
     /**
@@ -15,14 +15,13 @@ class Form
      * @param  string $content The original content
      * @return string          The original content with form appended to bottom
      */
-    public function appendForm($content)
+    public function appendForm()
     {
         global $post;
-        if (!in_the_loop() || strlen($content) === 0 || !in_array($post->post_type, apply_filters('CustomerFeedback/post_types', array('page')))) {
+
+        if (!in_array($post->post_type, apply_filters('CustomerFeedback/post_types', array('page')))) {
             return $content;
         }
-
-        ob_start();
 
         $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
         if (!empty(get_field('customer_feedback_main_question_text', 'option'))) {
@@ -45,9 +44,5 @@ class Form
         }
 
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
-
-        $form = ob_get_clean();
-        $content .= $form;
-        return $content;
     }
 }
