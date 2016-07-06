@@ -1,4 +1,4 @@
-<div class="box box-index creamy gutter">
+<div class="box box-index creamy gutter hidden-print">
     <input type="hidden" id="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
     <div class="grid">
         <div class="grid-md-7">
