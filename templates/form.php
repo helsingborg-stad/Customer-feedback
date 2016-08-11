@@ -2,7 +2,7 @@
     <input type="hidden" id="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
     <div class="grid">
         <div class="grid-md-7">
-            <h4 class="box-title no-padding"><i class="fa fa-question-circle"></i> <?php echo $mainQuestion ?></h4>
+            <h4 class="box-title no-padding"><i class="pricon pricon-question-o"></i> <?php echo $mainQuestion ?></h4>
             <?php echo $mainQuestionSub; ?>
         </div>
         <div class="grid-md-5 text-left-xs text-left-sm text-right-md text-right-lg">
