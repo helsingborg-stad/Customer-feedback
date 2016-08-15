@@ -28,7 +28,7 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', false, '1.0.0', true);
+        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', array('jquery'), '1.0.0', true);
     }
 
     public function adminEnqueue()
