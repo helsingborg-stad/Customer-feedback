@@ -38,6 +38,9 @@ class Form
             $commentLabel = get_field('customer_feedback_feedback_label', 'option');
         }
 
+        $emailLabel = __('Email address', 'customer-feedback');
+        $emailExplain = __('Please give us your email address if you want an answer.', 'customer-feedback');
+
         $thanksText = __('Thank you', 'customer-feedback');
         if (function_exists('get_field') && !empty(get_field('customer_feedback_thanks', 'option'))) {
             $thanksText = get_field('customer_feedback_thanks', 'option');
