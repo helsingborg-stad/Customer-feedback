@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label for="customer-feedback-comment-email"><?php echo $emailLabel; ?> (<?php _e('Optional', 'customer-feedback'); ?>)</label>
                         <small class="block-level"><?php echo $emailExplain; ?></small>
-                        <input type="email" id="customer-feedback-comment-email" name="customer-feedback-comment-email">
+                        <input type="email" id="customer-feedback-comment-email" name="customer-feedback-comment-email" value="<?php echo $userEmail; ?>">
                     </div>
                     <div class="form-group">
                         <button rel="nofollow" style="margin-top:5px;" class="btn btn-submit" data-action="customer-feedback-submit-comment"><?php _e('Send', 'customer-feedback'); ?></button>

@@ -46,6 +46,12 @@ class Form
             $thanksText = get_field('customer_feedback_thanks', 'option');
         }
 
+        $userEmail = null;
+        if (is_user_logged_in()) {
+            $userdata = get_userdata(get_current_user_id());
+            $userEmail = $userdata->user_email;
+        }
+
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
     }
 }
