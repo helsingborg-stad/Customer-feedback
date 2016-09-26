@@ -269,6 +269,7 @@ class Responses
     {
         $columns['answer'] = 'answer';
         $columns['hasComment'] = 'hasComment';
+
         return $columns;
     }
 
@@ -281,6 +282,22 @@ class Responses
         $insertedId = 'false';
         $postId = (isset($_POST['postid']) && is_numeric($_POST['postid'])) ? $_POST['postid'] : null;
         $answer = (isset($_POST['answer']) && strlen($_POST['answer']) > 0) ? $_POST['answer'] : null;
+
+        $cookieExpireDays = 5;
+        $cookieExpire = DAYS_IN_SECONDS * $cookieExpireDays;
+
+        if (!isset($_COOKIE['customer-feedback'])) {
+            setcookie('customer-feedback', serialize(array($postId)), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
+        } else {
+            if (in_array($postId, unserialize(stripslashes($_COOKIE['customer-feedback'])))) {
+                echo 'cookie_error';
+                wp_die();
+            }
+
+            $cookieVal = unserialize($_COOKIE['customer-feedback']);
+            $cookieVal[] = $postId;
+            setcookie('customer-feedback', serialize($cookieVal), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
+        }
 
         if ($postId && $answer) {
             $insertedId = wp_insert_post(array(

@@ -8,6 +8,7 @@
         </div>
         <div class="grid-xs-12">
             <div class="gutter gutter-top gutter-sm">
+                <?php if (!isset($_COOKIE['customer-feedback']) || !in_array(get_the_id(), unserialize(stripslashes($_COOKIE['customer-feedback'])))) : ?>
                 <div id="customer-feedback-answers">
                     <button rel="nofollow" class="btn btn-success" value="yes" data-action="customer-feedback-submit-response"><?php _e('Yes'); ?></button>
                     <button rel="nofollow" class="btn btn-error" value="no" data-action="customer-feedback-submit-response"><?php _e('No'); ?></a>
@@ -29,6 +30,9 @@
                 <div id="customer-feedback-thanks" style="display: none;">
                     <div class="notice success"><?php echo $thanksText; ?></div>
                 </div>
+                <?php else : ?>
+                    <div class="notice success"><?php _e('You have already given feedback for this content.', 'customer-feedback'); ?></div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
