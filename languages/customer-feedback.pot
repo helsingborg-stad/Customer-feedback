@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2016-05-09 16:23+0200\n"
+"POT-Creation-Date: 2016-09-26 09:33+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,19 +20,27 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: source/php/Form.php:27
+#: source/php/Form.php:26
 msgid "Did the information on this page help you?"
 msgstr ""
 
-#: source/php/Form.php:32
+#: source/php/Form.php:31
 msgid "Answer the question to help us improve our information."
 msgstr ""
 
-#: source/php/Form.php:37
+#: source/php/Form.php:36
 msgid "How can we make the information better?"
 msgstr ""
 
+#: source/php/Form.php:41
+msgid "Email address"
+msgstr ""
+
 #: source/php/Form.php:42
+msgid "Please give us your email address if you want an answer."
+msgstr ""
+
+#: source/php/Form.php:44
 msgid "Thank you"
 msgstr ""
 
@@ -52,11 +60,11 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: source/php/NeedsAttention.php:86 source/php/Responses.php:197
+#: source/php/NeedsAttention.php:86 source/php/Responses.php:201
 msgid "Negative"
 msgstr ""
 
-#: source/php/NeedsAttention.php:87 source/php/Responses.php:193
+#: source/php/NeedsAttention.php:87 source/php/Responses.php:197
 msgid "Positive"
 msgstr ""
 
@@ -121,48 +129,56 @@ msgstr ""
 msgid "No %s in trash"
 msgstr ""
 
-#: source/php/Responses.php:168
+#: source/php/Responses.php:172
 msgid "Customer feedback summary"
 msgstr ""
 
-#: source/php/Responses.php:215
+#: source/php/Responses.php:219
 msgid "Reset feedback for this post"
 msgstr ""
 
-#: source/php/Responses.php:215
+#: source/php/Responses.php:219
 msgid ""
 "Are you sure you want to reset the feedback of the post? You will not be "
 "albe to restore it."
 msgstr ""
 
-#: source/php/Responses.php:227
+#: source/php/Responses.php:231
 msgid "Page"
 msgstr ""
 
-#: source/php/Responses.php:228
+#: source/php/Responses.php:232
 msgid "Answer"
 msgstr ""
 
-#: source/php/Responses.php:229
+#: source/php/Responses.php:233
 msgid "Has comment"
 msgstr ""
 
-#: source/php/Responses.php:230
+#: source/php/Responses.php:234
 msgid "Date"
 msgstr ""
 
-#: source/php/Responses.php:247 source/php/Responses.php:254
-#: templates/form.php:11
+#: source/php/Responses.php:251 source/php/Responses.php:258
+#: templates/form.php:14
 msgid "No"
 msgstr ""
 
-#: source/php/Responses.php:249 source/php/Responses.php:254
-#: templates/form.php:10
+#: source/php/Responses.php:253 source/php/Responses.php:258
+#: templates/form.php:13
 msgid "Yes"
 msgstr ""
 
-#: templates/form.php:16
+#: templates/form.php:22
+msgid "Optional"
+msgstr ""
+
+#: templates/form.php:27
 msgid "Send"
+msgstr ""
+
+#: templates/form.php:34
+msgid "You have already given feedback for this content."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
