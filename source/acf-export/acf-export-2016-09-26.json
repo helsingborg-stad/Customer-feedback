@@ -71,7 +71,8 @@
                 "default_value": "",
                 "placeholder": "",
                 "prepend": "",
-                "append": ""
+                "append": "",
+                "readonly": 1,
             }
         ],
         "location": [

@@ -1,7 +1,7 @@
 {
-  "name": "CustomerFeedbackChat",
+  "name": "CustomerFeedback",
   "version": "1.0.0",
-  "description": "Customer feedback chat is a heler plugin that will help you setup customer feedback chat via Vergic services.",
+  "description": "Puts a customer feedback form on each page",
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

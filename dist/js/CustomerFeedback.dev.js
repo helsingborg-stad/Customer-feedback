@@ -30,6 +30,7 @@ CustomerFeedback.Form = (function ($) {
             var answerId = $('#customer-feedback-answer-id').val();
             var postId = $('#customer-feedback-post-id').val();
             var comment = $('#customer-feedback-comment-text').val();
+            var email = $('#customer-feedback-comment-email').val();
 
             if (comment.length === 0) {
                 $('#customer-feedback-comment-text').addClass('invalid');
@@ -37,18 +38,19 @@ CustomerFeedback.Form = (function ($) {
                 return false;
             }
 
-            this.submitComment(answerId, postId, commentType, comment);
+            this.submitComment(answerId, postId, commentType, comment, email);
 
         }.bind(this));
     };
 
-    Form.prototype.submitComment = function (answerId, postId, commentType, comment) {
+    Form.prototype.submitComment = function (answerId, postId, commentType, comment, email) {
         var data = {
             action: 'submit_comment',
             postid: postId,
             comment: comment,
             answerid: answerId,
-            commenttype: commentType
+            commenttype: commentType,
+            email: email
         };
 
         $.post(ajaxurl, data, function (response) {
