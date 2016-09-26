@@ -308,10 +308,12 @@ class Responses
         $postId = (isset($_POST['postid']) && is_numeric($_POST['postid'])) ? $_POST['postid'] : null;
         $comment = (isset($_POST['comment']) && strlen($_POST['comment']) > 0) ? $_POST['comment'] : null;
         $commentType = (isset($_POST['commenttype']) && strlen($_POST['commenttype']) > 0) ? $_POST['commenttype'] : null;
+        $email = (isset($_POST['email']) && strlen($_POST['email']) > 0) ? $_POST['email'] : null;
 
         if ($answerId && $postId) {
             update_post_meta($answerId, 'customer_feedback_comment', $comment);
             update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
+            update_post_meta($answerId, 'customer_feedback_email', $email);
 
             echo 'true';
         } else {
