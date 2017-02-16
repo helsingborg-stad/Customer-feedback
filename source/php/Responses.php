@@ -36,6 +36,8 @@ class Responses
         add_action('add_meta_boxes', array($this, 'addPageSummaryMetaBox'), 10, 2);
 
         add_action('save_post', array($this, 'resetCustomerFeedback'));
+
+        add_action('pre_get_posts', array($this, 'listColumnsSortingQuery'), 15);
     }
 
     public function resetCustomerFeedback($postId)
@@ -268,9 +270,53 @@ class Responses
     public function listColumnsSorting($columns)
     {
         $columns['answer'] = 'answer';
-        $columns['hasComment'] = 'hasComment';
+        $columns['hasComment'] = 'has-comment';
 
         return $columns;
+    }
+
+    /**
+     * Handles the sorting of the table columns
+     * @param  WP_Query $query
+     * @return void
+     */
+    public function listColumnsSortingQuery($query)
+    {
+        if (!is_admin() || !$query->is_main_query() || !$query->get('orderby')) {
+            return;
+        }
+
+        switch ($query->get('orderby')) {
+            case 'has-comment':
+                $query->set('meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'customer_feedback_comment',
+                        'compare' => 'NOT EXISTS'
+                    ),
+                    array(
+                        'key' => 'customer_feedback_comment',
+                        'compare' => 'EXISTS'
+                    )
+                ));
+                $query->set('orderby', 'customer_feedback_comment');
+                break;
+
+            case 'answer':
+                $query->set('meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'customer_feedback_answer',
+                        'compare' => 'NOT EXISTS'
+                    ),
+                    array(
+                        'key' => 'customer_feedback_answer',
+                        'compare' => 'EXISTS'
+                    )
+                ));
+                $query->set('orderby', 'customer_feedback_answer');
+                break;
+        }
     }
 
     /**
