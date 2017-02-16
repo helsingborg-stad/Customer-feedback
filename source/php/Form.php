@@ -20,7 +20,13 @@ class Form
         global $post;
 
         if (!in_array($post->post_type, apply_filters('CustomerFeedback/post_types', array('page')))) {
-            return $content;
+            return;
+        }
+
+        $postExtended = get_extended($post->post_content);
+
+        if (empty($postExtended['main']) || (strpos($post->post_content, '<!--more-->') !== false && empty($postExtended['extended']))) {
+            return;
         }
 
         $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
