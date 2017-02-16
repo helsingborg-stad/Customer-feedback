@@ -38,6 +38,7 @@ class Responses
         add_action('save_post', array($this, 'resetCustomerFeedback'));
 
         add_action('pre_get_posts', array($this, 'listColumnsSortingQuery'), 15);
+        add_action('restrict_manage_posts', array($this, 'listFilters'), 10, 2);
     }
 
     public function resetCustomerFeedback($postId)
@@ -286,37 +287,101 @@ class Responses
             return;
         }
 
+        $metaQuery = array(
+            'relation' => 'AND'
+        );
+
+        // Filter on has-comment
+        if (isset($_GET['has-comment']) && $_GET['has-comment'] === 'yes') {
+            $metaQuery[] = array(
+                'key' => 'customer_feedback_comment',
+                'compare' => 'EXISTS'
+            );
+        }
+
+        if (isset($_GET['has-comment']) && $_GET['has-comment'] === 'no') {
+            $metaQuery[] = array(
+                'key' => 'customer_feedback_comment',
+                'compare' => 'NOT EXISTS'
+            );
+        }
+
+        if (!isset($_GET['has-comment']) || empty($_GET['has-comment'])) {
+            $metaQuery[] = array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'customer_feedback_comment',
+                    'compare' => 'EXISTS'
+                ),
+                array(
+                    'key' => 'customer_feedback_comment',
+                    'compare' => 'NOT EXISTS'
+                )
+            );
+        }
+
+
+        // Filter on answer
+        if (isset($_GET['answer']) && $_GET['answer'] === 'yes') {
+            $metaQuery[] = array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'customer_feedback_answer',
+                    'compare' => 'EXISTS'
+                ),
+                array(
+                    'key' => 'customer_feedback_answer',
+                    'value' => 'yes',
+                    'compare' => '='
+                )
+            );
+        }
+
+        if (isset($_GET['answer']) && $_GET['answer'] === 'no') {
+            $metaQuery[] = array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'customer_feedback_answer',
+                    'compare' => 'NOT EXISTS'
+                ),
+                array(
+                    'key' => 'customer_feedback_answer',
+                    'value' => 'no',
+                    'compare' => '='
+                )
+            );
+        }
+
+        $query->set('meta_query', $metaQuery);
+
         switch ($query->get('orderby')) {
             case 'has-comment':
-                $query->set('meta_query', array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => 'customer_feedback_comment',
-                        'compare' => 'NOT EXISTS'
-                    ),
-                    array(
-                        'key' => 'customer_feedback_comment',
-                        'compare' => 'EXISTS'
-                    )
-                ));
                 $query->set('orderby', 'customer_feedback_comment');
                 break;
 
             case 'answer':
-                $query->set('meta_query', array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => 'customer_feedback_answer',
-                        'compare' => 'NOT EXISTS'
-                    ),
-                    array(
-                        'key' => 'customer_feedback_answer',
-                        'compare' => 'EXISTS'
-                    )
-                ));
                 $query->set('orderby', 'customer_feedback_answer');
                 break;
         }
+    }
+
+    public function listFilters($postType, $where)
+    {
+        if ($postType !== $this->postTypeSlug || $where !== 'top') {
+            return;
+        }
+
+        echo '<select name="answer">
+            <option value="">' . __('Answer', 'customer-feedback') . '</option>
+            <option value="no" ' . selected(true, isset($_GET['answer']) && $_GET['answer'] === 'no', false) . '>' . __('No') . '</option>
+            <option value="yes" ' . selected(true, isset($_GET['answer']) && $_GET['answer'] === 'yes', false) . '>' . __('Yes') . '</option>
+        </select>';
+
+        echo '<select name="has-comment">
+            <option value="">' . __('Has comment', 'customer-feedback') . '</option>
+            <option value="no" ' . selected(true, isset($_GET['has-comment']) && $_GET['has-comment'] === 'no', false) . '>' . __('No') . '</option>
+            <option value="yes" ' . selected(true, isset($_GET['has-comment']) && $_GET['has-comment'] === 'yes', false) . '>' . __('Yes') . '</option>
+        </select>';
     }
 
     /**
