@@ -365,7 +365,7 @@ class Responses
         }
     }
 
-    public function listFilters($postType, $where)
+    public function listFilters($postType, $where = null)
     {
         if ($postType !== $this->postTypeSlug || $where !== 'top') {
             return;
