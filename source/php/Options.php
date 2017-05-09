@@ -8,6 +8,7 @@ class Options
     {
         // Add settings page if ACF is installed
         add_action('plugins_loaded', array($this, 'register'));
+        add_filter('acf/load_field/name=customer_feedback_posttypes', array($this, 'posttypes'));
     }
 
     public function register()
@@ -35,5 +36,43 @@ class Options
                 echo '</div>';
             });
         });
+    }
+
+    public function posttypes($field)
+    {
+        $field['choices']['page'] = __('Pages');
+
+        foreach ($this->getPublicPostTpyes() as $key => $posttype) {
+            $field['choices'][$key] = $posttype->label;
+        }
+
+        return $field;
+    }
+
+    public function getPublicPostTpyes($filter = array())
+    {
+        $postTypes = array();
+
+        foreach (get_post_types() as $key => $postType) {
+            $args = get_post_type_object($postType);
+
+            if (!$args->public || $args->name === 'page') {
+                continue;
+            }
+
+            $postTypes[$postType] = $args;
+        }
+
+        if (!empty($filter)) {
+            $postTypes = array_filter($postTypes, function ($item) use ($filter) {
+                if (substr($item, 0, 4) === 'mod-') {
+                    return false;
+                }
+
+                return !in_array($item, $filter);
+            });
+        }
+
+        return $postTypes;
     }
 }
