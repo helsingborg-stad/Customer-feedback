@@ -19,7 +19,12 @@ class Form
     {
         global $post;
 
-        if (!in_array($post->post_type, apply_filters('CustomerFeedback/post_types', array('page')))) {
+        $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
+        if (is_null($allowedPostTypes)) {
+            $allowedPostTypes = array('page');
+        }
+
+        if (!is_array($allowedPostTypes) || !in_array($post->post_type, $allowedPostTypes)) {
             return;
         }
 
