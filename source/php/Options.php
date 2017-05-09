@@ -7,15 +7,18 @@ class Options
     public function __construct()
     {
         // Add settings page if ACF is installed
-        add_action('admin_menu', function () {
-            if (function_exists('acf_add_options_sub_page')) {
-                acf_add_options_sub_page(array(
-                    'title'      => 'Settings',
-                    'parent'     => 'edit.php?post_type=customer-feedback',
-                    'capability' => 'manage_options'
-                ));
-            }
-        });
+        add_action('plugins_loaded', array($this, 'register'));
+    }
+
+    public function register()
+    {
+        if (function_exists('acf_add_options_sub_page')) {
+            acf_add_options_sub_page(array(
+                'title'      => __('Feedback options', 'customer-feedback'),
+                'parent'     => 'edit.php?post_type=customer-feedback',
+                'capability' => 'manage_options'
+            ));
+        }
 
         // Add needs attention page
         add_action('admin_menu', function () {
