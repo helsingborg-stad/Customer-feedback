@@ -35,5 +35,17 @@ $loader->addPrefix('CustomerFeedback', CUSTOMERFEEDBACK_PATH);
 $loader->addPrefix('CustomerFeedback', CUSTOMERFEEDBACK_PATH . 'source/php/');
 $loader->register();
 
+// Acf auto import and export
+add_action('plugins_loaded', function () {
+    $acfExportManager = new \AcfExportManager\AcfExportManager();
+    $acfExportManager->setTextdomain('customer-feedback');
+    $acfExportManager->setExportFolder(CUSTOMERFEEDBACK_PATH . 'source/php/AcfFields/');
+    $acfExportManager->autoExport(array(
+        'customer-feedback' => 'group_5729fc6e03367',
+        'customer-feedback-settings' => 'group_59118fb9c53de'
+    ));
+    $acfExportManager->import();
+});
+
 // Start application
 new CustomerFeedback\App();

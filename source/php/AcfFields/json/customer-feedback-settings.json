@@ -1,0 +1,100 @@
+[{
+    "key": "group_59118fb9c53de",
+    "title": "Feedback options",
+    "fields": [
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_59118fbef0608",
+            "label": "Main question",
+            "name": "customer_feedback_main_question_text",
+            "type": "text",
+            "instructions": "Leave empty to use default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5911901df0609",
+            "label": "Sub question",
+            "name": "customer_feedback_main_question_sub",
+            "type": "text",
+            "instructions": "Leave empty to use default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5911905af060a",
+            "label": "Feedback form label",
+            "name": "customer_feedback_feedback_label",
+            "type": "text",
+            "instructions": "Leave empty to use default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_59119076f060b",
+            "label": "Completion message",
+            "name": "customer_feedback_thanks",
+            "type": "text",
+            "instructions": "Leave empty to use default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-feedback-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
