@@ -90,20 +90,45 @@ class Responses
         register_post_type($this->postTypeSlug, $args);
     }
 
+    /**
+     * Get the yes/no response count
+     * @param  int $postId Post
+     * @return array
+     */
     public static function getResponses($postId)
     {
-        global $wpdb;
+        $answers = array('no' => 0, 'yes' => 0);
+        $modDate = get_the_modified_date('Y-m-d H:i:s', $postId);
 
-        return $wpdb->get_results("
-            SELECT pm2.meta_value AS answer, COUNT(pm2.meta_value) AS count FROM {$wpdb->postmeta} pm1
-            LEFT OUTER JOIN {$wpdb->postmeta} pm2 ON pm1.post_id = pm2.post_id
-            WHERE
-                pm1.meta_key = 'customer_feedback_page_reference'
-                AND pm1.meta_value = $postId
-                AND pm2.meta_key = 'customer_feedback_answer'
-            GROUP BY pm2.meta_value
-            ORDER BY count DESC
-        ");
+        // Get answer posts
+        $answerPosts = new \WP_Query(array(
+            'posts_per_page' => -1,
+            'post_type' => 'customer-feedback',
+            'post_status' => 'publish',
+            'date_query' => array(
+                array(
+                    'after'  => $modDate,
+                    'inclusive' => true
+                ),
+            ),
+            'meta_query' => array(
+                'relation' => 'AND',
+                array(
+                    'key' => 'customer_feedback_page_reference',
+                    'value' => $postId,
+                    'comare' => '='
+                )
+            )
+        ));
+
+        // Get answer meta
+        foreach ($answerPosts->posts as $item) {
+            $answers[get_post_meta($item->ID, 'customer_feedback_answer', true)]++;
+        }
+
+        arsort($answers);
+
+        return $answers;
     }
 
     /**
@@ -165,14 +190,14 @@ class Responses
         $totalCount = 0;
         echo '<table id="customer-feedback-summary" cellspacing="0" cellpadding="0"><tbody>';
 
-        foreach ($data['args']['results'] as $answer) {
-            $totalCount += $answer->count;
+        foreach ($data['args']['results'] as $count) {
+            $totalCount += $count;
         }
 
-        foreach ($data['args']['results'] as $answer) {
+        foreach ($data['args']['results'] as $answer => $count) {
             $answerLabel = false;
 
-            switch ($answer->answer) {
+            switch ($answer) {
                 case 'yes':
                     $answerLabel = '<span style="color:#30BA41;">' . __('Positive', 'customer-feedback') . '</span>';
                     break;
@@ -189,14 +214,14 @@ class Responses
             echo '
                 <tr>
                     <td>' . $answerLabel . '</td>
-                    <td>' . round($answer->count / $totalCount, 2) * 100 . '%</td>
+                    <td>' . round($count / $totalCount, 2) * 100 . '%</td>
                 </tr>
             ';
         }
 
         echo '</tbody></table>';
 
-        echo '<input class="button" type="submit" name="customer-feedback-reset" value="' . __('Reset feedback for this post', 'customer-feedback') . '" onclick="return confirm(\'' . __('Are you sure you want to reset the feedback of the post? You will not be albe to restore it.', 'customer-feedback') . '\');">';
+        echo '<div style="padding:12px 14px;">' . __('The feedback stats will be reset to zero (without removing the actual feedback messages) when a new version of the post is saved.', 'customer-feedback') . '</div>';
     }
 
     /**
