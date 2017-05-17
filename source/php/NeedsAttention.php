@@ -17,6 +17,7 @@ class NeedsAttention extends \WP_List_Table
     {
         global $wpdb;
 
+        $returnPosts = array();
         $posts = $wpdb->get_results("
             SELECT *
             FROM {$wpdb->posts} AS posts
@@ -28,29 +29,18 @@ class NeedsAttention extends \WP_List_Table
             GROUP BY posts.ID
         ");
 
-        foreach ($posts as $key => $post) {
-            $responses = Responses::getResponses($post->ID);
+        foreach ($posts as $post) {
+            $responses = Responses::getResponses($post->ID, 'percent');
 
-            $totalCount = 0;
-            $responseShare = array();
-
-            foreach ($responses as $response) {
-                $totalCount += $response->count;
-            }
-
-            foreach ($responses as $response) {
-                $responseShare[$response->answer] = round($response->count / $totalCount, 2) * 100;
-            }
-
-            if ($responseShare['no'] < 30) {
-                unset($posts[$key]);
+            if ($responses['no'] < 30) {
                 continue;
             }
 
             $post->responses = $responses;
+            $returnPosts[] = $post;
         }
 
-        return $posts;
+        return $returnPosts;
     }
 
     public function no_items()
@@ -96,18 +86,13 @@ class NeedsAttention extends \WP_List_Table
     public function column_positive($item)
     {
         $responses = $item->responses;
-        $totalCount = 0;
 
-        foreach ($responses as $response) {
-            $totalCount += $response->count;
-        }
-
-        foreach ($responses as $response) {
-            if ($response->answer != 'yes') {
+        foreach ($responses as $key => $response) {
+            if ($key != 'yes') {
                 continue;
             }
 
-            return '<span style="color:#30BA41;">' . round($response->count / $totalCount, 2) * 100 . '%</span>';
+            return '<span style="color:#30BA41;">' . round($response, 2) . '%</span>';
         }
 
         return 'n/a';
@@ -116,18 +101,13 @@ class NeedsAttention extends \WP_List_Table
     public function column_negative($item)
     {
         $responses = $item->responses;
-        $totalCount = 0;
 
-        foreach ($responses as $response) {
-            $totalCount += $response->count;
-        }
-
-        foreach ($responses as $response) {
-            if ($response->answer != 'no') {
+        foreach ($responses as $key => $response) {
+            if ($key != 'no') {
                 continue;
             }
 
-            return '<span style="color:#BA3030;">' . round($response->count / $totalCount, 2) * 100 . '%</span>';
+            return '<span style="color:#BA3030;">' . round($response, 2) . '%</span>';
         }
 
         return 'n/a';
