@@ -148,7 +148,7 @@ class Summary
         }
 
         // Fallback to last week
-        if (is_null($from) && is_null($to)) {
+        if (empty($from) && empty($to)) {
             $from = date('Y-m-d', strtotime('-1 week'));
             $to = date('Y-m-d');
         }
