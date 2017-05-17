@@ -290,7 +290,7 @@ class Responses
      */
     public function listColumnsSortingQuery($query)
     {
-        if (!is_admin() || !$query->is_main_query() || !$query->get('orderby')) {
+        if (!is_admin() || !$query->is_main_query()) {
             return;
         }
 
