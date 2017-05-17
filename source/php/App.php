@@ -10,7 +10,7 @@ class App
         add_action('admin_enqueue_scripts', array($this, 'adminEnqueue'));
 
         new Responses();
-        new DailySummary();
+        new Summary();
         new Form();
         new Options();
     }

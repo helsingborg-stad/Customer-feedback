@@ -2,7 +2,7 @@
 
 namespace CustomerFeedback;
 
-class DailySummary
+class Summary
 {
     public function __construct()
     {
@@ -13,15 +13,15 @@ class DailySummary
     {
         add_submenu_page(
             'edit.php?post_type=customer-feedback',
-            __('Daily summary', 'customer-feedback'),
-            __('Daily summary', 'customer-feedback'),
+            __('Summary', 'customer-feedback'),
+            __('Summary', 'customer-feedback'),
             'edit_posts',
-            'customer-feedback-daily',
-            array($this, 'renderDailySummaryPage')
+            'customer-feedback-summary',
+            array($this, 'renderSummaryPage')
         );
     }
 
-    public function renderDailySummaryPage()
+    public function renderSummaryPage()
     {
         $from = null;
         $to = null;
@@ -37,7 +37,7 @@ class DailySummary
             $mainQuestionSub = get_field('customer_feedback_main_question_sub', 'option');
         }
 
-        include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/daily-summary.php';
+        include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
     }
 
     public function getDataBetween($from = null, $to = null)
