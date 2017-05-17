@@ -45,7 +45,8 @@ add_action('plugins_loaded', function () {
         'customer-feedback-settings'          => 'group_59118fb9c53de',
         'customer-feedback-posttypes'         => 'group_591191a388456',
         'customer-feedback-forwarding-page'   => 'group_591c10ab88d77',
-        'customer-feedback-forwarding-global' => 'group_591c026b10920'
+        'customer-feedback-forwarding-global' => 'group_591c026b10920',
+        'customer-feedback-daily-summary'     => 'group_591c150dd4561'
     ));
     $acfExportManager->import();
 });
