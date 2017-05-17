@@ -4,6 +4,14 @@ namespace CustomerFeedback;
 
 class Forwarding
 {
+    /**
+     * Forwards a feedback comment if needed
+     * @param  int $answerId
+     * @param  int $postId
+     * @param  string $comment  The comment text
+     * @param  string $email    The email address belonging to the comment
+     * @return void
+     */
     public static function maybeForward($answerId, $postId, $comment, $email)
     {
         $toGlobal = get_field('feedback_forwarding', 'option');
