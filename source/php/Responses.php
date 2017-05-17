@@ -92,10 +92,11 @@ class Responses
 
     /**
      * Get the yes/no response count
-     * @param  int $postId Post
+     * @param  int    $postId   Post
+     * @param  string $type     Count or percent
      * @return array
      */
-    public static function getResponses($postId)
+    public static function getResponses($postId, $type = 'count')
     {
         $answers = array('no' => 0, 'yes' => 0);
         $modDate = get_the_modified_date('Y-m-d H:i:s', $postId);
@@ -104,7 +105,7 @@ class Responses
         $answerPosts = new \WP_Query(array(
             'posts_per_page' => -1,
             'post_type' => 'customer-feedback',
-            'post_status' => 'publish',
+            'post_status' => array('publish', 'pending', 'draft'),
             'date_query' => array(
                 array(
                     'after'  => $modDate,
@@ -127,6 +128,18 @@ class Responses
         }
 
         arsort($answers);
+
+        if ($type === 'percent') {
+            $total = array_sum($answers);
+
+            $answers = array_map(function ($item) use ($total) {
+                if ($total === 0) {
+                    return 0;
+                }
+
+                return ($item / $total) * 100;
+            }, $answers);
+        }
 
         return $answers;
     }
