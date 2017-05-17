@@ -219,7 +219,7 @@ class Responses
             echo '
                 <tr>
                     <td>' . $answerLabel . '</td>
-                    <td>' . $percent . '%</td>
+                    <td>' . $percent . '% (' . $count . ')</td>
                 </tr>
             ';
         }
