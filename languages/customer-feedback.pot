@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-05-17 15:10+0200\n"
+"POT-Creation-Date: 2017-05-17 16:43+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,8 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:6
-#: source/php/AcfFields/php/customer-feedback-daily-summary.php:35
-msgid "Daily summary"
+msgid "Summaries"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:16
@@ -30,8 +29,28 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: source/php/AcfFields/php/customer-feedback-daily-summary.php:38
-msgid "Send daily summary of feedback to the following email addresses"
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:32
+msgid "Monthly"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:33
+msgid "Weekly"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:34
+msgid "Daily"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:44
+msgid "Interval"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:63
+msgid "Send summaries to"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:66
+msgid "Send summaries of feedback to the following email addresses"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-forwarding-global.php:6
@@ -141,11 +160,11 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: source/php/Form.php:37 source/php/Summary.php:44
+#: source/php/Form.php:37 source/php/Summary.php:164
 msgid "Did the information on this page help you?"
 msgstr ""
 
-#: source/php/Form.php:42 source/php/Summary.php:49
+#: source/php/Form.php:42 source/php/Summary.php:169
 msgid "Answer the question to help us improve our information."
 msgstr ""
 
@@ -161,19 +180,19 @@ msgstr ""
 msgid "Thank you"
 msgstr ""
 
-#: source/php/Forwarding.php:31
+#: source/php/Forwarding.php:40
 msgid "Feedback"
 msgstr ""
 
-#: source/php/Forwarding.php:32
+#: source/php/Forwarding.php:41
 msgid "Hey, you've got new feedback!"
 msgstr ""
 
-#: source/php/Forwarding.php:35
+#: source/php/Forwarding.php:44
 msgid "Sent from:"
 msgstr ""
 
-#: source/php/Forwarding.php:40
+#: source/php/Forwarding.php:49
 msgid ""
 "Note: The sender did not leave his/her email address. You will not be able "
 "to answer this feedback message."
@@ -295,7 +314,19 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: source/php/Summary.php:16 source/php/Summary.php:17
+#: source/php/Summary.php:68
+msgid "weekly"
+msgstr ""
+
+#: source/php/Summary.php:73
+msgid "monthly"
+msgstr ""
+
+#: source/php/Summary.php:110
+msgid "Feedback summary"
+msgstr ""
+
+#: source/php/Summary.php:126 source/php/Summary.php:127
 msgid "Summary"
 msgstr ""
 

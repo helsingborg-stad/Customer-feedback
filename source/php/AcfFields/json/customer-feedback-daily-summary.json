@@ -1,6 +1,6 @@
 [{
     "key": "group_591c150dd4561",
-    "title": "Daily summary",
+    "title": "Summaries",
     "fields": [
         {
             "sub_fields": [
@@ -57,7 +57,7 @@
             "button_label": "",
             "collapsed": "",
             "key": "field_591c15305ade0",
-            "label": "Summaries",
+            "label": "Send summaries to",
             "name": "customer_feedback_summary",
             "type": "repeater",
             "instructions": "Send summaries of feedback to the following email addresses",

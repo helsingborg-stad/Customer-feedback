@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_591c150dd4561',
-    'title' => __('Daily summary', 'customer-feedback'),
+    'title' => __('Summaries', 'customer-feedback'),
     'fields' => array(
         0 => array(
             'sub_fields' => array(
@@ -60,7 +60,7 @@
             'button_label' => '',
             'collapsed' => '',
             'key' => 'field_591c15305ade0',
-            'label' => __('Summaries', 'customer-feedback'),
+            'label' => __('Send summaries to', 'customer-feedback'),
             'name' => 'customer_feedback_summary',
             'type' => 'repeater',
             'instructions' => __('Send summaries of feedback to the following email addresses', 'customer-feedback'),

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-05-17 15:11+0200\n"
-"PO-Revision-Date: 2017-05-17 15:12+0200\n"
+"POT-Creation-Date: 2017-05-17 16:43+0200\n"
+"PO-Revision-Date: 2017-05-17 16:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -21,17 +21,36 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:6
-#: source/php/AcfFields/php/customer-feedback-daily-summary.php:35
-msgid "Daily summary"
-msgstr "Daglig sammanfattning"
+msgid "Summaries"
+msgstr "Sammanfattningar"
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:16
 #: source/php/Form.php:52
 msgid "Email address"
 msgstr "E-postadress"
 
-#: source/php/AcfFields/php/customer-feedback-daily-summary.php:38
-msgid "Send daily summary of feedback to the following email addresses"
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:32
+msgid "Monthly"
+msgstr "Månadsvis"
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:33
+msgid "Weekly"
+msgstr "Veckovis"
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:34
+msgid "Daily"
+msgstr "Dagligen"
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:44
+msgid "Interval"
+msgstr "Intervall"
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:63
+msgid "Send summaries to"
+msgstr "Skicka summering till"
+
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:66
+msgid "Send summaries of feedback to the following email addresses"
 msgstr ""
 "Skicka daglig sammanfattning av feedbacken till följande e-postadresser"
 
@@ -149,11 +168,11 @@ msgstr "Kommentar"
 msgid "Email"
 msgstr "E-postadress"
 
-#: source/php/Form.php:37 source/php/Summary.php:44
+#: source/php/Form.php:37 source/php/Summary.php:164
 msgid "Did the information on this page help you?"
 msgstr "Fick du hjälp av informationen på sidan?"
 
-#: source/php/Form.php:42 source/php/Summary.php:49
+#: source/php/Form.php:42 source/php/Summary.php:169
 msgid "Answer the question to help us improve our information."
 msgstr "Ge oss feedback så att vi kan göra vår information bättre."
 
@@ -169,19 +188,19 @@ msgstr "Ge oss din e-postadress om du vill ha återkoppling på din feedback."
 msgid "Thank you"
 msgstr "Tack för ditt svar"
 
-#: source/php/Forwarding.php:31
+#: source/php/Forwarding.php:40
 msgid "Feedback"
 msgstr "Feedback"
 
-#: source/php/Forwarding.php:32
+#: source/php/Forwarding.php:41
 msgid "Hey, you've got new feedback!"
 msgstr "Hej, du har fått ny feedback!"
 
-#: source/php/Forwarding.php:35
+#: source/php/Forwarding.php:44
 msgid "Sent from:"
 msgstr "Skickat från:"
 
-#: source/php/Forwarding.php:40
+#: source/php/Forwarding.php:49
 msgid ""
 "Note: The sender did not leave his/her email address. You will not be able "
 "to answer this feedback message."
@@ -307,7 +326,21 @@ msgstr "Har kommentar"
 msgid "Date"
 msgstr "Datum"
 
-#: source/php/Summary.php:16 source/php/Summary.php:17
+#: source/php/Summary.php:68
+msgid "weekly"
+msgstr ""
+
+#: source/php/Summary.php:73
+msgid "monthly"
+msgstr ""
+
+#: source/php/Summary.php:110
+#, fuzzy
+#| msgid "Customer feedback summary"
+msgid "Feedback summary"
+msgstr "Sammanfattning av feedback"
+
+#: source/php/Summary.php:126 source/php/Summary.php:127
 msgid "Summary"
 msgstr "Sammanfattning"
 
@@ -376,6 +409,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Daily summary"
+#~ msgstr "Daglig sammanfattning"
 
 #~ msgid "Reset feedback for this post"
 #~ msgstr "Återställ feedback för denna sida"
