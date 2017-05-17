@@ -6,20 +6,23 @@ class Forwarding
 {
     public static function maybeForward($answerId, $postId, $comment, $email)
     {
-        self::globalForwarding($answerId, $postId, $comment, $email);
-        self::localForwarding($answerId, $postId, $comment, $email);
-    }
-
-    public static function globalForwarding()
-    {
-        $to = get_field('feedback_forwarding', 'option');
+        $toGlobal = get_field('feedback_forwarding', 'option');
+        $toLocal = get_field('feedback_forwarding', $postId);
+        $to = array_merge($toGlobal, $toLocal);
 
         if (empty($to)) {
             return;
         }
 
-        $subject = get_field('email_subject', 'option');
-        $message = get_field('email_lead_message', 'option');
+        $toDef = $to;
+        $to = array();
+        foreach ($toDef as $item) {
+            $to[] = $item['email_address'];
+        }
+
+        $subject = get_field('email_subject', 'option') ? get_field('email_subject', 'option') : __('Feedback', 'customer-feedback');
+        $message = get_field('email_lead_message', 'option') ? get_field('email_lead_message', 'option') : __('Hey, you\'ve got new feedback!', 'customer-feedback');
+
         $message .= '<br><br>' . $comment;
         $message .= '<br><br>' . __('Sent from:', 'customer-feedback') . ' ' . get_permalink($postId);
 
