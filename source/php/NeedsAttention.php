@@ -30,6 +30,11 @@ class NeedsAttention extends \WP_List_Table
         ");
 
         foreach ($posts as $post) {
+            $responsesCount = array_sum(Responses::getResponses($post->ID));
+            if ($responsesCount < 5) {
+                continue;
+            }
+
             $responses = Responses::getResponses($post->ID, 'percent');
 
             if ($responses['no'] < 30) {
