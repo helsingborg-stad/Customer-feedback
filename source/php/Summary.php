@@ -35,6 +35,10 @@ class Summary
 
         $summaries = get_field('customer_feedback_summary', 'option');
 
+        if (count($summaries) === 0) {
+            return;
+        }
+
         foreach ($summaries as $summary) {
             wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'weekly'));
             wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'daily'));
