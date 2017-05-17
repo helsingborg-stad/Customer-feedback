@@ -16,6 +16,15 @@ class Forwarding
     {
         $toGlobal = get_field('feedback_forwarding', 'option');
         $toLocal = get_field('feedback_forwarding', $postId);
+
+        if (!is_array($toGlobal)) {
+            $toGlobal = array();
+        }
+
+        if (!is_array($toLocal)) {
+            $toLocal = array();
+        }
+
         $to = array_merge($toGlobal, $toLocal);
 
         if (empty($to)) {
