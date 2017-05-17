@@ -174,7 +174,7 @@ class Responses
             return;
         }
 
-        add_meta_box('customer-feedback-summary-meta', __('Customer feedback summary', 'customer-feedback'), array($this, 'renderSummary'), $postType, 'side', 'default', array(
+        add_meta_box('customer-feedback-summary-meta', __('Customer feedback summary', 'customer-feedback') . ' (' . __('since', 'customer-feedback') . ' ' . get_the_modified_date('Y-m-d H:i') . ')', array($this, 'renderSummary'), $postType, 'side', 'default', array(
             'results' => $answers
         ));
     }
