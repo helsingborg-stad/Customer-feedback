@@ -86,13 +86,14 @@ class NeedsAttention extends \WP_List_Table
     public function column_positive($item)
     {
         $responses = $item->responses;
+        $responsesCount = Responses::getResponses($item->ID);
 
         foreach ($responses as $key => $response) {
             if ($key != 'yes') {
                 continue;
             }
 
-            return '<span style="color:#30BA41;">' . round($response, 2) . '%</span>';
+            return '<span style="color:#30BA41;">' . round($response, 2) . '% (' . $responsesCount[$key] . ')</span>';
         }
 
         return 'n/a';
@@ -101,13 +102,14 @@ class NeedsAttention extends \WP_List_Table
     public function column_negative($item)
     {
         $responses = $item->responses;
+        $responsesCount = Responses::getResponses($item->ID);
 
         foreach ($responses as $key => $response) {
             if ($key != 'no') {
                 continue;
             }
 
-            return '<span style="color:#BA3030;">' . round($response, 2) . '%</span>';
+            return '<span style="color:#BA3030;">' . round($response, 2) . '% (' . $responsesCount[$key] . ')</span>';
         }
 
         return 'n/a';
