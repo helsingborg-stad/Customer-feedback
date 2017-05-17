@@ -465,6 +465,8 @@ class Responses
                 'post_status' => 'pending'
             ));
 
+            \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email);
+
             echo 'true';
         } else {
             echo 'false';
