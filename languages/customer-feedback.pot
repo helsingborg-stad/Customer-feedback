@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-05-17 14:03+0200\n"
+"POT-Creation-Date: 2017-05-17 15:10+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,7 +22,6 @@ msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:6
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:35
-#: source/php/DailySummary.php:16 source/php/DailySummary.php:17
 msgid "Daily summary"
 msgstr ""
 
@@ -118,14 +117,14 @@ msgstr ""
 #: source/php/AcfFields/php/customer-feedback.php:11
 #: source/php/Responses.php:286 source/php/Responses.php:291
 #: source/php/Responses.php:407 source/php/Responses.php:413
-#: templates/daily-summary.php:14 templates/form.php:14
+#: templates/form.php:14 templates/summary-view.php:38
 msgid "Yes"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:12
 #: source/php/Responses.php:284 source/php/Responses.php:291
 #: source/php/Responses.php:406 source/php/Responses.php:412
-#: templates/daily-summary.php:17 templates/form.php:15
+#: templates/form.php:15 templates/summary-view.php:42
 msgid "No"
 msgstr ""
 
@@ -142,11 +141,11 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: source/php/DailySummary.php:28 source/php/Form.php:37
+#: source/php/Form.php:37 source/php/Summary.php:44
 msgid "Did the information on this page help you?"
 msgstr ""
 
-#: source/php/DailySummary.php:33 source/php/Form.php:42
+#: source/php/Form.php:42 source/php/Summary.php:49
 msgid "Answer the question to help us improve our information."
 msgstr ""
 
@@ -204,18 +203,19 @@ msgstr ""
 msgid "Positive"
 msgstr ""
 
-#: source/php/Options.php:29
+#: source/php/Options.php:29 source/php/Options.php:30
+#: source/php/Options.php:35
 msgid "Needs attention"
 msgstr ""
 
-#: source/php/Options.php:30
+#: source/php/Options.php:36
 #, php-format
 msgid ""
 "This view shows pages that has a negative feedback rate of 30% or more. You "
 "should consider improving these pages."
 msgstr ""
 
-#: source/php/Options.php:43
+#: source/php/Options.php:50
 msgid "Pages"
 msgstr ""
 
@@ -295,6 +295,10 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: source/php/Summary.php:16 source/php/Summary.php:17
+msgid "Summary"
+msgstr ""
+
 #: templates/form.php:23
 msgid "Optional"
 msgstr ""
@@ -307,6 +311,35 @@ msgstr ""
 msgid "You have already given feedback for this content."
 msgstr ""
 
+#. Plugin Name of the plugin/theme
+#: templates/summary-view.php:3
+msgid "Customer Feedback"
+msgstr ""
+
+#: templates/summary-view.php:3
+msgid "Summary report"
+msgstr ""
+
+#: templates/summary-view.php:11
+msgid "to"
+msgstr ""
+
+#: templates/summary-view.php:28
+msgid "Overall answer summary"
+msgstr ""
+
+#: templates/summary-view.php:49
+msgid "Pending feedback"
+msgstr ""
+
+#: templates/summary-view.php:62
+msgid "View feedback"
+msgstr ""
+
+#: templates/summary-view.php:65
+msgid "View page"
+msgstr ""
+
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:357
 msgid "Export with AcfExportManager"
 msgstr ""
@@ -314,10 +347,6 @@ msgstr ""
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:401
 #, php-format
 msgid "Exported %d fieldgroup(s)."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Customer Feedback"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

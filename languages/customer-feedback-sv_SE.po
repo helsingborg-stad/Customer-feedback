@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-05-17 14:03+0200\n"
-"PO-Revision-Date: 2017-05-17 14:10+0200\n"
+"POT-Creation-Date: 2017-05-17 15:11+0200\n"
+"PO-Revision-Date: 2017-05-17 15:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -22,7 +22,6 @@ msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:6
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:35
-#: source/php/DailySummary.php:16 source/php/DailySummary.php:17
 msgid "Daily summary"
 msgstr "Daglig sammanfattning"
 
@@ -126,14 +125,14 @@ msgstr "Feedback-data"
 #: source/php/AcfFields/php/customer-feedback.php:11
 #: source/php/Responses.php:286 source/php/Responses.php:291
 #: source/php/Responses.php:407 source/php/Responses.php:413
-#: templates/daily-summary.php:14 templates/form.php:14
+#: templates/form.php:14 templates/summary-view.php:38
 msgid "Yes"
 msgstr "Ja"
 
 #: source/php/AcfFields/php/customer-feedback.php:12
 #: source/php/Responses.php:284 source/php/Responses.php:291
 #: source/php/Responses.php:406 source/php/Responses.php:412
-#: templates/daily-summary.php:17 templates/form.php:15
+#: templates/form.php:15 templates/summary-view.php:42
 msgid "No"
 msgstr "Nej"
 
@@ -150,11 +149,11 @@ msgstr "Kommentar"
 msgid "Email"
 msgstr "E-postadress"
 
-#: source/php/DailySummary.php:28 source/php/Form.php:37
+#: source/php/Form.php:37 source/php/Summary.php:44
 msgid "Did the information on this page help you?"
 msgstr "Fick du hjälp av informationen på sidan?"
 
-#: source/php/DailySummary.php:33 source/php/Form.php:42
+#: source/php/Form.php:42 source/php/Summary.php:49
 msgid "Answer the question to help us improve our information."
 msgstr "Ge oss feedback så att vi kan göra vår information bättre."
 
@@ -214,11 +213,12 @@ msgstr "Negativt"
 msgid "Positive"
 msgstr "Positivt"
 
-#: source/php/Options.php:29
+#: source/php/Options.php:29 source/php/Options.php:30
+#: source/php/Options.php:35
 msgid "Needs attention"
 msgstr "Behöver tillsyn"
 
-#: source/php/Options.php:30
+#: source/php/Options.php:36
 #, php-format
 msgid ""
 "This view shows pages that has a negative feedback rate of 30% or more. You "
@@ -227,7 +227,7 @@ msgstr ""
 "Denna vyn visar sidor som har en andel av negativ feedback som är 30% eller "
 "högre. Dessa sidor bör ses över och förbättras."
 
-#: source/php/Options.php:43
+#: source/php/Options.php:50
 msgid "Pages"
 msgstr "Sidor"
 
@@ -307,6 +307,10 @@ msgstr "Har kommentar"
 msgid "Date"
 msgstr "Datum"
 
+#: source/php/Summary.php:16 source/php/Summary.php:17
+msgid "Summary"
+msgstr "Sammanfattning"
+
 #: templates/form.php:23
 msgid "Optional"
 msgstr "Valfritt"
@@ -319,6 +323,35 @@ msgstr "Skicka"
 msgid "You have already given feedback for this content."
 msgstr "Du har redan gett feedback på innehållet för denna sidan."
 
+#. Plugin Name of the plugin/theme
+#: templates/summary-view.php:3
+msgid "Customer Feedback"
+msgstr ""
+
+#: templates/summary-view.php:3
+msgid "Summary report"
+msgstr "Sammanfattande rapport"
+
+#: templates/summary-view.php:11
+msgid "to"
+msgstr "till"
+
+#: templates/summary-view.php:28
+msgid "Overall answer summary"
+msgstr "Totalsammanfattning av svar"
+
+#: templates/summary-view.php:49
+msgid "Pending feedback"
+msgstr "Väntande feedback (behöver behandlas)"
+
+#: templates/summary-view.php:62
+msgid "View feedback"
+msgstr "Visa feedback"
+
+#: templates/summary-view.php:65
+msgid "View page"
+msgstr "Visa sida"
+
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:357
 msgid "Export with AcfExportManager"
 msgstr ""
@@ -326,10 +359,6 @@ msgstr ""
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:401
 #, php-format
 msgid "Exported %d fieldgroup(s)."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Customer Feedback"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

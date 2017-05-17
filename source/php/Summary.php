@@ -26,6 +26,7 @@ class Summary
         $from = null;
         $to = null;
 
+        // Get dates from querystring
         if (isset($_GET['date_from']) && !empty($_GET['date_from'])) {
             $from = $_GET['date_from'];
         }
@@ -39,8 +40,16 @@ class Summary
             $from = $_GET['date'];
         }
 
+        // Fallback to last week
+        if (is_null($from) && is_null($to)) {
+            $from = date('Y-m-d', strtotime('-1 week'));
+            $to = date('Y-m-d');
+        }
+
+        // Get data from dates
         $data = $this->getDataBetween($from, $to);
 
+        // Get question
         $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
         if (!empty(get_field('customer_feedback_main_question_text', 'option'))) {
             $mainQuestion = get_field('customer_feedback_main_question_text', 'option');
@@ -51,6 +60,7 @@ class Summary
             $mainQuestionSub = get_field('customer_feedback_main_question_sub', 'option');
         }
 
+        // Render view
         include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
     }
 
