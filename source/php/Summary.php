@@ -7,6 +7,109 @@ class Summary
     public function __construct()
     {
         add_action('admin_menu', array($this, 'addPage'));
+
+        // Cron stuff
+        add_filter('cron_schedules', array($this, 'cronSchedules'));
+        add_action('customer-feedback/email_summary', array($this, 'emailSummary'), 10, 2);
+
+        // Schedule on save
+        add_action('acf/save_post', array($this, 'schedule'));
+
+        /*
+        add_action('admin_init', function () {
+            $this->emailSummary('kristoffer.svanmark@knowit.se', 'weekly');
+        });
+        */
+    }
+
+    /**
+     * Schedule the stuff
+     * @param  int $postId
+     * @return void
+     */
+    public function schedule($postId)
+    {
+        if ($postId !== 'options' || !isset($_GET['page']) || $_GET['page'] !== 'acf-options-feedback-options') {
+            return;
+        }
+
+        $summaries = get_field('customer_feedback_summary', 'option');
+
+        foreach ($summaries as $summary) {
+            wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'weekly'));
+            wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'daily'));
+            wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'monthly'));
+
+            wp_schedule_event(
+                time(),
+                $summary['interval'],
+                'customer-feedback/email_summary',
+                array(
+                    $summary['email_address'],
+                    $summary['interval']
+                )
+            );
+        }
+    }
+
+    /**
+     * Add weekly and monthly schedules to cron
+     * @param  array $schedules
+     * @return array
+     */
+    public function cronSchedules($schedules)
+    {
+        $schedules['weekly'] = array(
+            'interval' => 604800,
+            'display' => __('weekly', 'customer-feedback')
+        );
+
+        $schedules['monthly'] = array(
+            'interval' => 2592000,
+            'display' => __('monthly', 'customer-feedback')
+        );
+
+        return $schedules;
+    }
+
+    public function emailSummary($email, $interval)
+    {
+        ob_start();
+
+        $from = null;
+        $to = null;
+
+        switch ($interval) {
+            case 'monthly':
+                $from = date('Y-m-d', strtotime('-30 days'));
+                $to = date('Y-m-d');
+                break;
+
+            case 'weekly':
+                $from = date('Y-m-d', strtotime('-7 days'));
+                $to = date('Y-m-d');
+                break;
+
+            case 'daily':
+                $from = date('Y-m-d');
+                $to = date('Y-m-d');
+                break;
+        }
+
+        $this->renderReport($from, $to);
+        $report = ob_get_clean();
+
+        $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
+
+        wp_mail(
+            $email,
+            __('Feedback summary', 'customer-feedback') . ' (' . get_option('blogname') . ')',
+            $report,
+            array(
+                'Content-Type: text/html; charset=UTF-8',
+                'From: ' . get_option('admin_email')
+            )
+        );
     }
 
     /**
@@ -28,11 +131,8 @@ class Summary
      * Renders summary report
      * @return void
      */
-    public function renderReport()
+    public function renderReport($from = null, $to = null)
     {
-        $from = null;
-        $to = null;
-
         // Get dates from querystring
         if (isset($_GET['date_from']) && !empty($_GET['date_from'])) {
             $from = $_GET['date_from'];

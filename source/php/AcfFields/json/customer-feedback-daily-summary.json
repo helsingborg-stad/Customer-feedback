@@ -17,6 +17,34 @@
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "choices": {
+                        "monthly": "Monthly",
+                        "weekly": "Weekly",
+                        "daily": "Daily"
+                    },
+                    "default_value": [
+                        "weekly"
+                    ],
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "return_format": "value",
+                    "key": "field_591c50317fdbb",
+                    "label": "Interval",
+                    "name": "interval",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
@@ -29,10 +57,10 @@
             "button_label": "",
             "collapsed": "",
             "key": "field_591c15305ade0",
-            "label": "Daily summary",
-            "name": "customer_feedback_daily_summary",
+            "label": "Summaries",
+            "name": "customer_feedback_summary",
             "type": "repeater",
-            "instructions": "Send daily summary of feedback to the following email addresses",
+            "instructions": "Send summaries of feedback to the following email addresses",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
