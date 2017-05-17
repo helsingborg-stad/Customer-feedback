@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2016-09-26 09:33+0200\n"
+"POT-Creation-Date: 2017-05-17 14:03+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: CustomerFeedback.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,28 +20,164 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: source/php/Form.php:26
-msgid "Did the information on this page help you?"
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:6
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:35
+#: source/php/DailySummary.php:16 source/php/DailySummary.php:17
+msgid "Daily summary"
 msgstr ""
 
-#: source/php/Form.php:31
-msgid "Answer the question to help us improve our information."
-msgstr ""
-
-#: source/php/Form.php:36
-msgid "How can we make the information better?"
-msgstr ""
-
-#: source/php/Form.php:41
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:16
+#: source/php/Form.php:52
 msgid "Email address"
 msgstr ""
 
-#: source/php/Form.php:42
+#: source/php/AcfFields/php/customer-feedback-daily-summary.php:38
+msgid "Send daily summary of feedback to the following email addresses"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:6
+msgid "Feedback forwarding (globally)"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:9
+msgid ""
+"You can use feedback forwarding to forward feedback to specified email "
+"addresses. Only feedback with comments will be forwarded.\r\n"
+"\r\n"
+"Feedback forwarding can be set for individual pages (do this by editing the "
+"specific page) or for all pages (right below)."
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:15
+msgid "What is feedback forwarding?"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:34
+msgid "Email subject"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:53
+msgid "Email lead message"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:56
+msgid "The feedback comment will be appended automatically."
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:73
+#: source/php/AcfFields/php/customer-feedback-forwarding-page.php:16
+msgid "E-postadress"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-forwarding-global.php:92
+#: source/php/AcfFields/php/customer-feedback-forwarding-page.php:6
+#: source/php/AcfFields/php/customer-feedback-forwarding-page.php:35
+msgid "Feedback forwarding"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-posttypes.php:6
+msgid "Feedback on posttypes"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-posttypes.php:19
+msgid "Posttypes"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:6
+#: source/php/Options.php:18
+msgid "Feedback options"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:15
+msgid "Main question"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:18
+#: source/php/AcfFields/php/customer-feedback-settings.php:37
+#: source/php/AcfFields/php/customer-feedback-settings.php:56
+#: source/php/AcfFields/php/customer-feedback-settings.php:75
+msgid "Leave empty to use default."
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:34
+msgid "Sub question"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:53
+msgid "Feedback form label"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:72
+msgid "Completion message"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:6
+msgid "Feedback data"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:11
+#: source/php/Responses.php:286 source/php/Responses.php:291
+#: source/php/Responses.php:407 source/php/Responses.php:413
+#: templates/daily-summary.php:14 templates/form.php:14
+msgid "Yes"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:12
+#: source/php/Responses.php:284 source/php/Responses.php:291
+#: source/php/Responses.php:406 source/php/Responses.php:412
+#: templates/daily-summary.php:17 templates/form.php:15
+msgid "No"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:20
+#: source/php/Responses.php:265 source/php/Responses.php:405
+msgid "Answer"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:39
+msgid "Comment"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:67
+msgid "Email"
+msgstr ""
+
+#: source/php/DailySummary.php:28 source/php/Form.php:37
+msgid "Did the information on this page help you?"
+msgstr ""
+
+#: source/php/DailySummary.php:33 source/php/Form.php:42
+msgid "Answer the question to help us improve our information."
+msgstr ""
+
+#: source/php/Form.php:47
+msgid "How can we make the information better?"
+msgstr ""
+
+#: source/php/Form.php:53
 msgid "Please give us your email address if you want an answer."
 msgstr ""
 
-#: source/php/Form.php:44
+#: source/php/Form.php:55
 msgid "Thank you"
+msgstr ""
+
+#: source/php/Forwarding.php:31
+msgid "Feedback"
+msgstr ""
+
+#: source/php/Forwarding.php:32
+msgid "Hey, you've got new feedback!"
+msgstr ""
+
+#: source/php/Forwarding.php:35
+msgid "Sent from:"
+msgstr ""
+
+#: source/php/Forwarding.php:40
+msgid ""
+"Note: The sender did not leave his/her email address. You will not be able "
+"to answer this feedback message."
 msgstr ""
 
 #: source/php/NeedsAttention.php:10
@@ -52,133 +188,132 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: source/php/NeedsAttention.php:58
+#: source/php/NeedsAttention.php:48
 msgid "There's no posts that needs attention right now"
 msgstr ""
 
-#: source/php/NeedsAttention.php:85
+#: source/php/NeedsAttention.php:75
 msgid "Title"
 msgstr ""
 
-#: source/php/NeedsAttention.php:86 source/php/Responses.php:201
+#: source/php/NeedsAttention.php:76 source/php/Responses.php:229
 msgid "Negative"
 msgstr ""
 
-#: source/php/NeedsAttention.php:87 source/php/Responses.php:197
+#: source/php/NeedsAttention.php:77 source/php/Responses.php:225
 msgid "Positive"
 msgstr ""
 
-#: source/php/Options.php:25
+#: source/php/Options.php:29
 msgid "Needs attention"
 msgstr ""
 
-#: source/php/Options.php:26
+#: source/php/Options.php:30
 #, php-format
 msgid ""
 "This view shows pages that has a negative feedback rate of 30% or more. You "
 "should consider improving these pages."
 msgstr ""
 
-#: source/php/Responses.php:81
+#: source/php/Options.php:43
+msgid "Pages"
+msgstr ""
+
+#: source/php/Responses.php:61
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: source/php/Responses.php:82
+#: source/php/Responses.php:62
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: source/php/Responses.php:83
+#: source/php/Responses.php:63
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: source/php/Responses.php:84
+#: source/php/Responses.php:64
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: source/php/Responses.php:85
+#: source/php/Responses.php:65
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: source/php/Responses.php:86
+#: source/php/Responses.php:66
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: source/php/Responses.php:87
+#: source/php/Responses.php:67
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: source/php/Responses.php:88
+#: source/php/Responses.php:68
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: source/php/Responses.php:89
+#: source/php/Responses.php:69
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: source/php/Responses.php:90
+#: source/php/Responses.php:70
 #, php-format
 msgid "No %s in trash"
 msgstr ""
 
-#: source/php/Responses.php:172
+#: source/php/Responses.php:194
 msgid "Customer feedback summary"
 msgstr ""
 
-#: source/php/Responses.php:219
-msgid "Reset feedback for this post"
+#: source/php/Responses.php:194
+msgid "since"
 msgstr ""
 
-#: source/php/Responses.php:219
+#: source/php/Responses.php:252
 msgid ""
-"Are you sure you want to reset the feedback of the post? You will not be "
-"albe to restore it."
+"The feedback stats will be reset to zero (without removing the actual "
+"feedback messages) when a new version of the post is saved."
 msgstr ""
 
-#: source/php/Responses.php:231
+#: source/php/Responses.php:264
 msgid "Page"
 msgstr ""
 
-#: source/php/Responses.php:232
-msgid "Answer"
-msgstr ""
-
-#: source/php/Responses.php:233
+#: source/php/Responses.php:266 source/php/Responses.php:411
 msgid "Has comment"
 msgstr ""
 
-#: source/php/Responses.php:234
+#: source/php/Responses.php:267
 msgid "Date"
 msgstr ""
 
-#: source/php/Responses.php:251 source/php/Responses.php:258
-#: templates/form.php:14
-msgid "No"
-msgstr ""
-
-#: source/php/Responses.php:253 source/php/Responses.php:258
-#: templates/form.php:13
-msgid "Yes"
-msgstr ""
-
-#: templates/form.php:22
+#: templates/form.php:23
 msgid "Optional"
 msgstr ""
 
-#: templates/form.php:27
+#: templates/form.php:28
 msgid "Send"
 msgstr ""
 
-#: templates/form.php:34
+#: templates/form.php:35
 msgid "You have already given feedback for this content."
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:357
+msgid "Export with AcfExportManager"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:401
+#, php-format
+msgid "Exported %d fieldgroup(s)."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
