@@ -50,8 +50,6 @@ class Forwarding
         }
 
         foreach ($to as $email) {
-            error_log("Forwarded feedback to " . $email . " with subject " . $subject);
-
             wp_mail(
                 $email,
                 $subject,
