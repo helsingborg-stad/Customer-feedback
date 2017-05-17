@@ -164,7 +164,9 @@ class Responses
      */
     public function addPageSummaryMetaBox($postType, $post)
     {
-        if (!isset($post->ID)) {
+        $allowedPostTypes = get_field('customer_feedback_posttypes', 'option');
+
+        if (!isset($post->ID) || (is_array($allowedPostTypes) && !in_array($postType, $allowedPostTypes))) {
             return;
         }
 
@@ -174,9 +176,17 @@ class Responses
             return;
         }
 
-        add_meta_box('customer-feedback-summary-meta', __('Customer feedback summary', 'customer-feedback') . ' (' . __('since', 'customer-feedback') . ' ' . get_the_modified_date('Y-m-d H:i') . ')', array($this, 'renderSummary'), $postType, 'side', 'default', array(
-            'results' => $answers
-        ));
+        add_meta_box(
+            'customer-feedback-summary-meta',
+            __('Customer feedback summary', 'customer-feedback') . ' (' . __('since', 'customer-feedback') . ' ' . get_the_modified_date('Y-m-d H:i') . ')',
+            array($this, 'renderSummary'),
+            $postType,
+            'side',
+            'default',
+            array(
+                'results' => $answers
+            )
+        );
     }
 
     /**
