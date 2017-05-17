@@ -9,6 +9,9 @@ class Summary
         add_action('admin_menu', array($this, 'addPage'));
     }
 
+    /**
+     * Adds summary page to menu
+     */
     public function addPage()
     {
         add_submenu_page(
@@ -17,11 +20,15 @@ class Summary
             __('Summary', 'customer-feedback'),
             'edit_posts',
             'customer-feedback-summary',
-            array($this, 'renderSummaryPage')
+            array($this, 'renderReport')
         );
     }
 
-    public function renderSummaryPage()
+    /**
+     * Renders summary report
+     * @return void
+     */
+    public function renderReport()
     {
         $from = null;
         $to = null;
@@ -64,6 +71,12 @@ class Summary
         include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
     }
 
+    /**
+     * Gets relevant data for the summary
+     * @param  string $from Date from
+     * @param  string $to   Date to
+     * @return array        Data
+     */
     public function getDataBetween($from = null, $to = null)
     {
         $answerPosts = $this->getAnswerPosts($from, $to);
@@ -114,6 +127,12 @@ class Summary
         return $data;
     }
 
+    /**
+     * Get answer posts between dates
+     * @param  string $from Date from
+     * @param  string $to   Date to
+     * @return array        Answer posts
+     */
     public function getAnswerPosts($from = null, $to = null)
     {
         $answerPosts = array(
