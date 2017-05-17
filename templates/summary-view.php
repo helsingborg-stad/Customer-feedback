@@ -1,5 +1,28 @@
 <h1><?php echo get_option('blogname'); ?> (<?php echo get_option('home'); ?>)</h1>
-<h2><?php _e('Customer Feedback', 'customer-feedback'); ?> - <?php _e('Summary report', 'customer-feedback'); ?></h2>
+<h2>
+    <?php _e('Customer Feedback', 'customer-feedback'); ?> - <?php _e('Summary report', 'customer-feedback'); ?>
+    <?php
+        echo (!is_null($from) || !is_null($to)) ? '(' : '';
+
+            if (!is_null($from) && !is_null($to)) {
+                if ($from === $to) {
+                    echo $from;
+                } else {
+                    echo $from . ' ' . __('to', 'customer-feedback') . ' ' . $to;
+                }
+            } else {
+                if (!is_null($from)) {
+                    echo $from . ' -';
+                }
+
+                if (!is_null($to)) {
+                    echo '- ' . $to;
+                }
+            }
+
+        echo (!is_null($from) || !is_null($to)) ? ')' : '';
+    ?>
+</h2>
 <table cellspacing="0" cellpadding="0" style="border:1px solid #ddd;background-color: #f9f9f9;" width="800">
     <tr>
         <td colspan="2" style="border-bottom:1px solid #ddd;padding:9px 14px;"><strong><?php _e('Overall answer summary', 'customer-feedback'); ?></strong></td>

@@ -25,7 +25,21 @@ class Summary
     {
         $from = null;
         $to = null;
-        $data = $this->getDataBetween();
+
+        if (isset($_GET['date_from']) && !empty($_GET['date_from'])) {
+            $from = $_GET['date_from'];
+        }
+
+        if (isset($_GET['date_to']) && !empty($_GET['date_to'])) {
+            $to = $_GET['date_to'];
+        }
+
+        if (isset($_GET['date']) && !empty($_GET['date'])) {
+            $to = $_GET['date'];
+            $from = $_GET['date'];
+        }
+
+        $data = $this->getDataBetween($from, $to);
 
         $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
         if (!empty(get_field('customer_feedback_main_question_text', 'option'))) {
