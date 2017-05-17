@@ -1,6 +1,6 @@
 <?php
 
-namespace CustomerFeedbackChat\Vendor;
+namespace CustomerFeedback\Vendor;
 
 /**
  * A PSR-4 compatible class loader.

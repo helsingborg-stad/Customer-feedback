@@ -30,7 +30,7 @@ require_once CUSTOMERFEEDBACK_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once CUSTOMERFEEDBACK_PATH . 'Public.php';
 
 // Instantiate and register the autoloader
-$loader = new CustomerFeedbackChat\Vendor\Psr4ClassLoader();
+$loader = new CustomerFeedback\Vendor\Psr4ClassLoader();
 $loader->addPrefix('CustomerFeedback', CUSTOMERFEEDBACK_PATH);
 $loader->addPrefix('CustomerFeedback', CUSTOMERFEEDBACK_PATH . 'source/php/');
 $loader->register();
