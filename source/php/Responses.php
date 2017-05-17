@@ -412,7 +412,7 @@ class Responses
         $answer = (isset($_POST['answer']) && strlen($_POST['answer']) > 0) ? $_POST['answer'] : null;
 
         $cookieExpireDays = 5;
-        $cookieExpire = DAYS_IN_SECONDS * $cookieExpireDays;
+        $cookieExpire = 86400 * $cookieExpireDays;
 
         if (!isset($_COOKIE['customer-feedback'])) {
             setcookie('customer-feedback', serialize(array($postId)), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
