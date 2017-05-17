@@ -1,0 +1,63 @@
+[{
+    "key": "group_591c10ab88d77",
+    "title": "Feedback forwarding",
+    "fields": [
+        {
+            "sub_fields": [
+                {
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "key": "field_591c117d32f13",
+                    "label": "E-postadress",
+                    "name": "email_address",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ],
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "collapsed": "",
+            "key": "field_591c116932f12",
+            "label": "Feedback forwarding",
+            "name": "feedback_forwarding",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "!=",
+                "value": "mod-notice"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+

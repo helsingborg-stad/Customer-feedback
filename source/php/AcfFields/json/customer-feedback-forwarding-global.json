@@ -1,0 +1,118 @@
+[{
+    "key": "group_591c026b10920",
+    "title": "Feedback forwarding (globally)",
+    "fields": [
+        {
+            "message": "You can use feedback forwarding to forward feedback to specified email addresses. Only feedback with comments will be forwarded.\r\n\r\nFeedback forwarding can be set for individual pages (do this by editing the specific page) or for all pages (right below).",
+            "esc_html": 0,
+            "new_lines": "wpautop",
+            "key": "field_591c027ec29f4",
+            "label": "What is feedback forwarding?",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_591c0c4f09e80",
+            "label": "Email subject",
+            "name": "email_subject",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": "",
+            "new_lines": "wpautop",
+            "maxlength": "",
+            "placeholder": "",
+            "rows": "",
+            "key": "field_591c0c5d09e81",
+            "label": "Email lead message",
+            "name": "email_lead_message",
+            "type": "textarea",
+            "instructions": "The feedback comment will be appended automatically.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "sub_fields": [
+                {
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "key": "field_591c0494c29f6",
+                    "label": "E-postadress",
+                    "name": "email_address",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ],
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "collapsed": "",
+            "key": "field_591c02e3c29f5",
+            "label": "Feedback forwarding",
+            "name": "feedback_forwarding",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-feedback-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
