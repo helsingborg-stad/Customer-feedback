@@ -450,6 +450,11 @@ class Responses
             update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
             update_post_meta($answerId, 'customer_feedback_email', $email);
 
+            wp_update_post(array(
+                'ID' => $answerId,
+                'post_status' => 'pending'
+            ));
+
             echo 'true';
         } else {
             echo 'false';
