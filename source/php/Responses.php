@@ -211,10 +211,15 @@ class Responses
                 continue;
             }
 
+            $percent = 0;
+            if ($totalCount > 0) {
+                $percent = round($count / $totalCount, 2) * 100;
+            }
+
             echo '
                 <tr>
                     <td>' . $answerLabel . '</td>
-                    <td>' . round($count / $totalCount, 2) * 100 . '%</td>
+                    <td>' . $percent . '%</td>
                 </tr>
             ';
         }
