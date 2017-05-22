@@ -13,7 +13,7 @@ class Summary
         add_action('customer-feedback/email_summary', array($this, 'emailSummary'), 10, 2);
 
         // Schedule on save
-        add_action('acf/save_post', array($this, 'schedule'));
+        add_action('acf/save_post', array($this, 'schedule'), 20);
 
         /*
         add_action('admin_init', function () {
