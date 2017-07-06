@@ -357,10 +357,6 @@ class Responses
                 'relation' => 'OR',
                 array(
                     'key' => 'customer_feedback_answer',
-                    'compare' => 'EXISTS'
-                ),
-                array(
-                    'key' => 'customer_feedback_answer',
                     'value' => 'yes',
                     'compare' => '='
                 )
