@@ -84,15 +84,17 @@ CustomerFeedback.Form = (function ($) {
 
         $.post(ajaxurl, data, function (response) {
             if (data.answer == 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                $('.customer-feedback-container').find('.customer-feedback-answers').hide();
-                $('.customer-feedback-container').find('.customer-feedback-thanks').show();
+                $target.find('[name="customer-feedback-post-id"]').after('<input type="hidden" name="customer-feedback-answer-id" value="' + response + '">');
+
+                $target.find('.customer-feedback-answers').remove();
+                $target.find('.customer-feedback-comment').show().find('.feedback-label-yes').show();
             }
 
             if (data.answer == 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
                 $target.find('[name="customer-feedback-post-id"]').after('<input type="hidden" name="customer-feedback-answer-id" value="' + response + '">');
 
                 $target.find('.customer-feedback-answers').remove();
-                $target.find('.customer-feedback-comment').show();
+                $target.find('.customer-feedback-comment').show().find('.feedback-label-no').show();
             }
         });
     };

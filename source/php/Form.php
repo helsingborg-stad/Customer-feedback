@@ -44,9 +44,14 @@ class Form
             $mainQuestionSub = get_field('customer_feedback_main_question_sub', 'option');
         }
 
-        $commentLabel = __('How can we make the information better?', 'customer-feedback');
-        if (function_exists('get_field') && !empty(get_field('customer_feedback_feedback_label', 'option'))) {
-            $commentLabel = get_field('customer_feedback_feedback_label', 'option');
+        $negativeLabel = __('How can we make the information better?', 'customer-feedback');
+        if (function_exists('get_field') && !empty(get_field('customer_feedback_feedback_label_no', 'option'))) {
+            $negativeLabel = get_field('customer_feedback_feedback_label_no', 'option');
+        }
+
+        $positiveLabel = __('Comment', 'customer-feedback');
+        if (function_exists('get_field') && !empty(get_field('customer_feedback_feedback_label_yes', 'option'))) {
+            $positiveLabel = get_field('customer_feedback_feedback_label_yes', 'option');
         }
 
         $emailLabel = __('Email address', 'customer-feedback');

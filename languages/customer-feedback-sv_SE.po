@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-05-17 16:43+0200\n"
-"PO-Revision-Date: 2017-05-17 16:44+0200\n"
+"POT-Creation-Date: 2017-07-07 15:54+0200\n"
+"PO-Revision-Date: 2017-07-07 15:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -25,7 +25,7 @@ msgid "Summaries"
 msgstr "Sammanfattningar"
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:16
-#: source/php/Form.php:52
+#: source/php/Form.php:57
 msgid "Email address"
 msgstr "E-postadress"
 
@@ -109,31 +109,41 @@ msgstr "Feedback för posttyper"
 msgid "Posttypes"
 msgstr "Posttyper"
 
-#: source/php/AcfFields/php/customer-feedback-settings.php:6
-#: source/php/Options.php:18
-msgid "Feedback options"
-msgstr "Inställningar för feedback"
-
-#: source/php/AcfFields/php/customer-feedback-settings.php:15
+#: source/php/AcfFields/php/customer-feedback-settings.php:10
 msgid "Main question"
 msgstr "Huvudfråga"
 
-#: source/php/AcfFields/php/customer-feedback-settings.php:18
-#: source/php/AcfFields/php/customer-feedback-settings.php:37
-#: source/php/AcfFields/php/customer-feedback-settings.php:56
-#: source/php/AcfFields/php/customer-feedback-settings.php:75
+#: source/php/AcfFields/php/customer-feedback-settings.php:13
+#: source/php/AcfFields/php/customer-feedback-settings.php:32
+#: source/php/AcfFields/php/customer-feedback-settings.php:89
 msgid "Leave empty to use default."
 msgstr "Lämna tomt för att använda standardinställning."
 
-#: source/php/AcfFields/php/customer-feedback-settings.php:34
+#: source/php/AcfFields/php/customer-feedback-settings.php:29
 msgid "Sub question"
 msgstr "Subfråga"
 
-#: source/php/AcfFields/php/customer-feedback-settings.php:53
-msgid "Feedback form label"
-msgstr "Formulärslabel"
+#: source/php/AcfFields/php/customer-feedback-settings.php:48
+msgid "Feedback form label for negative feedback"
+msgstr "Formulärslabel för negativ feedback"
 
-#: source/php/AcfFields/php/customer-feedback-settings.php:72
+#: source/php/AcfFields/php/customer-feedback-settings.php:51
+msgid "Feedback form label if answer is \"No\". Leave empty to use default."
+msgstr ""
+"Feedbacklabel om användaren svarat “Nej”. Lämna tomt för att använda "
+"standardinställning."
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:67
+msgid "Feedback form label for positive feedback"
+msgstr "Formulärslabel för positiv feedback"
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:70
+msgid "Feedback form label if answer is \"Yes\". Leave empty to use default."
+msgstr ""
+"Feedbacklabel om användaren svarat “Ja”. Lämna tomt för att använda "
+"standardinställning."
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:86
 msgid "Completion message"
 msgstr "Meddelande vid slutfört flöde"
 
@@ -143,24 +153,24 @@ msgstr "Feedback-data"
 
 #: source/php/AcfFields/php/customer-feedback.php:11
 #: source/php/Responses.php:286 source/php/Responses.php:291
-#: source/php/Responses.php:407 source/php/Responses.php:413
+#: source/php/Responses.php:403 source/php/Responses.php:409
 #: templates/form.php:14 templates/summary-view.php:38
 msgid "Yes"
 msgstr "Ja"
 
 #: source/php/AcfFields/php/customer-feedback.php:12
 #: source/php/Responses.php:284 source/php/Responses.php:291
-#: source/php/Responses.php:406 source/php/Responses.php:412
+#: source/php/Responses.php:402 source/php/Responses.php:408
 #: templates/form.php:15 templates/summary-view.php:42
 msgid "No"
 msgstr "Nej"
 
 #: source/php/AcfFields/php/customer-feedback.php:20
-#: source/php/Responses.php:265 source/php/Responses.php:405
+#: source/php/Responses.php:265 source/php/Responses.php:401
 msgid "Answer"
 msgstr "Svar"
 
-#: source/php/AcfFields/php/customer-feedback.php:39
+#: source/php/AcfFields/php/customer-feedback.php:39 source/php/Form.php:52
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -180,11 +190,11 @@ msgstr "Ge oss feedback så att vi kan göra vår information bättre."
 msgid "How can we make the information better?"
 msgstr "Hur kan vi förbättra vår information?"
 
-#: source/php/Form.php:53
+#: source/php/Form.php:58
 msgid "Please give us your email address if you want an answer."
 msgstr "Ge oss din e-postadress om du vill ha återkoppling på din feedback."
 
-#: source/php/Form.php:55
+#: source/php/Form.php:60
 msgid "Thank you"
 msgstr "Tack för ditt svar"
 
@@ -216,21 +226,25 @@ msgstr "Inlägg"
 msgid "Posts"
 msgstr "Inlägg"
 
-#: source/php/NeedsAttention.php:48
+#: source/php/NeedsAttention.php:53
 msgid "There's no posts that needs attention right now"
 msgstr "Det finns inga inlägg som behöver tillsyn just nu."
 
-#: source/php/NeedsAttention.php:75
+#: source/php/NeedsAttention.php:80
 msgid "Title"
 msgstr "Titel"
 
-#: source/php/NeedsAttention.php:76 source/php/Responses.php:229
+#: source/php/NeedsAttention.php:81 source/php/Responses.php:229
 msgid "Negative"
 msgstr "Negativt"
 
-#: source/php/NeedsAttention.php:77 source/php/Responses.php:225
+#: source/php/NeedsAttention.php:82 source/php/Responses.php:225
 msgid "Positive"
 msgstr "Positivt"
+
+#: source/php/Options.php:18
+msgid "Feedback options"
+msgstr "Inställningar för feedback"
 
 #: source/php/Options.php:29 source/php/Options.php:30
 #: source/php/Options.php:35
@@ -243,8 +257,8 @@ msgid ""
 "This view shows pages that has a negative feedback rate of 30% or more. You "
 "should consider improving these pages."
 msgstr ""
-"Denna vyn visar sidor som har en andel av negativ feedback som är 30% eller "
-"högre. Dessa sidor bör ses över och förbättras."
+"Denna vyn visar sidor som har en andel av negativ feedback som är högre än "
+"30%. Dessa sidor bör ses över och förbättras."
 
 #: source/php/Options.php:50
 msgid "Pages"
@@ -318,7 +332,7 @@ msgstr "Statistiken återställs när sidan uppdateras."
 msgid "Page"
 msgstr "Sida"
 
-#: source/php/Responses.php:266 source/php/Responses.php:411
+#: source/php/Responses.php:266 source/php/Responses.php:407
 msgid "Has comment"
 msgstr "Har kommentar"
 
@@ -335,8 +349,6 @@ msgid "monthly"
 msgstr ""
 
 #: source/php/Summary.php:110
-#, fuzzy
-#| msgid "Customer feedback summary"
 msgid "Feedback summary"
 msgstr "Sammanfattning av feedback"
 
@@ -344,15 +356,15 @@ msgstr "Sammanfattning av feedback"
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: templates/form.php:23
+#: templates/form.php:25
 msgid "Optional"
 msgstr "Valfritt"
 
-#: templates/form.php:28
+#: templates/form.php:30
 msgid "Send"
 msgstr "Skicka"
 
-#: templates/form.php:35
+#: templates/form.php:37
 msgid "You have already given feedback for this content."
 msgstr "Du har redan gett feedback på innehållet för denna sidan."
 

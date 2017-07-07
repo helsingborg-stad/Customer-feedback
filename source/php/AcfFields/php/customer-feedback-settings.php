@@ -3,14 +3,9 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_59118fb9c53de',
-    'title' => __('Feedback options', 'customer-feedback'),
+    'title' => 'Feedback options',
     'fields' => array(
         0 => array(
-            'default_value' => '',
-            'maxlength' => '',
-            'placeholder' => '',
-            'prepend' => '',
-            'append' => '',
             'key' => 'field_59118fbef0608',
             'label' => __('Main question', 'customer-feedback'),
             'name' => 'customer_feedback_main_question_text',
@@ -23,13 +18,13 @@
                 'class' => '',
                 'id' => '',
             ),
-        ),
-        1 => array(
             'default_value' => '',
             'maxlength' => '',
             'placeholder' => '',
             'prepend' => '',
             'append' => '',
+        ),
+        1 => array(
             'key' => 'field_5911901df0609',
             'label' => __('Sub question', 'customer-feedback'),
             'name' => 'customer_feedback_main_question_sub',
@@ -42,18 +37,18 @@
                 'class' => '',
                 'id' => '',
             ),
-        ),
-        2 => array(
             'default_value' => '',
             'maxlength' => '',
             'placeholder' => '',
             'prepend' => '',
             'append' => '',
+        ),
+        2 => array(
             'key' => 'field_5911905af060a',
-            'label' => __('Feedback form label', 'customer-feedback'),
-            'name' => 'customer_feedback_feedback_label',
+            'label' => __('Feedback form label for negative feedback', 'customer-feedback'),
+            'name' => 'customer_feedback_feedback_label_no',
             'type' => 'text',
-            'instructions' => __('Leave empty to use default.', 'customer-feedback'),
+            'instructions' => __('Feedback form label if answer is "No". Leave empty to use default.', 'customer-feedback'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -61,13 +56,32 @@
                 'class' => '',
                 'id' => '',
             ),
-        ),
-        3 => array(
             'default_value' => '',
-            'maxlength' => '',
             'placeholder' => '',
             'prepend' => '',
             'append' => '',
+            'maxlength' => '',
+        ),
+        3 => array(
+            'key' => 'field_595f8d9d2bf2c',
+            'label' => __('Feedback form label for positive feedback', 'customer-feedback'),
+            'name' => 'customer_feedback_feedback_label_yes',
+            'type' => 'text',
+            'instructions' => __('Feedback form label if answer is "Yes". Leave empty to use default.', 'customer-feedback'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        4 => array(
             'key' => 'field_59119076f060b',
             'label' => __('Completion message', 'customer-feedback'),
             'name' => 'customer_feedback_thanks',
@@ -80,6 +94,11 @@
                 'class' => '',
                 'id' => '',
             ),
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
         ),
     ),
     'location' => array(

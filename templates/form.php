@@ -16,7 +16,8 @@
                 </div>
                 <div class="customer-feedback-comment text-left gutter gutter-top gutter-sm" style="display: none;">
                     <div class="form-group">
-                        <label for="customer-feedback-comment-text-<?php echo $num; ?>"><?php echo $commentLabel; ?></label>
+                        <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-yes" style="display: none;"><?php echo $positiveLabel; ?></label>
+                        <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-no" style="display: none;"><?php echo $negativeLabel; ?></label>
                         <textarea class="form-control" style="height: 100px;" id="customer-feedback-comment-text-<?php echo $num; ?>" name="customer-feedback-comment-text"></textarea>
                     </div>
                     <div class="form-group">

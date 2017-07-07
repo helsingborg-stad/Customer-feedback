@@ -3,11 +3,6 @@
     "title": "Feedback options",
     "fields": [
         {
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
             "key": "field_59118fbef0608",
             "label": "Main question",
             "name": "customer_feedback_main_question_text",
@@ -19,14 +14,14 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": "",
+            "append": ""
+        },
+        {
             "key": "field_5911901df0609",
             "label": "Sub question",
             "name": "customer_feedback_main_question_sub",
@@ -38,33 +33,52 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": "",
+            "append": ""
+        },
+        {
             "key": "field_5911905af060a",
-            "label": "Feedback form label",
-            "name": "customer_feedback_feedback_label",
+            "label": "Feedback form label for negative feedback",
+            "name": "customer_feedback_feedback_label_no",
             "type": "text",
-            "instructions": "Leave empty to use default.",
+            "instructions": "Feedback form label if answer is \"No\". Leave empty to use default.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": "",
-            "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_595f8d9d2bf2c",
+            "label": "Feedback form label for positive feedback",
+            "name": "customer_feedback_feedback_label_yes",
+            "type": "text",
+            "instructions": "Feedback form label if answer is \"Yes\". Leave empty to use default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_59119076f060b",
             "label": "Completion message",
             "name": "customer_feedback_thanks",
@@ -76,7 +90,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
