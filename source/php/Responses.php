@@ -313,7 +313,7 @@ class Responses
      */
     public function listColumnsSortingQuery($query)
     {
-        if (!is_admin() || !$query->is_main_query()) {
+        if (!is_admin() || !$query->is_main_query() || $query->get('post_type') != $this->postTypeSlug) {
             return;
         }
 
