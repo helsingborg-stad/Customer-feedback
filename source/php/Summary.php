@@ -4,6 +4,9 @@ namespace CustomerFeedback;
 
 class Summary
 {
+
+    public static $resultCache = array();
+
     public function __construct()
     {
         add_action('admin_menu', array($this, 'addPage'));
@@ -14,12 +17,6 @@ class Summary
 
         // Schedule on save
         add_action('acf/save_post', array($this, 'schedule'), 20);
-
-        /*
-        add_action('admin_init', function () {
-            $this->emailSummary('kristoffer.svanmark@knowit.se', 'weekly');
-        });
-        */
     }
 
     /**
@@ -78,6 +75,7 @@ class Summary
 
     public function emailSummary($email, $interval)
     {
+        $report = null;
         $from = null;
         $to = null;
 
@@ -99,21 +97,39 @@ class Summary
                 break;
         }
 
-        // Get report
-        $report = $this->renderReport($from, $to, true);
+        // Get report (fetch from cache if any)
+        if ($this->getCachedResult($interval) !== false) {
+            $report = $this->getCachedResult($interval);
+        } else {
+            $report = self::$resultCache[$interval] = $this->renderReport($from, $to, true);
+        }
 
-        // Emailify
-        $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
+        //Send non empty reports
+        if (!empty($report)) {
 
-        wp_mail(
-            $email,
-            __('Feedback summary', 'customer-feedback') . ' (' . get_option('blogname') . ')',
-            $report,
-            array(
-                'Content-Type: text/html; charset=UTF-8',
-                'From: ' . get_option('admin_email')
-            )
-        );
+            $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
+
+            wp_mail(
+                $email,
+                __('Feedback summary', 'customer-feedback') . ' (' . get_option('blogname') . ')',
+                $report,
+                array(
+                    'Content-Type: text/html; charset=UTF-8',
+                    'From: ' . get_option('admin_email')
+                )
+            );
+        }
+    }
+
+    /**
+     * Get's cache response if any
+     */
+    public function getCachedResult($interval)
+    {
+        if (!empty(self::$resultCache[$interval])) {
+            return self::$resultCache[$interval];
+        }
+        return false;
     }
 
     /**
