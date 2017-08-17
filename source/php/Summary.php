@@ -45,7 +45,7 @@ class Summary
             wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'monthly'));
 
             wp_schedule_event(
-                time(),
+                strtotime('today midnight'),
                 $summary['interval'],
                 'customer-feedback/email_summary',
                 array(
@@ -78,11 +78,10 @@ class Summary
 
     public function emailSummary($email, $interval)
     {
-        ob_start();
-
         $from = null;
         $to = null;
 
+        //Get iterval
         switch ($interval) {
             case 'monthly':
                 $from = date('Y-m-d', strtotime('-30 days'));
@@ -100,9 +99,10 @@ class Summary
                 break;
         }
 
-        $this->renderReport($from, $to);
-        $report = ob_get_clean();
+        // Get report
+        $report = $this->renderReport($from, $to, true);
 
+        // Emailify
         $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
 
         wp_mail(
@@ -135,7 +135,7 @@ class Summary
      * Renders summary report
      * @return void
      */
-    public function renderReport($from = null, $to = null)
+    public function renderReport($from = null, $to = null, $return = false)
     {
         // Get dates from querystring
         if (isset($_GET['date_from']) && !empty($_GET['date_from'])) {
@@ -172,7 +172,13 @@ class Summary
         }
 
         // Render view
-        include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
+        if ($return) {
+            ob_start();
+            include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
+            return ob_get_clean();
+        } else {
+            include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
+        }
     }
 
     /**
