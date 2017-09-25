@@ -68,6 +68,8 @@ class Form
             $userEmail = $userdata->user_email;
         }
 
+        $reCaptcha = (!is_user_logged_in() && defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '';
+
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
     }
 }

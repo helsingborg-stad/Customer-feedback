@@ -25,12 +25,20 @@
                         <small class="block-level"><?php echo $emailExplain; ?></small>
                         <input type="email" id="customer-feedback-comment-email-<?php echo $num; ?>" name="customer-feedback-comment-email" value="<?php echo $userEmail; ?>">
                     </div>
+                    <?php if ($reCaptcha) : ?>
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="<?php echo $reCaptcha; ?>"></div>
+                    </div>
+                    <?php endif; ?>
                     <div class="form-group">
                         <button rel="nofollow" style="margin-top:5px;" class="btn btn-submit" data-action="customer-feedback-submit-comment"><?php _e('Send', 'customer-feedback'); ?></button>
                     </div>
                 </div>
                 <div class="customer-feedback-thanks" style="display: none;">
                     <div class="notice success"><?php echo $thanksText; ?></div>
+                </div>
+                <div class="customer-feedback-error" style="display: none;">
+                    <div class="notice warning"><?php _e('Something went wrong, please try again later.', 'customer-feedback'); ?></div>
                 </div>
                 <?php else : ?>
                     <div class="notice success"><?php _e('You have already given feedback for this content.', 'customer-feedback'); ?></div>

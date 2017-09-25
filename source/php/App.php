@@ -35,6 +35,13 @@ class App
     public function enqueueScripts()
     {
         wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', false, '1.0.0', true);
+
+        global $post;
+        $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
+        $allowedPostTypes = (is_null($allowedPostTypes)) ? array('page') : $allowedPostTypes;
+        if (in_array($post->post_type, $allowedPostTypes) && (is_single() || is_page())) {
+            wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', '', '1.0.0', true);
+        }
     }
 
     public function adminEnqueue()

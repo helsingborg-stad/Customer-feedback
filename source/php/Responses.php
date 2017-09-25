@@ -464,6 +464,17 @@ class Responses
         $commentType = (isset($_POST['commenttype']) && strlen($_POST['commenttype']) > 0) ? $_POST['commenttype'] : null;
         $email = (isset($_POST['email']) && strlen($_POST['email']) > 0) ? $_POST['email'] : null;
 
+        $theme = wp_get_theme();
+        if (!is_user_logged_in() && ($theme->name == 'Municipio' || $theme->parent_theme == 'Municipio')) {
+            $response = (isset($_POST['captcha']) && strlen($_POST['captcha']) > 0) ? $_POST['captcha'] : null;
+            $reCaptcha = \Municipio\Helper\ReCaptcha::controlReCaptcha($response);
+
+            if (!$reCaptcha) {
+                echo 'false';
+                wp_die();
+            }
+        }
+
         if ($answerId && $postId) {
             update_post_meta($answerId, 'customer_feedback_comment', $comment);
             update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
