@@ -35,6 +35,7 @@ CustomerFeedback.Form = (function ($) {
             var postId = $target.find('[name="customer-feedback-post-id"]').val();
             var comment = $target.find('[name="customer-feedback-comment-text"]').val();
             var email = $target.find('[name="customer-feedback-comment-email"]').val();
+            var gCaptcha = $target.find('[name="g-recaptcha-response"]').val();
 
             if (comment.length === 0) {
                 $target.find('[name="customer-feedback-comment-text"]').addClass('invalid');
@@ -42,19 +43,20 @@ CustomerFeedback.Form = (function ($) {
                 return false;
             }
 
-            this.submitComment($target, answerId, postId, commentType, comment, email);
+            this.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha);
 
         }.bind(this));
     };
 
-    Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email) {
+    Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, gCaptcha) {
         var data = {
             action: 'submit_comment',
             postid: postId,
             comment: comment,
             answerid: answerId,
             commenttype: commentType,
-            email: email
+            email: email,
+            captcha: gCaptcha
         };
 
         var $target = target;
@@ -63,6 +65,9 @@ CustomerFeedback.Form = (function ($) {
             if (response == 'true') {
                 $target.find('.customer-feedback-comment').remove();
                 $target.find('.customer-feedback-thanks').show();
+            } else {
+                $target.find('.customer-feedback-comment').remove();
+                $target.find('.customer-feedback-error').show();
             }
         });
     };
