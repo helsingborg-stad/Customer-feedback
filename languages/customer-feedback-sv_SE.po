@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-25 15:00+0200\n"
-"PO-Revision-Date: 2017-09-25 15:01+0200\n"
+"POT-Creation-Date: 2017-09-25 16:04+0200\n"
+"PO-Revision-Date: 2017-09-25 16:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -178,6 +178,11 @@ msgstr "Kommentar"
 msgid "Email"
 msgstr "E-postadress"
 
+#: source/php/App.php:39
+#, php-format
+msgid "The comment must be more than %s characters."
+msgstr "Kommentaren måste vara minst %s tecken."
+
 #: source/php/Form.php:37 source/php/Summary.php:180
 msgid "Did the information on this page help you?"
 msgstr "Fick du hjälp av informationen på sidan?"
@@ -228,7 +233,7 @@ msgstr "Inlägg"
 
 #: source/php/NeedsAttention.php:53
 msgid "There's no posts that needs attention right now"
-msgstr "Det finns inga inlägg som behöver tillsyn just nu."
+msgstr "Det finns inga inlägg som behöver tillsyn just nu"
 
 #: source/php/NeedsAttention.php:80
 msgid "Title"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-25 15:00+0200\n"
+"POT-Creation-Date: 2017-09-25 16:04+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -164,6 +164,11 @@ msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:54
 msgid "Email"
+msgstr ""
+
+#: source/php/App.php:39
+#, php-format
+msgid "The comment must be more than %s characters."
 msgstr ""
 
 #: source/php/Form.php:37 source/php/Summary.php:180
