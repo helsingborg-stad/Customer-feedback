@@ -25,9 +25,7 @@ CustomerFeedback.Form = (function ($) {
         $('[data-action="customer-feedback-submit-comment"]').on('click', function (e) {
             e.preventDefault();
 
-            $(e.target).html('<i class="spinner spinner-dark"></i>');
             $target = $(e.target).parents('.customer-feedback-container');
-
             $target.find('[name="customer-feedback-comment-text"]').removeClass('invalid');
 
             var commentType = 'comment';
@@ -37,12 +35,14 @@ CustomerFeedback.Form = (function ($) {
             var email = $target.find('[name="customer-feedback-comment-email"]').val();
             var gCaptcha = $target.find('[name="g-recaptcha-response"]').val();
 
-            if (comment.length === 0) {
+            if (comment.length < 30) {
+                $target.find('div.danger').remove();
                 $target.find('[name="customer-feedback-comment-text"]').addClass('invalid');
-                $target.find('[name="customer-feedback-comment-text"]').after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">You need to write a comment before posting it.</div>');
+                $target.find('[name="customer-feedback-comment-text"]').after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.comment_min_characters + '</div>');
                 return false;
             }
 
+            $(e.target).html('<i class="spinner spinner-dark"></i>');
             this.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha);
 
         }.bind(this));
