@@ -9,6 +9,7 @@ class Responses
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'));
+        add_action('init', array($this, 'registerTaxonomy'));
 
         // Set comment field as readonly
         add_action('acf/load_field/name=customer_feedback_comment', function ($field) {
@@ -88,6 +89,39 @@ class Responses
         );
 
         register_post_type($this->postTypeSlug, $args);
+    }
+
+    /**
+     * Register a 'topic' taxonomy for post type 'customer-feedback'.
+     */
+    public function registerTaxonomy() {
+        $namePlural = 'Topics';
+        $nameSingular = 'Topic';
+
+        $labels = array(
+            'name'              => $namePlural,
+            'singular_name'     => $nameSingular,
+            'search_items'      => sprintf(__('Search %s', 'todo'), $namePlural),
+            'all_items'         => sprintf(__('All %s', 'todo'), $namePlural),
+            'parent_item'       => sprintf(__('Parent %s:', 'todo'), $nameSingular),
+            'parent_item_colon' => sprintf(__('Parent %s:', 'todo'), $nameSingular) . ':',
+            'edit_item'         => sprintf(__('Edit %s', 'todo'), $nameSingular),
+            'update_item'       => sprintf(__('Update %s', 'todo'), $nameSingular),
+            'add_new_item'      => sprintf(__('Add New %s', 'todo'), $nameSingular),
+            'new_item_name'     => sprintf(__('New %s Name', 'todo'), $nameSingular),
+            'menu_name'         => $nameSingular,
+        );
+
+        $args = array(
+            'hierarchical'      => false,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => array('slug' => 'topic'),
+        );
+
+        register_taxonomy('topic', array($this->postTypeSlug), $args);
     }
 
     /**
