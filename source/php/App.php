@@ -35,6 +35,9 @@ class App
     public function enqueueScripts()
     {
         wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', false, '1.0.0', true);
+        wp_localize_script('customer-feedback', 'feedback', array(
+            'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '30'),
+        ));
 
         global $post;
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
