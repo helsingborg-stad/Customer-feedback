@@ -70,11 +70,9 @@ CustomerFeedback.Form = (function ($) {
                         .prop('required', false)
                             .parent().hide();
                 }
-
             } else {
                 $(e.target).parents('.form-group').siblings().hide();
             }
-
         });
     };
 

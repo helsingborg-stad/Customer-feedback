@@ -211,10 +211,20 @@ class Summary
         $pending = array();
 
         foreach ($answerPosts as $post) {
+
+            $topics = wp_get_post_terms($post->ID, 'feedback_topic');
+            $feedback_topics = array();
+            if (!empty($topics)) {
+                foreach ($topics as $topic) {
+                    $feedback_topics[] = $topic->name;
+                }
+            }
+
             $post->answer = array(
                 'post_id' => get_post_meta($post->ID, 'customer_feedback_page_reference', true),
                 'answer' => get_post_meta($post->ID, 'customer_feedback_answer', true),
-                'comment' => get_post_meta($post->ID, 'customer_feedback_comment', true)
+                'comment' => get_post_meta($post->ID, 'customer_feedback_comment', true),
+                'topics' => $feedback_topics
             );
 
             // Count yes/no

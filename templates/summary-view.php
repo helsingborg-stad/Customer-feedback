@@ -49,6 +49,13 @@
 <h2><?php _e('Pending feedback', 'customer-feedback'); ?></h2>
 <?php foreach ($data['pending'] as $pending) : ?>
 <table cellspacing="0" cellpadding="0" style="border:1px solid #ddd;background-color: #f9f9f9;margin-bottom:5px;" width="800">
+    <?php foreach ($pending->answer['topics'] as $topic): ?>
+    <tr>
+        <td colspan="100" style="border-bottom:1px solid #ddd;padding:14px;">
+            <?php echo __('Topic', 'customer-feedback') . ': ' . $topic; ?>
+        </td>
+    </tr>
+    <?php endforeach ?>
     <tr>
         <td colspan="100" style="border-bottom:1px solid #ddd;padding:14px;">
             <?php echo $pending->answer['comment']; ?>

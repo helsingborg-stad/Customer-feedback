@@ -27,6 +27,28 @@
             "return_format": "value"
         },
         {
+            "key": "field_59ca53380eff7",
+            "label": "Topic",
+            "name": "customer_feedback_topic",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "feedback_topic",
+            "field_type": "select",
+            "allow_null": 0,
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
+        },
+        {
             "key": "field_5729fcc62e559",
             "label": "Comment",
             "name": "customer_feedback_comment",

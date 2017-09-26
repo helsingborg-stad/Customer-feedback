@@ -30,6 +30,28 @@
             'return_format' => 'value',
         ),
         1 => array(
+            'key' => 'field_59ca53380eff7',
+            'label' => __('Topic', 'customer-feedback'),
+            'name' => 'customer_feedback_topic',
+            'type' => 'taxonomy',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'taxonomy' => 'feedback_topic',
+            'field_type' => 'select',
+            'allow_null' => 0,
+            'add_term' => 0,
+            'save_terms' => 1,
+            'load_terms' => 1,
+            'return_format' => 'id',
+            'multiple' => 0,
+        ),
+        2 => array(
             'key' => 'field_5729fcc62e559',
             'label' => __('Comment', 'customer-feedback'),
             'name' => 'customer_feedback_comment',
@@ -49,7 +71,7 @@
             'new_lines' => 'wpautop',
             'readonly' => 1,
         ),
-        2 => array(
+        3 => array(
             'key' => 'field_57e8c6907c267',
             'label' => __('Email', 'customer-feedback'),
             'name' => 'customer_feedback_email',
