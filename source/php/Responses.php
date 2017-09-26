@@ -352,6 +352,18 @@ class Responses
             return;
         }
 
+        if (!empty($_GET['feedback_topic'])) {
+            $query->set('tax_query', array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy' => 'feedback_topic',
+                    'field' => 'slug',
+                    'terms' => $_GET['feedback_topic'],
+                    'operator' => 'IN'
+                )
+            ));
+        }
+
         $metaQuery = array(
             'relation' => 'AND'
         );
@@ -443,6 +455,18 @@ class Responses
             <option value="no" ' . selected(true, isset($_GET['has-comment']) && $_GET['has-comment'] === 'no', false) . '>' . __('No') . '</option>
             <option value="yes" ' . selected(true, isset($_GET['has-comment']) && $_GET['has-comment'] === 'yes', false) . '>' . __('Yes') . '</option>
         </select>';
+
+        // Filter by feedback topics
+        $topics = get_terms( array(
+            'taxonomy' => 'feedback_topic',
+            'hide_empty' => false,
+        ));
+        echo '<select name="feedback_topic"><option value="">' . __('All topics', 'customer-feedback') . '</option>';
+        foreach ($topics as $topic) {
+            echo '<option value="' . $topic->slug . '" ' . selected(true, isset($_GET['feedback_topic']) && $_GET['feedback_topic'] == $topic->slug, false) . '>' . $topic->name . '</option>';
+        }
+        echo '</select>';
+
     }
 
     /**

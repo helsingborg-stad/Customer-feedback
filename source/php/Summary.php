@@ -211,7 +211,6 @@ class Summary
         $pending = array();
 
         foreach ($answerPosts as $post) {
-
             $topics = wp_get_post_terms($post->ID, 'feedback_topic');
             $feedback_topics = array();
             if (!empty($topics)) {
