@@ -299,6 +299,7 @@ class Responses
             'title'  => __('Page', 'customer-feedback'),
             'answer' => __('Answer', 'customer-feedback'),
             'hasComment'   => __('Has comment', 'customer-feedback'),
+            'topic' => __('Topic', 'customer-feedback'),
             'date'   => __('Date')
         );
 
@@ -321,7 +322,14 @@ class Responses
                     echo '<span style="color:#30BA41;">' . __('Yes') . '</span>';
                 }
                 break;
-
+            case 'topic':
+                $topics = wp_get_post_terms($postId, 'feedback_topic');
+                if (!empty($topics)) {
+                    foreach ($topics as $key => $topic) {
+                        echo ($key == 0) ? $topic->name : ', ' . $topic->name;
+                    }
+                }
+                break;
             case 'hasComment':
                 echo (!empty(get_field('customer_feedback_comment', $postId))) ? __('Yes') : __('No');
                 break;
