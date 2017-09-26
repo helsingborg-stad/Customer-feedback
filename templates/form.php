@@ -15,16 +15,34 @@
                     <button rel="nofollow" class="btn btn-error" value="no" data-action="customer-feedback-submit-response"><?php _e('No'); ?></a>
                 </div>
                 <div class="customer-feedback-comment text-left gutter gutter-top gutter-sm" style="display: none;">
+
+                    <?php if (!empty($topics)): ?>
+                    <div class="form-group">
+                        <label for="customer-feedback-comment-topic-<?php echo $num; ?>" class="feedback-label-topic"><?php echo $topicLabel; ?></label>
+                        <select id="customer-feedback-comment-topic-<?php echo $num; ?>" name="customer-feedback-comment-topic">
+                            <option value=""><?php _e('Select topic', 'customer-feedback'); ?></option>
+                            <?php foreach ($topics as $topic): ?>
+                                <option value="<?php echo $topic->term_id; ?>" topic-description="<?php echo $topic->description; ?>" feedback-capability="<?php echo $topic->feedback_capability; ?>"><?php echo $topic->name; ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="topic-description notice info" style="display:none;">test</div>
+                    </div>
+                    <?php endif ?>
+
                     <div class="form-group">
                         <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-yes" style="display: none;"><?php echo $positiveLabel; ?></label>
                         <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-no" style="display: none;"><?php echo $negativeLabel; ?></label>
                         <textarea class="form-control" style="height: 100px;" id="customer-feedback-comment-text-<?php echo $num; ?>" name="customer-feedback-comment-text"></textarea>
                     </div>
+
                     <div class="form-group">
-                        <label for="customer-feedback-comment-email-<?php echo $num; ?>"><?php echo $emailLabel; ?> (<?php _e('Optional', 'customer-feedback'); ?>)</label>
+                        <label for="customer-feedback-comment-email-<?php echo $num; ?>"><?php echo $emailLabel; ?></label>
                         <small class="block-level"><?php echo $emailExplain; ?></small>
                         <input type="email" id="customer-feedback-comment-email-<?php echo $num; ?>" name="customer-feedback-comment-email" value="<?php echo $userEmail; ?>">
                     </div>
+
                     <?php if ($reCaptcha) : ?>
                     <div class="form-group">
                         <div class="g-recaptcha" data-sitekey="<?php echo $reCaptcha; ?>"></div>

@@ -55,7 +55,7 @@ class Form
         }
 
         $emailLabel = __('Email address', 'customer-feedback');
-        $emailExplain = __('Please give us your email address if you want an answer.', 'customer-feedback');
+        $emailExplain = __('Please give us your email address to get a reply on your feedback.', 'customer-feedback');
 
         $thanksText = __('Thank you', 'customer-feedback');
         if (function_exists('get_field') && !empty(get_field('customer_feedback_thanks', 'option'))) {
@@ -66,6 +66,22 @@ class Form
         if (is_user_logged_in()) {
             $userdata = get_userdata(get_current_user_id());
             $userEmail = $userdata->user_email;
+        }
+
+        $topics = get_terms( array(
+            'taxonomy' => 'feedback_topic',
+            'hide_empty' => false,
+        ));
+
+        $topicLabel = __('Topic', 'customer-feedback');
+        if (function_exists('get_field') && !empty(get_field('customer_feedback_label_topic', 'option'))) {
+            $topicLabel = get_field('customer_feedback_label_topic', 'option');
+        }
+
+        if (!empty($topics)) {
+            foreach ($topics as $topic) {
+                $topic->feedback_capability = get_field('topic_feedback_capability', 'feedback_topic_' . $topic->term_id);
+            }
         }
 
         $reCaptcha = (!is_user_logged_in() && defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '';

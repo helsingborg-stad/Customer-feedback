@@ -121,7 +121,7 @@ class Responses
             'rewrite'           => array('slug' => 'topic'),
         );
 
-        register_taxonomy('topic', array($this->postTypeSlug), $args);
+        register_taxonomy('feedback_topic', array($this->postTypeSlug), $args);
     }
 
     /**
@@ -497,6 +497,7 @@ class Responses
         $comment = (isset($_POST['comment']) && strlen($_POST['comment']) > 0) ? $_POST['comment'] : null;
         $commentType = (isset($_POST['commenttype']) && strlen($_POST['commenttype']) > 0) ? $_POST['commenttype'] : null;
         $email = (isset($_POST['email']) && strlen($_POST['email']) > 0) ? $_POST['email'] : null;
+        $topicId = (isset($_POST['topicid']) && is_numeric($_POST['topicid'])) ? (int)$_POST['topicid'] : null;
 
         $theme = wp_get_theme();
         if (!is_user_logged_in() && ($theme->name == 'Municipio' || $theme->parent_theme == 'Municipio')) {
@@ -513,6 +514,9 @@ class Responses
             update_post_meta($answerId, 'customer_feedback_comment', $comment);
             update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
             update_post_meta($answerId, 'customer_feedback_email', $email);
+            if ($topicId) {
+                wp_set_post_terms($answerId, array($topicId), 'feedback_topic');
+            }
 
             wp_update_post(array(
                 'ID' => $answerId,
