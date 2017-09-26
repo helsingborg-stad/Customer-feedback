@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-25 16:04+0200\n"
-"PO-Revision-Date: 2017-09-25 16:06+0200\n"
+"POT-Creation-Date: 2017-09-26 18:05+0200\n"
+"PO-Revision-Date: 2017-09-26 18:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -109,13 +109,18 @@ msgstr "Feedback för posttyper"
 msgid "Posttypes"
 msgstr "Posttyper"
 
+#: source/php/AcfFields/php/customer-feedback-settings.php:6
+#: source/php/Options.php:18
+msgid "Feedback options"
+msgstr "Inställningar för feedback"
+
 #: source/php/AcfFields/php/customer-feedback-settings.php:10
 msgid "Main question"
 msgstr "Huvudfråga"
 
 #: source/php/AcfFields/php/customer-feedback-settings.php:13
 #: source/php/AcfFields/php/customer-feedback-settings.php:32
-#: source/php/AcfFields/php/customer-feedback-settings.php:89
+#: source/php/AcfFields/php/customer-feedback-settings.php:108
 msgid "Leave empty to use default."
 msgstr "Lämna tomt för att använda standardinställning."
 
@@ -144,37 +149,59 @@ msgstr ""
 "standardinställning."
 
 #: source/php/AcfFields/php/customer-feedback-settings.php:86
+msgid "Feedback form label for topic"
+msgstr "Formulärslabel för ämne"
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:89
+msgid "Leave empty to use default"
+msgstr "Lämna tomt för att använda standardinställning"
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:105
 msgid "Completion message"
 msgstr "Meddelande vid slutfört flöde"
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:10
+msgid "Feedback capability"
+msgstr "Möjlighet till återkoppling"
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:21
+msgid "Check this box to add feedback capability to the topic."
+msgstr "Kryssa i denna rutan för att lägga till möjlighet till återkoppling."
 
 #: source/php/AcfFields/php/customer-feedback.php:6
 msgid "Feedback data"
 msgstr "Feedback-data"
 
 #: source/php/AcfFields/php/customer-feedback.php:10
-#: source/php/Responses.php:265 source/php/Responses.php:401
+#: source/php/Responses.php:300 source/php/Responses.php:456
 msgid "Answer"
 msgstr "Svar"
 
 #: source/php/AcfFields/php/customer-feedback.php:23
-#: source/php/Responses.php:286 source/php/Responses.php:291
-#: source/php/Responses.php:403 source/php/Responses.php:409
+#: source/php/Responses.php:322 source/php/Responses.php:334
+#: source/php/Responses.php:458 source/php/Responses.php:464
 #: templates/form.php:14 templates/summary-view.php:38
 msgid "Yes"
 msgstr "Ja"
 
 #: source/php/AcfFields/php/customer-feedback.php:24
-#: source/php/Responses.php:284 source/php/Responses.php:291
-#: source/php/Responses.php:402 source/php/Responses.php:408
+#: source/php/Responses.php:320 source/php/Responses.php:334
+#: source/php/Responses.php:457 source/php/Responses.php:463
 #: templates/form.php:15 templates/summary-view.php:42
 msgid "No"
 msgstr "Nej"
 
-#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:52
+#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:76
+#: source/php/Responses.php:99 source/php/Responses.php:302
+#: templates/summary-view.php:55
+msgid "Topic"
+msgstr "Ämne"
+
+#: source/php/AcfFields/php/customer-feedback.php:56 source/php/Form.php:52
 msgid "Comment"
 msgstr "Kommentar"
 
-#: source/php/AcfFields/php/customer-feedback.php:54
+#: source/php/AcfFields/php/customer-feedback.php:76
 msgid "Email"
 msgstr "E-postadress"
 
@@ -196,8 +223,8 @@ msgid "How can we make the information better?"
 msgstr "Hur kan vi förbättra vår information?"
 
 #: source/php/Form.php:58
-msgid "Please give us your email address if you want an answer."
-msgstr "Ge oss din e-postadress om du vill ha återkoppling på din feedback."
+msgid "Please give us your email address to get a reply on your feedback."
+msgstr "Ange din e-postadress för att få återkoppling på din feedback."
 
 #: source/php/Form.php:60
 msgid "Thank you"
@@ -239,17 +266,13 @@ msgstr "Det finns inga inlägg som behöver tillsyn just nu"
 msgid "Title"
 msgstr "Titel"
 
-#: source/php/NeedsAttention.php:81 source/php/Responses.php:229
+#: source/php/NeedsAttention.php:81 source/php/Responses.php:264
 msgid "Negative"
 msgstr "Negativt"
 
-#: source/php/NeedsAttention.php:82 source/php/Responses.php:225
+#: source/php/NeedsAttention.php:82 source/php/Responses.php:260
 msgid "Positive"
 msgstr "Positivt"
-
-#: source/php/Options.php:18
-msgid "Feedback options"
-msgstr "Inställningar för feedback"
 
 #: source/php/Options.php:29 source/php/Options.php:30
 #: source/php/Options.php:35
@@ -259,91 +282,119 @@ msgstr "Behöver tillsyn"
 #: source/php/Options.php:36
 #, php-format
 msgid ""
-"This view shows pages that has a negative feedback rate of 30% or more. You "
+"This view shows pages that has a negative feedback rate of %s or more. You "
 "should consider improving these pages."
 msgstr ""
 "Denna vyn visar sidor som har en andel av negativ feedback som är högre än "
-"30%. Dessa sidor bör ses över och förbättras."
+"%s. Dessa sidor bör ses över och förbättras."
 
 #: source/php/Options.php:50
 msgid "Pages"
 msgstr "Sidor"
 
-#: source/php/Responses.php:61
+#: source/php/Responses.php:62
 msgctxt "add new button"
 msgid "Add New"
 msgstr "Lägg till ny"
 
-#: source/php/Responses.php:62
+#: source/php/Responses.php:63
 #, php-format
 msgid "Add new %s"
 msgstr "Lägg till %s"
 
-#: source/php/Responses.php:63
+#: source/php/Responses.php:64
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: source/php/Responses.php:64
+#: source/php/Responses.php:65 source/php/Responses.php:108
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: source/php/Responses.php:65
+#: source/php/Responses.php:66
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: source/php/Responses.php:66
+#: source/php/Responses.php:67 source/php/Responses.php:105
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: source/php/Responses.php:67
+#: source/php/Responses.php:68 source/php/Responses.php:104
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: source/php/Responses.php:68
+#: source/php/Responses.php:69
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: source/php/Responses.php:69
+#: source/php/Responses.php:70
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: source/php/Responses.php:70
+#: source/php/Responses.php:71
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
 
-#: source/php/Responses.php:194
+#: source/php/Responses.php:98
+msgid "Topics"
+msgstr "Ämnen"
+
+#: source/php/Responses.php:106 source/php/Responses.php:107
+#, php-format
+msgid "Parent %s:"
+msgstr "Förälder %s:"
+
+#: source/php/Responses.php:109
+#, php-format
+msgid "Update %s"
+msgstr "Uppdatera %s"
+
+#: source/php/Responses.php:110
+#, php-format
+msgid "Add New %s"
+msgstr "Lägg till ny %s"
+
+#: source/php/Responses.php:111
+#, php-format
+msgid "New %s Name"
+msgstr "Ny %s namn"
+
+#: source/php/Responses.php:229
 msgid "Customer feedback summary"
 msgstr "Sammanfattning av feedback"
 
-#: source/php/Responses.php:194
+#: source/php/Responses.php:229
 msgid "since"
 msgstr "sedan"
 
-#: source/php/Responses.php:252
+#: source/php/Responses.php:287
 msgid ""
 "The feedback stats will be reset to zero (without removing the actual "
 "feedback messages) when a new version of the post is saved."
 msgstr "Statistiken återställs när sidan uppdateras."
 
-#: source/php/Responses.php:264
+#: source/php/Responses.php:299
 msgid "Page"
 msgstr "Sida"
 
-#: source/php/Responses.php:266 source/php/Responses.php:407
+#: source/php/Responses.php:301 source/php/Responses.php:462
 msgid "Has comment"
 msgstr "Har kommentar"
 
-#: source/php/Responses.php:267
+#: source/php/Responses.php:303
 msgid "Date"
 msgstr "Datum"
+
+#: source/php/Responses.php:472
+msgid "All topics"
+msgstr "Alla ämnen"
 
 #: source/php/Summary.php:65
 msgid "weekly"
@@ -361,19 +412,19 @@ msgstr "Sammanfattning av feedback"
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: templates/form.php:24
-msgid "Optional"
-msgstr "Valfritt"
+#: templates/form.php:22
+msgid "Select topic"
+msgstr "Välj ämne"
 
-#: templates/form.php:34
+#: templates/form.php:48
 msgid "Send"
 msgstr "Skicka"
 
-#: templates/form.php:41
+#: templates/form.php:55
 msgid "Something went wrong, please try again later."
 msgstr "Något gick fel, vänligen försök igen senare."
 
-#: templates/form.php:44
+#: templates/form.php:58
 msgid "You have already given feedback for this content."
 msgstr "Du har redan gett feedback på innehållet för denna sidan."
 
@@ -398,11 +449,11 @@ msgstr "Totalsammanfattning av svar"
 msgid "Pending feedback"
 msgstr "Väntande feedback (behöver behandlas)"
 
-#: templates/summary-view.php:62
+#: templates/summary-view.php:69
 msgid "View feedback"
 msgstr "Visa feedback"
 
-#: templates/summary-view.php:65
+#: templates/summary-view.php:72
 msgid "View page"
 msgstr "Visa sida"
 
@@ -430,6 +481,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Optional"
+#~ msgstr "Valfritt"
 
 #~ msgid "Daily summary"
 #~ msgstr "Daglig sammanfattning"

@@ -95,20 +95,20 @@ class Responses
      * Register a 'topic' taxonomy for post type 'customer-feedback'.
      */
     public function registerTaxonomy() {
-        $namePlural = 'Topics';
-        $nameSingular = 'Topic';
+        $namePlural = __('Topics', 'customer-feedback');
+        $nameSingular = __('Topic', 'customer-feedback');
 
         $labels = array(
             'name'              => $namePlural,
             'singular_name'     => $nameSingular,
-            'search_items'      => sprintf(__('Search %s', 'todo'), $namePlural),
-            'all_items'         => sprintf(__('All %s', 'todo'), $namePlural),
-            'parent_item'       => sprintf(__('Parent %s:', 'todo'), $nameSingular),
-            'parent_item_colon' => sprintf(__('Parent %s:', 'todo'), $nameSingular) . ':',
-            'edit_item'         => sprintf(__('Edit %s', 'todo'), $nameSingular),
-            'update_item'       => sprintf(__('Update %s', 'todo'), $nameSingular),
-            'add_new_item'      => sprintf(__('Add New %s', 'todo'), $nameSingular),
-            'new_item_name'     => sprintf(__('New %s Name', 'todo'), $nameSingular),
+            'search_items'      => sprintf(__('Search %s', 'customer-feedback'), $namePlural),
+            'all_items'         => sprintf(__('All %s', 'customer-feedback'), $namePlural),
+            'parent_item'       => sprintf(__('Parent %s:', 'customer-feedback'), $nameSingular),
+            'parent_item_colon' => sprintf(__('Parent %s:', 'customer-feedback'), $nameSingular) . ':',
+            'edit_item'         => sprintf(__('Edit %s', 'customer-feedback'), $nameSingular),
+            'update_item'       => sprintf(__('Update %s', 'customer-feedback'), $nameSingular),
+            'add_new_item'      => sprintf(__('Add New %s', 'customer-feedback'), $nameSingular),
+            'new_item_name'     => sprintf(__('New %s Name', 'customer-feedback'), $nameSingular),
             'menu_name'         => $nameSingular,
         );
 

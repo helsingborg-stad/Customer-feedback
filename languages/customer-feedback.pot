@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-25 16:04+0200\n"
+"POT-Creation-Date: 2017-09-26 18:05+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -101,13 +101,18 @@ msgstr ""
 msgid "Posttypes"
 msgstr ""
 
+#: source/php/AcfFields/php/customer-feedback-settings.php:6
+#: source/php/Options.php:18
+msgid "Feedback options"
+msgstr ""
+
 #: source/php/AcfFields/php/customer-feedback-settings.php:10
 msgid "Main question"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-settings.php:13
 #: source/php/AcfFields/php/customer-feedback-settings.php:32
-#: source/php/AcfFields/php/customer-feedback-settings.php:89
+#: source/php/AcfFields/php/customer-feedback-settings.php:108
 msgid "Leave empty to use default."
 msgstr ""
 
@@ -132,7 +137,23 @@ msgid "Feedback form label if answer is \"Yes\". Leave empty to use default."
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-settings.php:86
+msgid "Feedback form label for topic"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:89
+msgid "Leave empty to use default"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-settings.php:105
 msgid "Completion message"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:10
+msgid "Feedback capability"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:21
+msgid "Check this box to add feedback capability to the topic."
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:6
@@ -140,29 +161,35 @@ msgid "Feedback data"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:10
-#: source/php/Responses.php:265 source/php/Responses.php:401
+#: source/php/Responses.php:300 source/php/Responses.php:456
 msgid "Answer"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:23
-#: source/php/Responses.php:286 source/php/Responses.php:291
-#: source/php/Responses.php:403 source/php/Responses.php:409
+#: source/php/Responses.php:322 source/php/Responses.php:334
+#: source/php/Responses.php:458 source/php/Responses.php:464
 #: templates/form.php:14 templates/summary-view.php:38
 msgid "Yes"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:24
-#: source/php/Responses.php:284 source/php/Responses.php:291
-#: source/php/Responses.php:402 source/php/Responses.php:408
+#: source/php/Responses.php:320 source/php/Responses.php:334
+#: source/php/Responses.php:457 source/php/Responses.php:463
 #: templates/form.php:15 templates/summary-view.php:42
 msgid "No"
 msgstr ""
 
-#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:52
+#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:76
+#: source/php/Responses.php:99 source/php/Responses.php:302
+#: templates/summary-view.php:55
+msgid "Topic"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback.php:56 source/php/Form.php:52
 msgid "Comment"
 msgstr ""
 
-#: source/php/AcfFields/php/customer-feedback.php:54
+#: source/php/AcfFields/php/customer-feedback.php:76
 msgid "Email"
 msgstr ""
 
@@ -184,7 +211,7 @@ msgid "How can we make the information better?"
 msgstr ""
 
 #: source/php/Form.php:58
-msgid "Please give us your email address if you want an answer."
+msgid "Please give us your email address to get a reply on your feedback."
 msgstr ""
 
 #: source/php/Form.php:60
@@ -225,16 +252,12 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: source/php/NeedsAttention.php:81 source/php/Responses.php:229
+#: source/php/NeedsAttention.php:81 source/php/Responses.php:264
 msgid "Negative"
 msgstr ""
 
-#: source/php/NeedsAttention.php:82 source/php/Responses.php:225
+#: source/php/NeedsAttention.php:82 source/php/Responses.php:260
 msgid "Positive"
-msgstr ""
-
-#: source/php/Options.php:18
-msgid "Feedback options"
 msgstr ""
 
 #: source/php/Options.php:29 source/php/Options.php:30
@@ -245,7 +268,7 @@ msgstr ""
 #: source/php/Options.php:36
 #, php-format
 msgid ""
-"This view shows pages that has a negative feedback rate of 30% or more. You "
+"This view shows pages that has a negative feedback rate of %s or more. You "
 "should consider improving these pages."
 msgstr ""
 
@@ -253,80 +276,108 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: source/php/Responses.php:61
+#: source/php/Responses.php:62
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: source/php/Responses.php:62
+#: source/php/Responses.php:63
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: source/php/Responses.php:63
+#: source/php/Responses.php:64
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: source/php/Responses.php:64
+#: source/php/Responses.php:65 source/php/Responses.php:108
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: source/php/Responses.php:65
+#: source/php/Responses.php:66
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: source/php/Responses.php:66
+#: source/php/Responses.php:67 source/php/Responses.php:105
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: source/php/Responses.php:67
+#: source/php/Responses.php:68 source/php/Responses.php:104
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: source/php/Responses.php:68
+#: source/php/Responses.php:69
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: source/php/Responses.php:69
+#: source/php/Responses.php:70
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: source/php/Responses.php:70
+#: source/php/Responses.php:71
 #, php-format
 msgid "No %s in trash"
 msgstr ""
 
-#: source/php/Responses.php:194
+#: source/php/Responses.php:98
+msgid "Topics"
+msgstr ""
+
+#: source/php/Responses.php:106 source/php/Responses.php:107
+#, php-format
+msgid "Parent %s:"
+msgstr ""
+
+#: source/php/Responses.php:109
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#: source/php/Responses.php:110
+#, php-format
+msgid "Add New %s"
+msgstr ""
+
+#: source/php/Responses.php:111
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#: source/php/Responses.php:229
 msgid "Customer feedback summary"
 msgstr ""
 
-#: source/php/Responses.php:194
+#: source/php/Responses.php:229
 msgid "since"
 msgstr ""
 
-#: source/php/Responses.php:252
+#: source/php/Responses.php:287
 msgid ""
 "The feedback stats will be reset to zero (without removing the actual "
 "feedback messages) when a new version of the post is saved."
 msgstr ""
 
-#: source/php/Responses.php:264
+#: source/php/Responses.php:299
 msgid "Page"
 msgstr ""
 
-#: source/php/Responses.php:266 source/php/Responses.php:407
+#: source/php/Responses.php:301 source/php/Responses.php:462
 msgid "Has comment"
 msgstr ""
 
-#: source/php/Responses.php:267
+#: source/php/Responses.php:303
 msgid "Date"
+msgstr ""
+
+#: source/php/Responses.php:472
+msgid "All topics"
 msgstr ""
 
 #: source/php/Summary.php:65
@@ -345,19 +396,19 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: templates/form.php:24
-msgid "Optional"
+#: templates/form.php:22
+msgid "Select topic"
 msgstr ""
 
-#: templates/form.php:34
+#: templates/form.php:48
 msgid "Send"
 msgstr ""
 
-#: templates/form.php:41
+#: templates/form.php:55
 msgid "Something went wrong, please try again later."
 msgstr ""
 
-#: templates/form.php:44
+#: templates/form.php:58
 msgid "You have already given feedback for this content."
 msgstr ""
 
@@ -382,11 +433,11 @@ msgstr ""
 msgid "Pending feedback"
 msgstr ""
 
-#: templates/summary-view.php:62
+#: templates/summary-view.php:69
 msgid "View feedback"
 msgstr ""
 
-#: templates/summary-view.php:65
+#: templates/summary-view.php:72
 msgid "View page"
 msgstr ""
 
