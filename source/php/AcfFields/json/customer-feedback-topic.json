@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_59c9fb9093d94",
-            "label": "Feedback capability",
+            "label": "Feedback",
             "name": "topic_feedback_capability",
             "type": "true_false",
             "instructions": "",
@@ -15,7 +15,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Check this box to add feedback capability to the topic.",
+            "message": "Add feedback capability",
             "default_value": 0,
             "ui": 0,
             "ui_on_text": "",

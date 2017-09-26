@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_59c9fb38d7e15',
-    'title' => 'Feedback topic',
+    'title' => __('Feedback topic', 'customer-feedback'),
     'fields' => array(
         0 => array(
             'key' => 'field_59c9fb9093d94',
-            'label' => __('Feedback capability', 'customer-feedback'),
+            'label' => __('Feedback', 'customer-feedback'),
             'name' => 'topic_feedback_capability',
             'type' => 'true_false',
             'instructions' => '',
@@ -18,7 +18,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('Check this box to add feedback capability to the topic.', 'customer-feedback'),
+            'message' => __('Add feedback capability', 'customer-feedback'),
             'default_value' => 0,
             'ui' => 0,
             'ui_on_text' => '',

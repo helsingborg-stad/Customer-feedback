@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-26 18:05+0200\n"
-"PO-Revision-Date: 2017-09-26 18:05+0200\n"
+"POT-Creation-Date: 2017-09-26 21:24+0200\n"
+"PO-Revision-Date: 2017-09-26 21:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -160,13 +160,20 @@ msgstr "Lämna tomt för att använda standardinställning"
 msgid "Completion message"
 msgstr "Meddelande vid slutfört flöde"
 
+#: source/php/AcfFields/php/customer-feedback-topic.php:6
+#, fuzzy
+#| msgid "Feedback options"
+msgid "Feedback topic"
+msgstr "Inställningar för feedback"
+
 #: source/php/AcfFields/php/customer-feedback-topic.php:10
-msgid "Feedback capability"
-msgstr "Möjlighet till återkoppling"
+#: source/php/Forwarding.php:40
+msgid "Feedback"
+msgstr "Återkoppling"
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:21
-msgid "Check this box to add feedback capability to the topic."
-msgstr "Kryssa i denna rutan för att lägga till möjlighet till återkoppling."
+msgid "Add feedback capability"
+msgstr "Möjlighet till återkoppling"
 
 #: source/php/AcfFields/php/customer-feedback.php:6
 msgid "Feedback data"
@@ -229,10 +236,6 @@ msgstr "Ange din e-postadress för att få återkoppling på din feedback."
 #: source/php/Form.php:60
 msgid "Thank you"
 msgstr "Tack för ditt svar"
-
-#: source/php/Forwarding.php:40
-msgid "Feedback"
-msgstr "Feedback"
 
 #: source/php/Forwarding.php:41
 msgid "Hey, you've got new feedback!"
@@ -481,6 +484,10 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Check this box to add feedback capability to the topic."
+#~ msgstr ""
+#~ "Kryssa i denna rutan för att lägga till möjlighet till återkoppling."
 
 #~ msgid "Optional"
 #~ msgstr "Valfritt"
