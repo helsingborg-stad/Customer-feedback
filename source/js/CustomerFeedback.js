@@ -59,7 +59,12 @@ CustomerFeedback.Form = (function ($) {
             if ($(e.target).val()) {
                 $(e.target).parents('.form-group').siblings().show();
                 $selected = $(e.target).find('option:selected');
-                $target.find('.topic-description').show().html($selected.attr('topic-description'));
+
+                if ($selected.attr('topic-description')) {
+                    $target.find('.topic-description').show().html($selected.attr('topic-description'));
+                } else {
+                    $target.find('.topic-description').hide();
+                }
 
                 if ($selected.attr('feedback-capability')) {
                     $target.find('[name="customer-feedback-comment-email"]')
