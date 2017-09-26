@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_59118fb9c53de',
-    'title' => 'Feedback options',
+    'title' => __('Feedback options', 'customer-feedback'),
     'fields' => array(
         0 => array(
             'key' => 'field_59118fbef0608',
@@ -82,6 +82,25 @@
             'maxlength' => '',
         ),
         4 => array(
+            'key' => 'field_59ca1b4fd1228',
+            'label' => __('Feedback form label for topic', 'customer-feedback'),
+            'name' => 'customer_feedback_label_topic',
+            'type' => 'text',
+            'instructions' => __('Leave empty to use default', 'customer-feedback'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        5 => array(
             'key' => 'field_59119076f060b',
             'label' => __('Completion message', 'customer-feedback'),
             'name' => 'customer_feedback_thanks',

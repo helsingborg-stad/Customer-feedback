@@ -79,6 +79,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_59ca1b4fd1228",
+            "label": "Feedback form label for topic",
+            "name": "customer_feedback_label_topic",
+            "type": "text",
+            "instructions": "Leave empty to use default",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_59119076f060b",
             "label": "Completion message",
             "name": "customer_feedback_thanks",
