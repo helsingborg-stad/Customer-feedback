@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-27 09:22+0200\n"
+"POT-Creation-Date: 2017-09-27 13:08+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -201,6 +201,10 @@ msgstr ""
 #: source/php/App.php:39
 #, php-format
 msgid "The comment must be more than %s characters."
+msgstr ""
+
+#: source/php/App.php:40
+msgid "Please select a topic."
 msgstr ""
 
 #: source/php/Form.php:37 source/php/Summary.php:180
@@ -401,19 +405,19 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: templates/form.php:22
+#: templates/form.php:23
 msgid "Select topic"
 msgstr ""
 
-#: templates/form.php:49
+#: templates/form.php:58
 msgid "Send"
 msgstr ""
 
-#: templates/form.php:56
+#: templates/form.php:65
 msgid "Something went wrong, please try again later."
 msgstr ""
 
-#: templates/form.php:59
+#: templates/form.php:68
 msgid "You have already given feedback for this content."
 msgstr ""
 

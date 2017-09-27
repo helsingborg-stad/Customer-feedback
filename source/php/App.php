@@ -37,6 +37,7 @@ class App
         wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', false, '1.0.0', true);
         wp_localize_script('customer-feedback', 'feedback', array(
             'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
+            'select_topic' => __('Please select a topic.', 'customer-feedback')
         ));
 
         global $post;

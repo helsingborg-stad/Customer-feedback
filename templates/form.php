@@ -5,7 +5,7 @@
     <div class="grid">
         <div class="grid-xs-12">
             <h4 class="box-title "><i class="pricon pricon-question-o"></i> <?php echo $mainQuestion ?></h4>
-            <p><?php echo $mainQuestionSub; ?></p>
+            <p class="text-sm"><?php echo $mainQuestionSub; ?></p>
         </div>
         <div class="grid-xs-12">
             <div class="gutter gutter-top gutter-sm">
@@ -16,14 +16,13 @@
                 </div>
                 <div class="customer-feedback-comment text-left gutter gutter-top gutter-sm" style="display: none;">
                     <?php if (!empty($topics)): ?>
-                    <div class="form-group">
-                        <label for="customer-feedback-comment-topic-<?php echo $num; ?>" class="feedback-label-topic"><?php echo $topicLabel; ?></label>
-                        <select id="customer-feedback-comment-topic-<?php echo $num; ?>" name="customer-feedback-comment-topic">
-                            <option value=""><?php _e('Select topic', 'customer-feedback'); ?></option>
-                            <?php foreach ($topics as $topic): ?>
-                                <option value="<?php echo $topic->term_id; ?>" topic-description="<?php echo $topic->description; ?>" feedback-capability="<?php echo $topic->feedback_capability; ?>"><?php echo $topic->name; ?></option>
-                            <?php endforeach ?>
-                        </select>
+                    <div class="form-group customer-feedback-topics">
+                        <label for="customer-feedback-comment-topic-<?php echo $num; ?>"><?php echo $topicLabel; ?></label>
+                        <?php foreach ($topics as $topic): ?>
+                            <label class="radio">
+                                <input type="radio" value="<?php echo $topic->term_id; ?>" topic-description="<?php echo $topic->description; ?>" name="customer-feedback-comment-topic" feedback-capability="<?php echo $topic->feedback_capability; ?>"> <?php echo $topic->name; ?>
+                            </label>
+                        <?php endforeach ?>
                     </div>
                     <div class="form-group">
                         <div class="topic-description notice info" style="display:none;">test</div>
@@ -32,12 +31,12 @@
                     <div class="form-group">
                         <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-yes" style="display: none;"><?php echo $positiveLabel; ?></label>
                         <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-no" style="display: none;"><?php echo $negativeLabel; ?></label>
-                        <small class="block-level"><?php echo $commentExplain; ?></small>
+                        <p class="text-sm block-level"><?php echo $commentExplain; ?></p>
                         <textarea class="form-control" style="height: 100px;" id="customer-feedback-comment-text-<?php echo $num; ?>" name="customer-feedback-comment-text"></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display:none;">
                         <label for="customer-feedback-comment-email-<?php echo $num; ?>"><?php echo $emailLabel; ?></label>
-                        <small class="block-level"><?php echo $emailExplain; ?></small>
+                        <p class="text-sm block-level"><?php echo $emailExplain; ?></p>
                         <input type="email" id="customer-feedback-comment-email-<?php echo $num; ?>" name="customer-feedback-comment-email" value="<?php echo $userEmail; ?>">
                     </div>
                     <?php if ($reCaptcha) : ?>

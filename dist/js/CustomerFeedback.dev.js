@@ -36,15 +36,25 @@ CustomerFeedback.Form = (function ($) {
             var gCaptcha = $target.find('[name="g-recaptcha-response"]').val();
             var email = $target.find('[name="customer-feedback-comment-email"]').val();
             var emailRequired = $target.find('[name="customer-feedback-comment-email"]').prop('required');
-            var topic = $target.find('[name="customer-feedback-comment-topic"]').val();
+            var topic = $target.find('[name="customer-feedback-comment-topic"]:checked').val();
+            var valid = true;
+
+            if ($('div.customer-feedback-topics').is(":visible") && !topic) {
+                $target.find('[name="customer-feedback-comment-topic"]:last').parent().after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.select_topic + '</div>');
+                valid = false;
+            }
 
             if (comment.length < 15) {
                 $target.find('[name="customer-feedback-comment-text"]').addClass('invalid');
                 $target.find('[name="customer-feedback-comment-text"]').after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.comment_min_characters + '</div>');
-                return false;
+                valid = false;
             }
 
             if (email.length === 0 && emailRequired == true) {
+                valid = false;
+            }
+
+            if (!valid) {
                 return false;
             }
 
@@ -55,28 +65,22 @@ CustomerFeedback.Form = (function ($) {
 
         $('[name="customer-feedback-comment-topic"]').change(function(e) {
             $target = $(e.target).parents('.customer-feedback-container');
+            $target.find('div.customer-feedback-topics div.danger').remove();
 
-            if ($(e.target).val()) {
-                $(e.target).parents('.form-group').siblings().show();
-                $selected = $(e.target).find('option:selected');
-
-                if ($selected.attr('topic-description')) {
-                    $target.find('.topic-description').show().html($selected.attr('topic-description'));
-                } else {
-                    $target.find('.topic-description').hide();
-                }
-
-                if ($selected.attr('feedback-capability')) {
-                    $target.find('[name="customer-feedback-comment-email"]')
-                        .prop('required', true)
-                            .parent().show();
-                } else {
-                    $target.find('[name="customer-feedback-comment-email"]')
-                        .prop('required', false)
-                            .parent().hide();
-                }
+            if ($(e.target).attr('topic-description')) {
+                $target.find('.topic-description').show().html($(e.target).attr('topic-description'));
             } else {
-                $(e.target).parents('.form-group').siblings().hide();
+                $target.find('.topic-description').hide();
+            }
+
+            if ($(e.target).attr('feedback-capability')) {
+                $target.find('[name="customer-feedback-comment-email"]')
+                    .prop('required', true)
+                        .parent().show();
+            } else {
+                $target.find('[name="customer-feedback-comment-email"]')
+                    .prop('required', false)
+                        .parent().hide();
             }
         });
     };
@@ -123,7 +127,7 @@ CustomerFeedback.Form = (function ($) {
 
         $.post(ajaxurl, data, function (response) {
             if (data.answer == 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                $target.find('[name="customer-feedback-comment-topic"]').parent().hide();
+                $target.find('.customer-feedback-topics').hide();
                 $target.find('[name="customer-feedback-comment-email"]').parent().hide();
                 $target.find('[name="customer-feedback-post-id"]').after('<input type="hidden" name="customer-feedback-answer-id" value="' + response + '">');
                 $target.find('.customer-feedback-answers').remove();
@@ -131,7 +135,6 @@ CustomerFeedback.Form = (function ($) {
             }
 
             if (data.answer == 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                $target.find('[name="customer-feedback-comment-topic"]').trigger('change');
                 $target.find('[name="customer-feedback-post-id"]').after('<input type="hidden" name="customer-feedback-answer-id" value="' + response + '">');
                 $target.find('.customer-feedback-answers').remove();
                 $target.find('.customer-feedback-comment').show().find('.feedback-label-no').show();
