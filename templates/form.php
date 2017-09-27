@@ -4,8 +4,8 @@
 
     <div class="grid">
         <div class="grid-xs-12">
-            <h4 class="box-title no-padding"><i class="pricon pricon-question-o"></i> <?php echo $mainQuestion ?></h4>
-            <?php echo $mainQuestionSub; ?>
+            <h4 class="box-title "><i class="pricon pricon-question-o"></i> <?php echo $mainQuestion ?></h4>
+            <p><?php echo $mainQuestionSub; ?></p>
         </div>
         <div class="grid-xs-12">
             <div class="gutter gutter-top gutter-sm">
@@ -32,6 +32,7 @@
                     <div class="form-group">
                         <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-yes" style="display: none;"><?php echo $positiveLabel; ?></label>
                         <label for="customer-feedback-comment-text-<?php echo $num; ?>" class="feedback-label-no" style="display: none;"><?php echo $negativeLabel; ?></label>
+                        <small class="block-level"><?php echo $commentExplain; ?></small>
                         <textarea class="form-control" style="height: 100px;" id="customer-feedback-comment-text-<?php echo $num; ?>" name="customer-feedback-comment-text"></textarea>
                     </div>
                     <div class="form-group">

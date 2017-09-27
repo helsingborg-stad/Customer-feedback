@@ -54,6 +54,7 @@ class Form
             $positiveLabel = get_field('customer_feedback_feedback_label_yes', 'option');
         }
 
+        $commentExplain = __('Note that your comment will become public act.', 'customer-feedback');
         $emailLabel = __('Email address', 'customer-feedback');
         $emailExplain = __('Please give us your email address to get a reply on your feedback.', 'customer-feedback');
 
