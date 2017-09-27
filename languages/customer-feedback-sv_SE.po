@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-26 21:24+0200\n"
-"PO-Revision-Date: 2017-09-26 21:26+0200\n"
+"POT-Creation-Date: 2017-09-27 09:22+0200\n"
+"PO-Revision-Date: 2017-09-27 09:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -25,7 +25,7 @@ msgid "Summaries"
 msgstr "Sammanfattningar"
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:16
-#: source/php/Form.php:57
+#: source/php/Form.php:58
 msgid "Email address"
 msgstr "E-postadress"
 
@@ -161,10 +161,8 @@ msgid "Completion message"
 msgstr "Meddelande vid slutfört flöde"
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:6
-#, fuzzy
-#| msgid "Feedback options"
 msgid "Feedback topic"
-msgstr "Inställningar för feedback"
+msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:10
 #: source/php/Forwarding.php:40
@@ -198,7 +196,7 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nej"
 
-#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:76
+#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:77
 #: source/php/Responses.php:99 source/php/Responses.php:302
 #: templates/summary-view.php:55
 msgid "Topic"
@@ -229,11 +227,15 @@ msgstr "Ge oss feedback så att vi kan göra vår information bättre."
 msgid "How can we make the information better?"
 msgstr "Hur kan vi förbättra vår information?"
 
-#: source/php/Form.php:58
+#: source/php/Form.php:57
+msgid "Note that your comment will become public act."
+msgstr "Observera att din kommentar blir offentlig handling."
+
+#: source/php/Form.php:59
 msgid "Please give us your email address to get a reply on your feedback."
 msgstr "Ange din e-postadress för att få återkoppling på din feedback."
 
-#: source/php/Form.php:60
+#: source/php/Form.php:61
 msgid "Thank you"
 msgstr "Tack för ditt svar"
 
@@ -419,15 +421,15 @@ msgstr "Sammanfattning"
 msgid "Select topic"
 msgstr "Välj ämne"
 
-#: templates/form.php:48
+#: templates/form.php:49
 msgid "Send"
 msgstr "Skicka"
 
-#: templates/form.php:55
+#: templates/form.php:56
 msgid "Something went wrong, please try again later."
 msgstr "Något gick fel, vänligen försök igen senare."
 
-#: templates/form.php:58
+#: templates/form.php:59
 msgid "You have already given feedback for this content."
 msgstr "Du har redan gett feedback på innehållet för denna sidan."
 

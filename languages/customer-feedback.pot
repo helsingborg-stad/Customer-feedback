@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-26 21:24+0200\n"
+"POT-Creation-Date: 2017-09-27 09:22+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,7 +25,7 @@ msgid "Summaries"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-daily-summary.php:16
-#: source/php/Form.php:57
+#: source/php/Form.php:58
 msgid "Email address"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:76
+#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:77
 #: source/php/Responses.php:99 source/php/Responses.php:302
 #: templates/summary-view.php:55
 msgid "Topic"
@@ -215,11 +215,15 @@ msgstr ""
 msgid "How can we make the information better?"
 msgstr ""
 
-#: source/php/Form.php:58
+#: source/php/Form.php:57
+msgid "Note that your comment will become public act."
+msgstr ""
+
+#: source/php/Form.php:59
 msgid "Please give us your email address to get a reply on your feedback."
 msgstr ""
 
-#: source/php/Form.php:60
+#: source/php/Form.php:61
 msgid "Thank you"
 msgstr ""
 
@@ -401,15 +405,15 @@ msgstr ""
 msgid "Select topic"
 msgstr ""
 
-#: templates/form.php:48
+#: templates/form.php:49
 msgid "Send"
 msgstr ""
 
-#: templates/form.php:55
+#: templates/form.php:56
 msgid "Something went wrong, please try again later."
 msgstr ""
 
-#: templates/form.php:58
+#: templates/form.php:59
 msgid "You have already given feedback for this content."
 msgstr ""
 
