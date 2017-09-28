@@ -12,7 +12,7 @@ class Forwarding
      * @param  string $email    The email address belonging to the comment
      * @return void
      */
-    public static function maybeForward($answerId, $postId, $comment, $email)
+    public static function maybeForward($answerId, $postId, $comment, $email, $topicId)
     {
         $toGlobal = get_field('feedback_forwarding', 'option');
         $toLocal = get_field('feedback_forwarding', $postId);
@@ -40,6 +40,13 @@ class Forwarding
         $subject = get_field('email_subject', 'option') ? get_field('email_subject', 'option') : __('Feedback', 'customer-feedback');
         $message = get_field('email_lead_message', 'option') ? get_field('email_lead_message', 'option') : __('Hey, you\'ve got new feedback!', 'customer-feedback');
 
+        $topic = '';
+        if ($topicId) {
+            $topic = get_term($topicId, 'feedback_topic');
+            $topic = '<br><br>' . __('Topic', 'customer-feedback') . ': ' . $topic->name;
+        }
+
+        $message .= $topic;
         $message .= '<br><br>' . $comment;
         $message .= '<br><br>' . __('Sent from:', 'customer-feedback') . ' ' . get_permalink($postId);
 
