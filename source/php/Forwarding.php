@@ -10,6 +10,7 @@ class Forwarding
      * @param  int $postId
      * @param  string $comment  The comment text
      * @param  string $email    The email address belonging to the comment
+     * @param  int $topicId     Topic Id
      * @return void
      */
     public static function maybeForward($answerId, $postId, $comment, $email, $topicId)
@@ -26,8 +27,9 @@ class Forwarding
         }
 
         $to = array_merge($toGlobal, $toLocal);
+        $forward = get_field('topic_feedback_forwarding', 'feedback_topic_' . $topicId);
 
-        if (empty($to)) {
+        if (empty($to) || !$forward) {
             return;
         }
 
