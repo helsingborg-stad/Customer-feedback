@@ -1,6 +1,14 @@
 var CustomerFeedback = {};
 
+var CaptchaCallback = function() {
+    jQuery('.g-recaptcha').each(function(index, el) {
+        grecaptcha.render(el, {'sitekey' : feedback.site_key});
+    });
+};
+
+CustomerFeedback = CustomerFeedback || {};
 CustomerFeedback.Form = CustomerFeedback.Form || {};
+
 CustomerFeedback.Form = (function ($) {
 
     function Form() {
@@ -68,7 +76,7 @@ CustomerFeedback.Form = (function ($) {
             $target.find('div.customer-feedback-topics div.danger').remove();
 
             if ($(e.target).attr('topic-description')) {
-                $target.find('.topic-description').show().html($(e.target).attr('topic-description'));
+                $target.find('.topic-description').show().html('<span class="text-sm">' + $(e.target).attr('topic-description') + '</span>');
             } else {
                 $target.find('.topic-description').hide();
             }
