@@ -81,6 +81,7 @@ class Form
 
         if (!empty($topics)) {
             foreach ($topics as $topic) {
+                $topic->description = trim($topic->description);
                 $topic->feedback_capability = get_field('topic_feedback_capability', 'feedback_topic_' . $topic->term_id);
             }
         }
