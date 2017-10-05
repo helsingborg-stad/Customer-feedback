@@ -24,6 +24,25 @@
             'ui_on_text' => '',
             'ui_off_text' => '',
         ),
+        1 => array(
+            'key' => 'field_59d60e93873e6',
+            'label' => __('Forwarding', 'customer-feedback'),
+            'name' => 'topic_feedback_forwarding',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('Forward feedback from this topic', 'customer-feedback'),
+            'default_value' => 0,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
+        ),
     ),
     'location' => array(
         0 => array(
