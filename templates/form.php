@@ -12,12 +12,13 @@
                 <?php if (!isset($_COOKIE['customer-feedback']) || !in_array(get_the_id(), unserialize(stripslashes($_COOKIE['customer-feedback'])))) : ?>
                 <div class="customer-feedback-answers">
                     <button rel="nofollow" class="btn btn-success" value="yes" data-action="customer-feedback-submit-response"><?php _e('Yes'); ?></button>
-                    <button rel="nofollow" class="btn btn-error" value="no" data-action="customer-feedback-submit-response"><?php _e('No'); ?></a>
+                    <button rel="nofollow" class="btn btn-error" value="no" data-action="customer-feedback-submit-response"><?php _e('No'); ?></button>
                 </div>
                 <div class="customer-feedback-comment text-left gutter gutter-top gutter-sm" style="display: none;">
                     <?php if (!empty($topics)): ?>
                     <div class="form-group customer-feedback-topics">
                         <label for="customer-feedback-comment-topic-<?php echo $num; ?>"><?php echo $topicLabel; ?></label>
+                        <p class="text-sm block-level"><?php echo $addComment; ?></p>
                         <?php foreach ($topics as $topic): ?>
                             <label class="radio">
                                 <input type="radio" value="<?php echo $topic->term_id; ?>" topic-description="<?php echo $topic->description; ?>" name="customer-feedback-comment-topic" feedback-capability="<?php echo $topic->feedback_capability; ?>"> <?php echo $topic->name; ?>
@@ -25,7 +26,7 @@
                         <?php endforeach ?>
                     </div>
                     <div class="form-group">
-                        <div class="topic-description notice info" style="display:none;">test</div>
+                        <div class="topic-description notice info" style="display:none;"></div>
                     </div>
                     <?php endif ?>
                     <div class="form-group">
@@ -39,9 +40,9 @@
                         <p class="text-sm block-level"><?php echo $emailExplain; ?></p>
                         <input type="email" id="customer-feedback-comment-email-<?php echo $num; ?>" name="customer-feedback-comment-email" value="<?php echo $userEmail; ?>">
                     </div>
-                    <?php if ($reCaptcha) : ?>
+                    <?php if (!is_user_logged_in()) : ?>
                     <div class="form-group">
-                        <div class="g-recaptcha" data-sitekey="<?php echo $reCaptcha; ?>"></div>
+                        <div class="g-recaptcha"></div>
                     </div>
                     <?php endif; ?>
                     <div class="form-group">

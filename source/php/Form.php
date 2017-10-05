@@ -57,6 +57,7 @@ class Form
         $commentExplain = __('Note that your comment will become public act.', 'customer-feedback');
         $emailLabel = __('Email address', 'customer-feedback');
         $emailExplain = __('Please give us your email address to get a reply on your feedback.', 'customer-feedback');
+        $addComment = __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback');
 
         $thanksText = __('Thank you', 'customer-feedback');
         if (function_exists('get_field') && !empty(get_field('customer_feedback_thanks', 'option'))) {
@@ -85,8 +86,6 @@ class Form
                 $topic->feedback_capability = get_field('topic_feedback_capability', 'feedback_topic_' . $topic->term_id);
             }
         }
-
-        $reCaptcha = (!is_user_logged_in() && defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '';
 
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
     }
