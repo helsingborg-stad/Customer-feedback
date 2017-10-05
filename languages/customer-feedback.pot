@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-10-05 11:22+0200\n"
+"POT-Creation-Date: 2017-10-05 14:00+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -153,12 +153,20 @@ msgid "Feedback topic"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:10
-#: source/php/Forwarding.php:40
+#: source/php/Forwarding.php:42
 msgid "Feedback"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:21
 msgid "Add feedback capability"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:29
+msgid "Forwarding"
+msgstr ""
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:40
+msgid "Forward feedback from this topic"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:6
@@ -185,7 +193,7 @@ msgid "No"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:78
-#: source/php/Forwarding.php:46 source/php/Responses.php:99
+#: source/php/Forwarding.php:48 source/php/Responses.php:99
 #: source/php/Responses.php:302 templates/summary-view.php:55
 msgid "Topic"
 msgstr ""
@@ -237,15 +245,15 @@ msgstr ""
 msgid "Thank you"
 msgstr ""
 
-#: source/php/Forwarding.php:41
+#: source/php/Forwarding.php:43
 msgid "Hey, you've got new feedback!"
 msgstr ""
 
-#: source/php/Forwarding.php:51
+#: source/php/Forwarding.php:53
 msgid "Sent from:"
 msgstr ""
 
-#: source/php/Forwarding.php:56
+#: source/php/Forwarding.php:58
 msgid ""
 "Note: The sender did not leave his/her email address. You will not be able "
 "to answer this feedback message."

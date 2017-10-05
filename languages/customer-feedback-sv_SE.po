@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-10-05 11:22+0200\n"
-"PO-Revision-Date: 2017-10-05 11:22+0200\n"
+"POT-Creation-Date: 2017-10-05 14:00+0200\n"
+"PO-Revision-Date: 2017-10-05 14:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -165,13 +165,21 @@ msgid "Feedback topic"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:10
-#: source/php/Forwarding.php:40
+#: source/php/Forwarding.php:42
 msgid "Feedback"
 msgstr "Återkoppling"
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:21
 msgid "Add feedback capability"
 msgstr "Möjlighet till återkoppling"
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:29
+msgid "Forwarding"
+msgstr "Vidarebefordring"
+
+#: source/php/AcfFields/php/customer-feedback-topic.php:40
+msgid "Forward feedback from this topic"
+msgstr "Vidarebefordra feedback från detta ämnet"
 
 #: source/php/AcfFields/php/customer-feedback.php:6
 msgid "Feedback data"
@@ -197,7 +205,7 @@ msgid "No"
 msgstr "Nej"
 
 #: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:78
-#: source/php/Forwarding.php:46 source/php/Responses.php:99
+#: source/php/Forwarding.php:48 source/php/Responses.php:99
 #: source/php/Responses.php:302 templates/summary-view.php:55
 msgid "Topic"
 msgstr "Ämne"
@@ -249,15 +257,15 @@ msgstr ""
 msgid "Thank you"
 msgstr "Tack för ditt svar"
 
-#: source/php/Forwarding.php:41
+#: source/php/Forwarding.php:43
 msgid "Hey, you've got new feedback!"
 msgstr "Hej, du har fått ny feedback!"
 
-#: source/php/Forwarding.php:51
+#: source/php/Forwarding.php:53
 msgid "Sent from:"
 msgstr "Skickat från:"
 
-#: source/php/Forwarding.php:56
+#: source/php/Forwarding.php:58
 msgid ""
 "Note: The sender did not leave his/her email address. You will not be able "
 "to answer this feedback message."
@@ -505,9 +513,6 @@ msgstr ""
 
 #~ msgid "Daily summary"
 #~ msgstr "Daglig sammanfattning"
-
-#~ msgid "Reset feedback for this post"
-#~ msgstr "Återställ feedback för denna sida"
 
 #~ msgid ""
 #~ "Are you sure you want to reset the feedback of the post? You will not be "
