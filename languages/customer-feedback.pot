@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-09-27 13:08+0200\n"
+"POT-Creation-Date: 2017-10-05 11:22+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -184,9 +184,9 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:77
-#: source/php/Responses.php:99 source/php/Responses.php:302
-#: templates/summary-view.php:55
+#: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:78
+#: source/php/Forwarding.php:46 source/php/Responses.php:99
+#: source/php/Responses.php:302 templates/summary-view.php:55
 msgid "Topic"
 msgstr ""
 
@@ -198,12 +198,12 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: source/php/App.php:39
+#: source/php/App.php:40
 #, php-format
 msgid "The comment must be more than %s characters."
 msgstr ""
 
-#: source/php/App.php:40
+#: source/php/App.php:41
 msgid "Please select a topic."
 msgstr ""
 
@@ -227,7 +227,13 @@ msgstr ""
 msgid "Please give us your email address to get a reply on your feedback."
 msgstr ""
 
-#: source/php/Form.php:61
+#: source/php/Form.php:60
+msgid ""
+"Please complete your feedback by selecting a category and entering a "
+"comment."
+msgstr ""
+
+#: source/php/Form.php:62
 msgid "Thank you"
 msgstr ""
 
@@ -235,11 +241,11 @@ msgstr ""
 msgid "Hey, you've got new feedback!"
 msgstr ""
 
-#: source/php/Forwarding.php:44
+#: source/php/Forwarding.php:51
 msgid "Sent from:"
 msgstr ""
 
-#: source/php/Forwarding.php:49
+#: source/php/Forwarding.php:56
 msgid ""
 "Note: The sender did not leave his/her email address. You will not be able "
 "to answer this feedback message."
@@ -405,19 +411,15 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: templates/form.php:23
-msgid "Select topic"
-msgstr ""
-
-#: templates/form.php:58
+#: templates/form.php:49
 msgid "Send"
 msgstr ""
 
-#: templates/form.php:65
+#: templates/form.php:56
 msgid "Something went wrong, please try again later."
 msgstr ""
 
-#: templates/form.php:68
+#: templates/form.php:59
 msgid "You have already given feedback for this content."
 msgstr ""
 
