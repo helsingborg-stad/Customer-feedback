@@ -38,6 +38,8 @@ class Responses
 
         add_action('pre_get_posts', array($this, 'listColumnsSortingQuery'), 15);
         add_action('restrict_manage_posts', array($this, 'listFilters'), 10, 2);
+
+        add_action('edit_form_after_title', array($this, 'displayFeedbackId'), 10, 1);
     }
 
     /**
@@ -569,5 +571,17 @@ class Responses
         }
 
         wp_die();
+    }
+
+    /**
+     * Display feedback ID
+     * @param  obj $post Current post object
+     * @return void
+     */
+    public function displayFeedbackId($post)
+    {
+        if ($post->post_type == $this->postTypeSlug) {
+            echo '<div class="inside"><span><strong>' . __('Feedback ID') . ':</strong> ' . $post->ID . '</span></div>';
+        }
     }
 }
