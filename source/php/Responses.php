@@ -297,6 +297,7 @@ class Responses
         $columns = array(
             'cb'     => '<input type="checkbox">',
             'title'  => __('Page', 'customer-feedback'),
+            'id'     => __('ID', 'customer-feedback'),
             'answer' => __('Answer', 'customer-feedback'),
             'hasComment'   => __('Has comment', 'customer-feedback'),
             'topic' => __('Topic', 'customer-feedback'),
@@ -315,6 +316,9 @@ class Responses
     public function listColumnsContent($column, $postId)
     {
         switch ($column) {
+            case 'id':
+                echo $postId;
+                break;
             case 'answer':
                 if (get_post_meta($postId, 'customer_feedback_answer', true) == 'no') {
                     echo '<span style="color:#BA3030;">' . __('No') . '</span>';
@@ -345,6 +349,7 @@ class Responses
     {
         $columns['answer'] = 'answer';
         $columns['hasComment'] = 'has-comment';
+        $columns['id'] = 'id';
 
         return $columns;
     }
