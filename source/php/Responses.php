@@ -554,16 +554,16 @@ class Responses
             update_post_meta($answerId, 'customer_feedback_comment', $comment);
             update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
             update_post_meta($answerId, 'customer_feedback_email', $email);
+            if ($topicId) {
+                wp_set_post_terms($answerId, array($topicId), 'feedback_topic');
+            }
 
             wp_update_post(array(
                 'ID' => $answerId,
                 'post_status' => 'pending'
             ));
 
-            if ($topicId) {
-                wp_set_post_terms($answerId, array($topicId), 'feedback_topic');
-                \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email, $topicId);
-            }
+            \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email, $topicId);
 
             echo 'true';
         } else {

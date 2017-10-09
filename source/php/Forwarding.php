@@ -27,9 +27,14 @@ class Forwarding
         }
 
         $to = array_merge($toGlobal, $toLocal);
-        $forward = get_field('topic_feedback_forwarding', 'feedback_topic_' . $topicId);
 
-        if (empty($to) || !$forward) {
+        // Bail if forwarding address is missing
+        if (empty($to)) {
+            return;
+        }
+
+        // Bail if topic forwarding setting is false
+        if ($topicId && !get_field('topic_feedback_forwarding', 'feedback_topic_' . $topicId)) {
             return;
         }
 
