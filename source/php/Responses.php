@@ -498,16 +498,16 @@ class Responses
         $cookieExpire = time() + (86400 * $cookieExpireDays);
 
         if (!isset($_COOKIE['customer-feedback'])) {
-            setcookie('customer-feedback', serialize(array($postId)), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
+            setcookie('customer-feedback', base64_encode(serialize(array($postId))), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
         } else {
-            if (in_array($postId, unserialize(stripslashes($_COOKIE['customer-feedback'])))) {
+            if (in_array($postId, unserialize(base64_decode(stripslashes($_COOKIE['customer-feedback']))))) {
                 echo 'cookie_error';
                 wp_die();
             }
 
-            $cookieVal = unserialize($_COOKIE['customer-feedback']);
+            $cookieVal = unserialize(base64_decode($_COOKIE['customer-feedback']));
             $cookieVal[] = $postId;
-            setcookie('customer-feedback', serialize($cookieVal), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
+            setcookie('customer-feedback', base64_encode(serialize($cookieVal)), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
         }
 
         if ($postId && $answer) {

@@ -9,7 +9,7 @@
         </div>
         <div class="grid-xs-12">
             <div class="gutter gutter-top gutter-sm">
-                <?php if (!isset($_COOKIE['customer-feedback']) || !in_array(get_the_id(), unserialize(stripslashes($_COOKIE['customer-feedback'])))) : ?>
+                <?php if (!isset($_COOKIE['customer-feedback']) || !in_array(get_the_id(), unserialize(base64_decode(stripslashes($_COOKIE['customer-feedback']))))) : ?>
                 <div class="customer-feedback-answers">
                     <button rel="nofollow" class="btn btn-success" value="yes" data-action="customer-feedback-submit-response"><?php _e('Yes'); ?></button>
                     <button rel="nofollow" class="btn btn-error" value="no" data-action="customer-feedback-submit-response"><?php _e('No'); ?></button>
