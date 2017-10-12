@@ -42,7 +42,7 @@ class Summary
             wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'monthly'));
 
             wp_schedule_event(
-                strtotime('tomorrow midnight -2 hour'),
+                strtotime('tomorrow midnight -3 hour'),
                 $summary['interval'],
                 'customer-feedback/email_summary',
                 array(
