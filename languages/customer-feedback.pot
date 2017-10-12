@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2017-10-05 14:00+0200\n"
+"POT-Creation-Date: 2017-10-12 13:30+0200\n"
 "PO-Revision-Date: 2016-05-09 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -153,7 +153,7 @@ msgid "Feedback topic"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback-topic.php:10
-#: source/php/Forwarding.php:42
+#: source/php/Forwarding.php:47
 msgid "Feedback"
 msgstr ""
 
@@ -174,27 +174,27 @@ msgid "Feedback data"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:10
-#: source/php/Responses.php:300 source/php/Responses.php:456
+#: source/php/Responses.php:303 source/php/Responses.php:463
 msgid "Answer"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:23
-#: source/php/Responses.php:322 source/php/Responses.php:334
-#: source/php/Responses.php:458 source/php/Responses.php:464
+#: source/php/Responses.php:328 source/php/Responses.php:340
+#: source/php/Responses.php:465 source/php/Responses.php:471
 #: templates/form.php:14 templates/summary-view.php:38
 msgid "Yes"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:24
-#: source/php/Responses.php:320 source/php/Responses.php:334
-#: source/php/Responses.php:457 source/php/Responses.php:463
+#: source/php/Responses.php:326 source/php/Responses.php:340
+#: source/php/Responses.php:464 source/php/Responses.php:470
 #: templates/form.php:15 templates/summary-view.php:42
 msgid "No"
 msgstr ""
 
 #: source/php/AcfFields/php/customer-feedback.php:34 source/php/Form.php:78
-#: source/php/Forwarding.php:48 source/php/Responses.php:99
-#: source/php/Responses.php:302 templates/summary-view.php:55
+#: source/php/Forwarding.php:53 source/php/Responses.php:101
+#: source/php/Responses.php:305 templates/summary-view.php:55
 msgid "Topic"
 msgstr ""
 
@@ -215,11 +215,11 @@ msgstr ""
 msgid "Please select a topic."
 msgstr ""
 
-#: source/php/Form.php:37 source/php/Summary.php:180
+#: source/php/Form.php:37 source/php/Summary.php:216
 msgid "Did the information on this page help you?"
 msgstr ""
 
-#: source/php/Form.php:42 source/php/Summary.php:185
+#: source/php/Form.php:42 source/php/Summary.php:221
 msgid "Answer the question to help us improve our information."
 msgstr ""
 
@@ -245,15 +245,15 @@ msgstr ""
 msgid "Thank you"
 msgstr ""
 
-#: source/php/Forwarding.php:43
+#: source/php/Forwarding.php:48
 msgid "Hey, you've got new feedback!"
 msgstr ""
 
-#: source/php/Forwarding.php:53
+#: source/php/Forwarding.php:58
 msgid "Sent from:"
 msgstr ""
 
-#: source/php/Forwarding.php:58
+#: source/php/Forwarding.php:63
 msgid ""
 "Note: The sender did not leave his/her email address. You will not be able "
 "to answer this feedback message."
@@ -275,11 +275,11 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: source/php/NeedsAttention.php:81 source/php/Responses.php:264
+#: source/php/NeedsAttention.php:81 source/php/Responses.php:266
 msgid "Negative"
 msgstr ""
 
-#: source/php/NeedsAttention.php:82 source/php/Responses.php:260
+#: source/php/NeedsAttention.php:82 source/php/Responses.php:262
 msgid "Positive"
 msgstr ""
 
@@ -299,123 +299,131 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: source/php/Responses.php:62
+#: source/php/Responses.php:64
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: source/php/Responses.php:63
+#: source/php/Responses.php:65
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: source/php/Responses.php:64
+#: source/php/Responses.php:66
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: source/php/Responses.php:65 source/php/Responses.php:108
+#: source/php/Responses.php:67 source/php/Responses.php:110
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: source/php/Responses.php:66
+#: source/php/Responses.php:68
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: source/php/Responses.php:67 source/php/Responses.php:105
+#: source/php/Responses.php:69 source/php/Responses.php:107
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: source/php/Responses.php:68 source/php/Responses.php:104
+#: source/php/Responses.php:70 source/php/Responses.php:106
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: source/php/Responses.php:69
+#: source/php/Responses.php:71
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: source/php/Responses.php:70
+#: source/php/Responses.php:72
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: source/php/Responses.php:71
+#: source/php/Responses.php:73
 #, php-format
 msgid "No %s in trash"
 msgstr ""
 
-#: source/php/Responses.php:98
+#: source/php/Responses.php:100
 msgid "Topics"
 msgstr ""
 
-#: source/php/Responses.php:106 source/php/Responses.php:107
+#: source/php/Responses.php:108 source/php/Responses.php:109
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: source/php/Responses.php:109
+#: source/php/Responses.php:111
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: source/php/Responses.php:110
+#: source/php/Responses.php:112
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: source/php/Responses.php:111
+#: source/php/Responses.php:113
 #, php-format
 msgid "New %s Name"
 msgstr ""
 
-#: source/php/Responses.php:229
+#: source/php/Responses.php:231
 msgid "Customer feedback summary"
 msgstr ""
 
-#: source/php/Responses.php:229
+#: source/php/Responses.php:231
 msgid "since"
 msgstr ""
 
-#: source/php/Responses.php:287
+#: source/php/Responses.php:289
 msgid ""
 "The feedback stats will be reset to zero (without removing the actual "
 "feedback messages) when a new version of the post is saved."
 msgstr ""
 
-#: source/php/Responses.php:299
+#: source/php/Responses.php:301
 msgid "Page"
 msgstr ""
 
-#: source/php/Responses.php:301 source/php/Responses.php:462
+#: source/php/Responses.php:302
+msgid "ID"
+msgstr ""
+
+#: source/php/Responses.php:304 source/php/Responses.php:469
 msgid "Has comment"
 msgstr ""
 
-#: source/php/Responses.php:303
+#: source/php/Responses.php:306
 msgid "Date"
 msgstr ""
 
-#: source/php/Responses.php:472
+#: source/php/Responses.php:479
 msgid "All topics"
 msgstr ""
 
-#: source/php/Summary.php:65
+#: source/php/Responses.php:584
+msgid "Feedback ID"
+msgstr ""
+
+#: source/php/Summary.php:101
 msgid "weekly"
 msgstr ""
 
-#: source/php/Summary.php:70
+#: source/php/Summary.php:106
 msgid "monthly"
 msgstr ""
 
-#: source/php/Summary.php:114
+#: source/php/Summary.php:150
 msgid "Feedback summary"
 msgstr ""
 
-#: source/php/Summary.php:142 source/php/Summary.php:143
+#: source/php/Summary.php:178 source/php/Summary.php:179
 msgid "Summary"
 msgstr ""
 
