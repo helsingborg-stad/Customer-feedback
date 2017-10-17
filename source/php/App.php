@@ -43,7 +43,7 @@ class App
 
         global $post;
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
-        $allowedPostTypes = (!is_null($allowedPostTypes)) ? array('page') : $allowedPostTypes;
+        $allowedPostTypes = (empty($allowedPostTypes)) ? array('page') : $allowedPostTypes;
         if (is_object($post) && in_array($post->post_type, $allowedPostTypes) && (is_single() || is_page())) {
             wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit', '', '1.0.0', true);
         }
