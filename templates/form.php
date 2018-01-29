@@ -1,5 +1,5 @@
 <?php $num = isset($num) && $num > 0 ? $num++ : 1; ?>
-<div class="box box-index creamy gutter hidden-print customer-feedback-container">
+<div id="customer-feedback" class="box box-index creamy gutter hidden-print customer-feedback-container">
     <input type="hidden" name="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
 
     <div class="grid">
