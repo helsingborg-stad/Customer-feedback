@@ -65,11 +65,7 @@
         <td style="padding:9px 14px;text-align:center;width:50%;">
             <?php echo mysql2date('Y-m-d H:i', $pending->post_date); ?>
         </td>
-        <!--
-        <td style="padding:9px 14px;border-left:1px solid #ddd;text-align:center;width:33.333%;">
-            <a href="<?php echo get_edit_post_link($pending->ID); ?>"><?php _e('View feedback', 'customer-feedback'); ?></a>
-        </td>
-        -->
+  
         <td style="padding:9px 14px;border-left:1px solid #ddd;text-align:center;width:50%;">
             <a href="<?php echo get_permalink($pending->answer['post_id']); ?>"><?php _e('View page', 'customer-feedback'); ?></a>
         </td>
