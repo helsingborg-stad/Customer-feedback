@@ -30,6 +30,9 @@ class Summary
             return;
         }
 
+        wp_unschedule_hook('customer-feedback/email_summary');
+        wp_clear_scheduled_hook('customer-feedback/email_summary');
+
         $summaries = get_field('customer_feedback_summary', 'option');
 
         if (count($summaries) === 0) {
@@ -37,10 +40,6 @@ class Summary
         }
 
         foreach ($summaries as $summary) {
-            wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'weekly'));
-            wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'daily'));
-            wp_clear_scheduled_hook('customer-feedback/email_summary', array($summary['email_address'], 'monthly'));
-
             wp_schedule_event(
                 strtotime('tomorrow midnight -3 hour'),
                 $summary['interval'],

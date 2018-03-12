@@ -3,12 +3,20 @@
     "title": "Summaries",
     "fields": [
         {
+            "key": "field_591c15305ade0",
+            "label": "Send summaries to",
+            "name": "customer_feedback_summary",
+            "type": "repeater",
+            "instructions": "Send summaries of feedback to the following email addresses",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "sub_fields": [
                 {
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
                     "key": "field_591c155a5ade1",
                     "label": "Email address",
                     "name": "email_address",
@@ -20,9 +28,25 @@
                         "width": "50",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
                 },
                 {
+                    "key": "field_591c50317fdbb",
+                    "label": "Interval",
+                    "name": "interval",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "multiple": 0,
                     "allow_null": 0,
                     "choices": {
@@ -36,38 +60,14 @@
                     "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
-                    "return_format": "value",
-                    "key": "field_591c50317fdbb",
-                    "label": "Interval",
-                    "name": "interval",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    }
+                    "return_format": "value"
                 }
             ],
             "min": 0,
             "max": 0,
             "layout": "table",
             "button_label": "",
-            "collapsed": "",
-            "key": "field_591c15305ade0",
-            "label": "Send summaries to",
-            "name": "customer_feedback_summary",
-            "type": "repeater",
-            "instructions": "Send summaries of feedback to the following email addresses",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
+            "collapsed": ""
         }
     ],
     "location": [
