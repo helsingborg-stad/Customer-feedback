@@ -35,11 +35,11 @@
     </tr>
     <tr>
         <td style="border-right:1px solid #ddd;padding:14px;">
-            <strong style="color:#30BA41;"><?php _e('Yes'); ?></strong>
+            <strong style="color:#30BA41;"><?php _e('Yes', 'customer-feedback'); ?></strong>
             <?php echo $data['percent']['yes'] . '% (' . $data['count']['yes'] . ')'; ?>
         </td>
         <td style="padding:14px;">
-            <strong style="color:#BA3030;"><?php _e('No'); ?></strong>
+            <strong style="color:#BA3030;"><?php _e('No', 'customer-feedback'); ?></strong>
             <?php echo $data['percent']['no'] . '% (' . $data['count']['no'] . ')'; ?>
         </td>
     </tr>
