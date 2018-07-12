@@ -1,0 +1,70 @@
+[{
+    "key": "group_5b45f5d0c19c7",
+    "title": "Feedback GDPR",
+    "fields": [
+        {
+            "key": "field_5b45f5eade81d",
+            "label": "GDPR Complience notice",
+            "name": "gdpr_complience_notice",
+            "type": "true_false",
+            "instructions": "Contains information about how personal data is handled.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5b45f9f1aa067",
+            "label": "GDPR complience notice content",
+            "name": "gdpr_complience_notice_content",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b45f5eade81d",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "When you submit the form, we will process your personal information to perform the task that the form concerns. The data will not be used for any other purpose.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-feedback-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+

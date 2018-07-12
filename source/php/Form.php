@@ -86,6 +86,10 @@ class Form
                 $topic->feedback_capability = get_field('topic_feedback_capability', 'feedback_topic_' . $topic->term_id);
             }
         }
+        $gdpr = !empty(get_field('gdpr_complience_notice', 'option'));
+        if ($gdpr !== false) {
+            $gdpr_complience_notice_content = get_field('gdpr_complience_notice_content', 'option');
+        }
 
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
     }
