@@ -189,10 +189,10 @@ class Summary
         // Render view
         if ($return) {
             ob_start();
-            include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
+            include CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
             return ob_get_clean();
         } else {
-            include_once CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
+            include CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
         }
     }
 
