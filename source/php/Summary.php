@@ -35,7 +35,7 @@ class Summary
 
         $summaries = get_field('customer_feedback_summary', 'option');
 
-        if (count($summaries) === 0) {
+        if (empty($summaries)) {
             return;
         }
 
