@@ -18,7 +18,7 @@
                                 data-action="customer-feedback-submit-response"><?php _e('No'); ?></button>
                     </div>
                     <div class="customer-feedback-comment text-left gutter gutter-top gutter-sm" style="display: none;">
-                        <?php if (!empty($topics)): ?>
+                        <?php if (!empty($topics) && count($topics) > 1): ?>
                             <div class="form-group customer-feedback-topics">
                                 <label for="customer-feedback-comment-topic-<?php echo $num; ?>"><?php echo $topicLabel; ?></label>
                                 <p class="text-sm block-level"><?php echo $addComment; ?></p>
