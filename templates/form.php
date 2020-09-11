@@ -24,7 +24,7 @@
                             <i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
                                 thumb_up
                             </i>
-                            <?php _e('Yes'); ?>
+                            <?php _e('Yes', 'customer-feedback'); ?>
                         </span>
                     </span>
                 </button>
@@ -35,7 +35,7 @@
                             <i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
                                 thumb_down
                             </i>
-                            <?php _e('No'); ?>
+                            <?php _e('No', 'customer-feedback'); ?>
                         </span>
                     </span>
                 </button>
@@ -114,7 +114,7 @@
                     </p>
                 <?php endif; ?>
 
-                <div > <!-- style="display: none;" -->
+                <div style="display: none;">
                     
                     <!-- Email -->
                     <label 
@@ -127,7 +127,7 @@
                     <p class="c-typography c-typography__variant--byline u-margin__top--0"><?php echo $emailExplain; ?></p>
 
                     <!-- Email input -->
-                    <div id="" class="c-field c-field__text">
+                    <div class="c-field c-field__text">
                         <input  
                             placeholder="<?php _e("Enter your email."); ?>"
                             type="email" 
@@ -156,7 +156,6 @@
                 </button>
             </div>
         
-
             <!-- Submission success -->
             <div class="customer-feedback-thanks" style="display: none;">
                 <div id="" class="c-notice c-notice--success">
