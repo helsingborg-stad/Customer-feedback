@@ -19,3 +19,6 @@ add_filter('CustomerFeedback/post_types', function ($postTypes) {
 ```
 
 ---
+
+## Disable auto enqueue function on loop end
+define('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD', true);
