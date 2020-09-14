@@ -40,10 +40,10 @@
                     </span>
                 </button>
 
-            </div>
+            </div> <!-- // End boolean answer section -->
 
             <!-- Comment section -->
-            <div class="customer-feedback-comment u-padding__top--4 u-margin__top--4 u-border__top--1" > <!-- style="display: none;" -->
+            <div class="customer-feedback-comment u-padding__top--4 u-margin__top--4 u-border__top--1" style="display: none;">
                 
                 <?php if (!empty($topics) && count($topics) > 500): ?>
                     
@@ -89,8 +89,9 @@
 
                 <label 
                     for="customer-feedback-comment-text-<?php echo $num; ?>" 
-                    class="c-typography c-typography__variant--h3 feedback-label-no">
-                    <?php echo $negativeLabel; ?><!-- style="display: none;" -->
+                    class="c-typography c-typography__variant--h3 feedback-label-no"
+                    style="display: none;">
+                    <?php echo $negativeLabel; ?>
                 </label>
                 
                 <!-- Explainer -->
@@ -102,9 +103,9 @@
                         id="customer-feedback-comment-text-<?php echo $num; ?>"
                         type="textarea" 
                         name="customer-feedback-comment-text" 
-                        placeholder="<?php _e("hej", ''); ?>">
+                        placeholder="<?php _e("What do you want to give feedback on?", 'customer-feedback'); ?>">
                     </textarea> 
-                    <label class="c-textarea--label"><?php _e("hej", ''); ?></label>
+                    <label class="c-textarea--label"><?php _e("What do you want to give feedback on?", 'customer-feedback'); ?></label>
                 </div>
 
                 <!-- GDPR Notice -->
