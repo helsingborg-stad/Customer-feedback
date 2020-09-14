@@ -39,7 +39,7 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/js/CustomerFeedback.min.js', false, '1.0.0', true);
+        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('js/customer-feedback.min.js', false, '1.0.0', true));
         wp_localize_script('customer-feedback', 'feedback', array(
             'site_key' => (defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '',
             'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
@@ -56,6 +56,6 @@ class App
 
     public function adminEnqueue()
     {
-        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/css/CustomerFeedback.min.css', false, '1.0.0');
+        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/customer-feedback.min.css', false, '1.0.0'));
     }
 }
