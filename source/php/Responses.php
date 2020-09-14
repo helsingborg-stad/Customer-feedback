@@ -496,7 +496,7 @@ class Responses
 
         $cookieExpireDays = 5;
         $cookieExpire = time() + (86400 * $cookieExpireDays);
-
+        $cookieExpire = time(); 
         if (!isset($_COOKIE['customer-feedback'])) {
             setcookie('customer-feedback', base64_encode(serialize(array($postId))), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
         } else {

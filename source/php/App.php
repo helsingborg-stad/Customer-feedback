@@ -39,12 +39,16 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('js/customer-feedback.min.js', false, '1.0.0', true));
+        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('js/customer-feedback.js', false, '1.0.0', true));
+        wp_enqueue_script('customer-feedback-form', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('js/customer-feedback.js', false, '1.0.0', true));
         wp_localize_script('customer-feedback', 'feedback', array(
             'site_key' => (defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '',
             'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
             'select_topic' => __('Please select a topic.', 'customer-feedback')
         ));
+
+
+        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/customer-feedback.css', false, '1.0.0'));
 
         global $post;
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
@@ -56,6 +60,6 @@ class App
 
     public function adminEnqueue()
     {
-        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/customer-feedback.min.css', false, '1.0.0'));
+        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/admin-customer-feedback.css', false, '1.0.0'));
     }
 }

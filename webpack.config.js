@@ -18,9 +18,9 @@ module.exports = {
    * Entry files - Add more entries if needed.
    */
   entry: {
-    'js/job-listings': './source/js/customer-feedback.js',
-    'js/job-listings': './source/js/customer-feedback-form.js',
-    'css/job-listings': './source/sass/customer-feedback.scss',
+    'js/customer-feedback': './source/js/app.js',
+    'css/customer-feedback': './source/sass/customer-feedback.scss',
+    'css/admin-customer-feedback': './source/sass/admin-customer-feedback.scss',
   },
 
   /**

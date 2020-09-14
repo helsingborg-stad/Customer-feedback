@@ -1,7 +1,7 @@
 <?php $num = isset($num) && $num > 0 ? $num++ : 1; ?>
 <div id="customer-feedback" class="c-paper c-paper--padding-3 u-margin__top--6">
     
-    <input type="hidden" name="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
+    <input type="hidden" id="customer-feedback-post-id" name="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
 
     <h4 id="" class="c-typography c-typography__variant--h3">
         <i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
@@ -43,12 +43,12 @@
             </div> <!-- // End boolean answer section -->
 
             <!-- Comment section -->
-            <div class="customer-feedback-comment u-padding__top--4 u-margin__top--4 u-border__top--1" style="display: none;">
+            <div class="customer-feedback-comment" style="display: none;">
                 
-                <?php if (!empty($topics) && count($topics) > 500): ?>
+                <?php if (!empty($topics) && count($topics) > 1): ?>
                     
                     <!-- Topic segment --> 
-                    <div class="customer-feedback-topics">
+                    <div id="customer-feedback-topics" class="customer-feedback-topics">
                         
                         <label for="customer-feedback-comment-topic-<?php echo $num; ?>" class="c-typography c-typography__variant--h3">
                             <?php echo $topicLabel; ?>

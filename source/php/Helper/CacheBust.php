@@ -13,7 +13,7 @@ class CacheBust
     public static function name($name, $returnName = true)
     {
         $revManifest = self::getRevManifest();
-
+        
         if (!isset($revManifest[$name])) {
             return;
         }
@@ -27,12 +27,12 @@ class CacheBust
      */
     public static function getRevManifest()
     {
-        $jsonPath = JOBLISTINGS_PATH . apply_filters('jobListings/Helper/CacheBust/RevManifestPath', 'dist/rev-manifest.json');
+        $jsonPath = CUSTOMERFEEDBACK_PATH . apply_filters('CustomerFeedback/Helper/CacheBust/RevManifestPath', 'dist/manifest.json');
 
         if (file_exists($jsonPath)) {
             return json_decode(file_get_contents($jsonPath), true);
         } elseif (WP_DEBUG) {
-            echo '<div style="color:red">Error: Assets not built. Go to ' . JOBLISTINGS_PATH . ' and run gulp. See '. JOBLISTINGS_PATH . 'README.md for more info.</div>';
+            echo '<div style="color:red">Error: Assets not built. Go to ' . CUSTOMERFEEDBACK_PATH . ' and run gulp. See '. CUSTOMERFEEDBACK_PATH . 'README.md for more info.</div>';
         }
     }
 }
