@@ -7,7 +7,8 @@ export default () => {
     
 
     Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, gCaptcha, topic) {
-        var data = {
+       
+        let data = {
             action: 'submit_comment',
             postid: postId,
             comment: comment,
@@ -18,18 +19,18 @@ export default () => {
             topicid: topic
         };
 
-        var $target = target;
+        let $target = target;
 
         $.post(ajaxurl, data, function (response) {
             if (response == 'true') {
-                $target.find('.customer-feedback-comment').remove();
-                $target.find('.customer-feedback-thanks').show();
+                document.querySelector('.customer-feedback-comment').classList.display = 'none';
+                document.querySelector('.customer-feedback-thanks').classList.display = 'block';
             } else {
-                $target.find('.customer-feedback-comment').remove();
-                $target.find('.customer-feedback-error').show();
-            }
+                document.querySelector('.customer-feedback-comment').classList.display = 'none';
+                document.querySelector('.customer-feedback-error').classList.display = 'block';
+            } 
         });
-    };
+    }; 
 
     /**
      * Submits the initail yes or no response
@@ -38,51 +39,57 @@ export default () => {
      * @return {void}w
      */
     Form.prototype.submitInitialResponse = function (target, postId, answer) {
-        
-        let $target = target;
-
+    
         let data = {
             action: 'submit_response',
             postid: postId, 
             answer: answer
         };
 
-        $.post(ajaxurl, data, function (response) {
-            if (data.answer == 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
+        $.post(ajaxurl, data, function(response) {
 
+            //Status
+            if(response.status != 200) {
+                document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+            }
 
-                console.log(); 
+            if (!isNaN(parseFloat(response)) && isFinite(response)) {
 
+                //Create id holder
+                let feedBackIdElement = document.createElement("input"); 
+                    feedBackIdElement.type = "hidden"
+                    feedBackIdElement.name = "customer-feedback-answer-id"; 
+                    feedBackIdElement.value = response;
+
+                document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
+
+                //Hide current controls 
                 document.querySelector('.customer-feedback-topics').style.display = "none";
+                document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
+                document.querySelector('.customer-feedback-answers').style.display = "none";
 
-                document.querySelector('[name="customer-feedback-comment-email"]').parentElement.style.display = "none"; 
-
-                document.querySelector('.customer-feedback-answers').remove();
+                //Show comment section
                 document.querySelector('.customer-feedback-comment').style.display = "block"; 
+            }
+
+            if (data.answer == 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
                 document.querySelector('.feedback-label-yes').style.display = "block";
-
-
-
-
-                /*$target.querySelector('[name="customer-feedback-post-id"]').after('<input type="hidden" name="customer-feedback-answer-id" value="' + response + '">');
-               */ 
             }
 
             if (data.answer == 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                $target.querySelector('[name="customer-feedback-post-id"]').after('<input type="hidden" name="customer-feedback-answer-id" value="' + response + '">');
-                $target.querySelector('.customer-feedback-answers').remove();
-                $target.querySelector('.customer-feedback-comment').show().querySelector('.feedback-label-no').show();
+                document.querySelector('.feedback-label-no').style.display = "block";
             }
+
         });
     };
 
     Form.prototype.handleEvents = function () {
 
-        let AnswerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]'); 
+        let answerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]'); 
         let self = this;
 
-        AnswerButton.forEach(Button => {
-            Button.addEventListener('click', function(e) {
+        answerButton.forEach(optionButton => {
+            optionButton.addEventListener('click', function(e) {
 
                 //Prevent default action
                 e.preventDefault();
@@ -103,47 +110,86 @@ export default () => {
         });
 
         // Comment submit click
-        $('[data-action="customer-feedback-submit-comment"]').on('click', function (e) {
-            e.preventDefault();
+        let submitButton = document.querySelectorAll('[data-action=customer-feedback-submit-comment]'); 
 
-            $target = $(e.target).parents('.customer-feedback-container');
-            $target.find('[name="customer-feedback-comment-text"]').removeClass('invalid');
-            $target.find('div.danger').remove();
+        submitButton.forEach(Submit => {
+            Submit.addEventListener('click', function(e) {
+                
+                e.preventDefault();
 
-            var commentType = 'comment';
-            var answerId = $target.find('[name="customer-feedback-answer-id"]').val();
-            var postId = $target.find('[name="customer-feedback-post-id"]').val();
-            var comment = $target.find('[name="customer-feedback-comment-text"]').val();
-            var gCaptcha = $target.find('[name="g-recaptcha-response"]').val();
-            var email = $target.find('[name="customer-feedback-comment-email"]').val();
-            var emailRequired = $target.find('[name="customer-feedback-comment-email"]').prop('required');
-            var topic = $target.find('[name="customer-feedback-comment-topic"]:checked').val();
-            var valid = true;
+                //Target div 
+                let $target = document.getElementById('customer-feedback');
 
-            if ($('div.customer-feedback-topics').is(":visible") && !topic) {
-                $target.find('[name="customer-feedback-comment-topic"]:last').parent().after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.select_topic + '</div>');
-                valid = false;
-            }
+                //Reset state
+                $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', false);
 
-            if (comment.length < 15) {
-                $target.find('[name="customer-feedback-comment-text"]').addClass('invalid');
-                $target.find('[name="customer-feedback-comment-text"]').after('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.comment_min_characters + '</div>');
-                valid = false;
-            }
+                //Get vars 
+                let commentType = 'comment';
+                let topic = null; 
+                let gCaptcha = null; 
+                let answerId = $target.querySelector('[name="customer-feedback-answer-id"]').value;
+                let postId = $target.querySelector('[name="customer-feedback-post-id"]').value;
+                let comment = $target.querySelector('[name="customer-feedback-comment-text"]').value;
+                let email = $target.querySelector('[name="customer-feedback-comment-email"]').value;
+                let emailRequired = $target.querySelector('[name="customer-feedback-comment-email"]').getAttribute('required');
+                let valid = true;
 
-            if (email.length === 0 && emailRequired == true) {
-                valid = false;
-            }
+                //Topic
+                if(typeof $target.querySelector('[name="customer-feedback-comment-topic"]:checked') !== 'undefined') {
+                    //topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
+                }
+                //Get captcha if not logged in
+                if(typeof $target.querySelector('[name="g-recaptcha-response"]') !== 'undefined') {
+                    //gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
+                }
 
-            if (!valid) {
-                return false;
-            }
+                //Topics 
+                /*if (!(window.getComputedStyle('customer-feedback-topics').display === "none") && !topic) {
+                    //$target.querySelector('[name="customer-feedback-comment-topic"]:last').parentNode.insertAfter('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.select_topic + '</div>');
+                    //valid = false;
+                } */ 
 
-            $(e.target).html('<i class="spinner spinner-dark"></i>');
-            this.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha, topic);
+                //Check length
+                if (comment.length < 15) {
 
-        }.bind(this));
+                    let errorMessage = document.createElement('div');
+                        errorMessage.id = 'length-error';
+                        errorMessage.classList = 'c-textarea-invalid-message'; 
+                        errorMessage.style.display = 'block'; 
+                        errorMessage.appendChild(
+                            document.createTextNode(feedback.comment_min_characters)
+                        );  
 
+                    $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
+                    $target.querySelector('[name="customer-feedback-comment-text"]').after(errorMessage);
+
+                    valid = false;
+
+                }
+
+                //Check email if exists 
+                if (email.length === 0 && emailRequired == true) {
+                    valid = false;
+                }
+
+                //Rurn if not valid, else continitue. 
+                if (!valid) {
+                    return false;
+                }
+
+                //Spin
+                //$(e.target).innerHtml('<i class="spinner spinner-dark"></i>');
+                
+                //Submit
+                self.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha, topic);
+
+            }); 
+        });
+
+    };
+
+
+    /* 
         $('[name="customer-feedback-comment-topic"]').change(function(e) {
             $target = $(e.target).parents('.customer-feedback-container');
             $target.find('div.customer-feedback-topics div.danger').remove();
@@ -164,7 +210,7 @@ export default () => {
                         .parent().hide();
             }
         });
-    };
+    };    */
 
     return new Form();
 

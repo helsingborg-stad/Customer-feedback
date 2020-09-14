@@ -1,5 +1,5 @@
 <?php $num = isset($num) && $num > 0 ? $num++ : 1; ?>
-<div id="customer-feedback" class="c-paper c-paper--padding-3 u-margin__top--6">
+<div id="customer-feedback" class="customer-feedback-container c-paper c-paper--padding-3 u-margin__top--6">
     
     <input type="hidden" id="customer-feedback-post-id" name="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
 
@@ -17,6 +17,20 @@
             
             <!-- Booelan answer section -->
             <div class="customer-feedback-answers">
+
+                <!-- Submission Error -->
+                <div class="customer-feedback-js-error u-margin__bottom--3" style="display: none;">
+                    <div id="" class="c-notice c-notice--danger">
+                        <span class="c-notice__icon">
+                            <i id="" class="c-icon c-icon--color- c-icon--size-md material-icons">
+                                error_outline
+                            </i>
+                        </span>
+                        <span class="c-notice__message--sm">
+                            <?php _e('Something went wrong, please try again later. You might have lost your internet connection or there is an issue with our server.', 'customer-feedback'); ?>
+                        </span>
+                    </div>
+                </div>
 
                 <button rel="nofollow" class="c-button c-button__filled c-button__filled--default c-button--md u-margin__right--1" aria-pressed="false" type="button" value="yes" data-action="customer-feedback-submit-response">
                     <span class="c-button__label">
@@ -103,8 +117,7 @@
                         id="customer-feedback-comment-text-<?php echo $num; ?>"
                         type="textarea" 
                         name="customer-feedback-comment-text" 
-                        placeholder="<?php _e("What do you want to give feedback on?", 'customer-feedback'); ?>">
-                    </textarea> 
+                        placeholder="<?php _e("What do you want to give feedback on?", 'customer-feedback'); ?>"></textarea> 
                     <label class="c-textarea--label"><?php _e("What do you want to give feedback on?", 'customer-feedback'); ?></label>
                 </div>
 
@@ -130,6 +143,7 @@
                     <!-- Email input -->
                     <div class="c-field c-field__text">
                         <input  
+                            class="customer-feedback-comment-email"
                             placeholder="<?php _e("Enter your email."); ?>"
                             type="email" 
                             id="customer-feedback-comment-email-<?php echo $num; ?>"
@@ -180,7 +194,7 @@
                         </i>
                     </span>
                     <span class="c-notice__message--sm">
-                        <?php _e('Something went wrong, please try again later.', 'customer-feedback'); ?>
+                        <?php _e('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'); ?>
                     </span>
                 </div>
             </div>
