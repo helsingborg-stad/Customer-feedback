@@ -19,7 +19,7 @@
             <div class="customer-feedback-answers">
 
                 <!-- Submission Error -->
-                <div class="customer-feedback-js-error u-margin__bottom--3" style="display: none;">
+                <div class="customer-feedback-js-error u-margin__bottom--3 u-margin__top--3" style="display: none;">
                     <div id="" class="c-notice c-notice--danger">
                         <span class="c-notice__icon">
                             <i id="" class="c-icon c-icon--color- c-icon--size-md material-icons">
@@ -54,7 +54,7 @@
                     </span>
                 </button>
 
-            </div> <!-- // End boolean answer section -->
+            </div> <!-- // End boolean answer section --> 
 
             <!-- Comment section -->
             <div class="customer-feedback-comment" style="display: none;">
@@ -62,13 +62,13 @@
                 <?php if (!empty($topics) && count($topics) > 1): ?>
                     
                     <!-- Topic segment --> 
-                    <div id="customer-feedback-topics" class="customer-feedback-topics">
+                    <div id="customer-feedback-topics" class="customer-feedback-topics u-margin__top--4">
                         
                         <label for="customer-feedback-comment-topic-<?php echo $num; ?>" class="c-typography c-typography__variant--h3">
                             <?php echo $topicLabel; ?>
                         </label>
 
-                        <p class="c-typography typography__variant--small">
+                        <p class="c-typography typography__variant--small u-margin__top--0">
                             <?php echo $addComment; ?>
                         </p>
 
@@ -93,42 +93,46 @@
 
                 <?php endif ?>
 
-                <!-- Headings -->
-                <label 
-                    for="customer-feedback-comment-text-<?php echo $num; ?>" 
-                    class="c-typography c-typography__variant--h3 feedback-label-yes"
-                    style="display: none;">
-                    <?php echo $positiveLabel; ?>
-                </label>
+                <div class="u-margin__top--4">
 
-                <label 
-                    for="customer-feedback-comment-text-<?php echo $num; ?>" 
-                    class="c-typography c-typography__variant--h3 feedback-label-no"
-                    style="display: none;">
-                    <?php echo $negativeLabel; ?>
-                </label>
+                    <!-- Headings -->
+                    <label 
+                        for="customer-feedback-comment-text-<?php echo $num; ?>" 
+                        class="c-typography c-typography__variant--h3 feedback-label-yes"
+                        style="display: none;">
+                        <?php echo $positiveLabel; ?>
+                    </label>
+
+                    <label 
+                        for="customer-feedback-comment-text-<?php echo $num; ?>" 
+                        class="c-typography c-typography__variant--h3 feedback-label-no"
+                        style="display: none;">
+                        <?php echo $negativeLabel; ?>
+                    </label>
+                    
+                    <!-- Explainer -->
+                    <p class="c-typography c-typography__variant--byline u-margin__top--0"><?php echo $commentExplain; ?></p>
+
+                    <!-- Text input field for comments -->
+                    <div class="c-textarea">
+                        <textarea 
+                            id="customer-feedback-comment-text-<?php echo $num; ?>"
+                            type="textarea" 
+                            name="customer-feedback-comment-text" 
+                            placeholder="<?php _e("What do you want to give feedback on?", 'customer-feedback'); ?>"></textarea> 
+                        <label class="c-textarea--label"><?php _e("What do you want to give feedback on?", 'customer-feedback'); ?></label>
+                    </div>
+
+                    <!-- GDPR Notice -->
+                    <?php if (!empty($gdpr_complience_notice_content)): ?>
+                        <p class="c-typography c-typography__variant--meta">
+                            <?php echo $gdpr_complience_notice_content; ?>
+                        </p>
+                    <?php endif; ?>
                 
-                <!-- Explainer -->
-                <p class="c-typography c-typography__variant--byline u-margin__top--0"><?php echo $commentExplain; ?></p>
-
-                <!-- Text input field for comments -->
-                <div class="c-textarea">
-                    <textarea 
-                        id="customer-feedback-comment-text-<?php echo $num; ?>"
-                        type="textarea" 
-                        name="customer-feedback-comment-text" 
-                        placeholder="<?php _e("What do you want to give feedback on?", 'customer-feedback'); ?>"></textarea> 
-                    <label class="c-textarea--label"><?php _e("What do you want to give feedback on?", 'customer-feedback'); ?></label>
                 </div>
 
-                <!-- GDPR Notice -->
-                <?php if (!empty($gdpr_complience_notice_content)): ?>
-                    <p class="c-typography c-typography__variant--meta">
-                        <?php echo $gdpr_complience_notice_content; ?>
-                    </p>
-                <?php endif; ?>
-
-                <div>
+                <div class="u-margin__top--4">
                     
                     <!-- Email -->
                     <label 
@@ -159,7 +163,7 @@
                 <?php endif; ?>
 
                 <!-- Submission section -->
-                <button rel="nofollow" class="c-button c-button__filled c-button__filled--primary c-button--lg" aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
+                <button rel="nofollow" class="c-button c-button__filled c-button__filled--primary c-button--lg u-margin__top--4" aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
                     <span class="c-button__label">
                         <span class="c-button__label-text">
                             <i class="c-icon c-icon--color-white c-icon--size-inherit material-icons">

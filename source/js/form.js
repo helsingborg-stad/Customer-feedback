@@ -62,9 +62,9 @@ export default () => {
                 document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
 
                 //Hide current controls 
-                document.querySelector('.customer-feedback-topics').style.display = "none";
-                document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
-                document.querySelector('.customer-feedback-answers').style.display = "none";
+                //document.querySelector('.customer-feedback-topics').style.display = "none";
+                //document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
+                //document.querySelector('.customer-feedback-answers').style.display = "none";
 
                 //Show comment section
                 document.querySelector('.customer-feedback-comment').style.display = "block"; 
