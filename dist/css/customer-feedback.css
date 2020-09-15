@@ -1,7 +1,19 @@
-#customer-feedback [data-action="customer-feedback-submit-response"][aria-pressed="true"] i {
-  animation-name: wiggle;
-  animation-duration: 1000ms;
-  animation-iteration-count: infinite; }
+#customer-feedback {
+  position: relative;
+  overflow: hidden; }
+  #customer-feedback #feedback-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: 500px solid rgba(255, 255, 255, 0.7);
+    background: 500px solid rgba(255, 255, 255, 0.7);
+    cursor: wait;
+    display: none; }
+  #customer-feedback [data-action="customer-feedback-submit-response"][aria-pressed="true"] i {
+    animation-name: wiggle;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite; }
 
 @keyframes wiggle {
   0% {

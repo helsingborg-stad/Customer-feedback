@@ -44,7 +44,8 @@ class App
         wp_localize_script('customer-feedback', 'feedback', array(
             'site_key' => (defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '',
             'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
-            'select_topic' => __('Please select a topic.', 'customer-feedback')
+            'select_topic' => __('Please select a topic.', 'customer-feedback'),
+            'enter_email' => __('Please enter a valid email.', 'customer-feedback')
         ));
 
 

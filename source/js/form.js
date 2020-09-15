@@ -20,6 +20,11 @@ export default () => {
         let $target = target;
 
         $.post(ajaxurl, data, function (response) {
+
+            //Disable loader
+            document.getElementById("feedback-loader").style.display = 'none';
+
+            //Handle response
             if (response == 'true') {
                 $target.querySelector('.customer-feedback-comment').style.display = 'none';
                 $target.querySelector('.customer-feedback-thanks').style.display = 'block';
@@ -44,6 +49,8 @@ export default () => {
             answer: answer
         };
 
+        document.getElementById("feedback-loader").style.display = 'block';
+
         $.post(ajaxurl, data, function(response) {
 
             //Status
@@ -63,8 +70,8 @@ export default () => {
 
                 //Hide current controls 
                 //document.querySelector('.customer-feedback-topics').style.display = "none";
-                //document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
-                //document.querySelector('.customer-feedback-answers').style.display = "none";
+                document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
+                document.querySelector('.customer-feedback-answers').style.display = "none";
 
                 //Show comment section
                 document.querySelector('.customer-feedback-comment').style.display = "block"; 
@@ -77,6 +84,9 @@ export default () => {
             if (data.answer == 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
                 document.querySelector('.feedback-label-no').style.display = "block";
             }
+
+            //Loading done
+            document.getElementById("feedback-loader").style.display = 'none'; 
 
         });
     };
@@ -120,6 +130,8 @@ export default () => {
 
                 //Reset state (make fields valid attr)
                 $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', false);
+                $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', false);
+                $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', false);
 
                 //Reset state (remove messages)
                 let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error'); 
@@ -139,20 +151,31 @@ export default () => {
                 let valid = true;
 
                 //Topic
-                if(typeof $target.querySelector('[name="customer-feedback-comment-topic"]:checked') !== 'undefined') {
-                    //topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
+                if($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
+                    topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
+                } else {
+
+                    //Create error node
+                    let topicErrorMessage = document.createElement('div');
+                        topicErrorMessage.id = 'topic-error';
+                        topicErrorMessage.classList = 'c-option__input-invalid-message feedback-form-dynamic-error'; 
+                        topicErrorMessage.style.display = 'block'; 
+                        topicErrorMessage.appendChild(
+                            document.createTextNode(feedback.select_topic)
+                        );  
+
+                    //Show invalid notice
+                    $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', true);
+                    $target.querySelector('.customer-feedback-topics .c-option.c-option__radio:last-child').after(topicErrorMessage);
+
+                    //Prohibit submission
+                    valid = false; 
                 }
 
                 //Get captcha if not logged in
-                if(typeof $target.querySelector('[name="g-recaptcha-response"]') !== 'undefined') {
-                    //gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
+                if($target.querySelector('[name="g-recaptcha-response"]').length && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
+                //TODO: ERR    gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
                 }
-
-                //Topics 
-                /*if (!(window.getComputedStyle('customer-feedback-topics').display === "none") && !topic) {
-                    //$target.querySelector('[name="customer-feedback-comment-topic"]:last').parentNode.insertAfter('<div class="clearfix"></div><div style="margin-top: 5px;" class="notice notice-sm danger">' + feedback.select_topic + '</div>');
-                    //valid = false;
-                } */ 
 
                 //Check length
                 if (comment.length < 15) {
@@ -176,16 +199,32 @@ export default () => {
 
                 //Check email if exists 
                 if (email.length === 0 && emailRequired == true) {
+
+                    //Create error node
+                    let errorMessage = document.createElement('div');
+                        errorMessage.id = 'email-error';
+                        errorMessage.classList = 'c-input-invalid-message feedback-form-dynamic-error'; 
+                        errorMessage.style.display = 'block'; 
+                        errorMessage.appendChild(
+                            document.createTextNode(feedback.enter_email)
+                        );  
+
+                    //Show invalid notice
+                    $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', true);
+                    $target.querySelector('[name="customer-feedback-comment-email"]').after(errorMessage);
+
+                    //Prohibit submission
                     valid = false;
+
                 }
 
-                //Rurn if not valid, else continitue. 
+                //Return if not valid, else continiue. 
                 if (!valid) {
                     return false;
                 }
 
                 //Spin
-                //$(e.target).innerHtml('<i class="spinner spinner-dark"></i>');
+                $target.getElementById("#feedback-loader").style.display = 'block'; 
                 
                 //Submit
                 self.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha, topic);
@@ -194,6 +233,20 @@ export default () => {
         });
 
     };
+
+
+    // Comment submit click
+    let topicListeners = document.querySelectorAll('[name="customer-feedback-comment-topic"]'); 
+
+    topicListeners.forEach(topListener => {
+        topListener.addEventListener('change', function(e) {
+
+            let $target = document.getElementById('customer-feedback');
+
+
+
+        }); 
+    }); 
 
 
     /* 

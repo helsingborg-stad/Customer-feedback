@@ -71,7 +71,7 @@
                         <p class="c-typography typography__variant--small u-margin__top--0">
                             <?php echo $addComment; ?>
                         </p>
-
+                        
                         <?php foreach ($topics as $key => $topic): ?>
                             <div class="c-option c-option__radio">
                                 <input 
@@ -132,7 +132,7 @@
                 
                 </div>
 
-                <div class="u-margin__top--4">
+                <div class="customer-feedback-comment-email u-margin__top--4">
                     
                     <!-- Email -->
                     <label 
@@ -147,7 +147,6 @@
                     <!-- Email input -->
                     <div class="c-field c-field__text">
                         <input  
-                            class="customer-feedback-comment-email"
                             placeholder="<?php _e("Enter your email."); ?>"
                             type="email" 
                             id="customer-feedback-comment-email-<?php echo $num; ?>"
@@ -220,6 +219,8 @@
             </div>
 
         <?php endif; ?>
+
+        <div id="feedback-loader" class="feedback-loader c-loader c-loader__circular--color--primary c-loader__circular c-loader__circular--md"></div>
 
     </div>
 
