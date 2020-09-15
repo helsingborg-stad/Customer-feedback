@@ -4,8 +4,6 @@ export default () => {
         this.handleEvents();
     }
 
-    
-
     Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, gCaptcha, topic) {
        
         let data = {
@@ -23,11 +21,11 @@ export default () => {
 
         $.post(ajaxurl, data, function (response) {
             if (response == 'true') {
-                document.querySelector('.customer-feedback-comment').classList.display = 'none';
-                document.querySelector('.customer-feedback-thanks').classList.display = 'block';
+                $target.querySelector('.customer-feedback-comment').style.display = 'none';
+                $target.querySelector('.customer-feedback-thanks').style.display = 'block';
             } else {
-                document.querySelector('.customer-feedback-comment').classList.display = 'none';
-                document.querySelector('.customer-feedback-error').classList.display = 'block';
+                $target.querySelector('.customer-feedback-comment').style.display = 'none';
+                $target.querySelector('.customer-feedback-error').style.display = 'block';
             } 
         });
     }; 
@@ -120,9 +118,15 @@ export default () => {
                 //Target div 
                 let $target = document.getElementById('customer-feedback');
 
-                //Reset state
+                //Reset state (make fields valid attr)
                 $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', false);
 
+                //Reset state (remove messages)
+                let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error'); 
+                    errorMessages.forEach(errorMessage => {
+                        errorMessage.remove(); 
+                    }); 
+                    
                 //Get vars 
                 let commentType = 'comment';
                 let topic = null; 
@@ -138,6 +142,7 @@ export default () => {
                 if(typeof $target.querySelector('[name="customer-feedback-comment-topic"]:checked') !== 'undefined') {
                     //topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
                 }
+
                 //Get captcha if not logged in
                 if(typeof $target.querySelector('[name="g-recaptcha-response"]') !== 'undefined') {
                     //gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
@@ -152,19 +157,21 @@ export default () => {
                 //Check length
                 if (comment.length < 15) {
 
+                    //Create error node
                     let errorMessage = document.createElement('div');
                         errorMessage.id = 'length-error';
-                        errorMessage.classList = 'c-textarea-invalid-message'; 
+                        errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error'; 
                         errorMessage.style.display = 'block'; 
                         errorMessage.appendChild(
                             document.createTextNode(feedback.comment_min_characters)
                         );  
 
+                    //Show invalid notice
                     $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
                     $target.querySelector('[name="customer-feedback-comment-text"]').after(errorMessage);
 
+                    //Prohibit submission
                     valid = false;
-
                 }
 
                 //Check email if exists 

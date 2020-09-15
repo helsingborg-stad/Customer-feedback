@@ -128,7 +128,7 @@
                     </p>
                 <?php endif; ?>
 
-                <div style="display: none;">
+                <div>
                     
                     <!-- Email -->
                     <label 
@@ -172,10 +172,10 @@
             </div>
         
             <!-- Submission success -->
-            <div class="customer-feedback-thanks" style="display: none;">
-                <div id="" class="c-notice c-notice--success">
+            <div id="customer-feedback-thanks" class="customer-feedback-thanks" style="display: none;">
+                <div class="c-notice c-notice--success">
                     <span class="c-notice__icon">
-                        <i id="" class="c-icon c-icon--color- c-icon--size-md material-icons">
+                        <i class="c-icon c-icon--color- c-icon--size-md material-icons">
                             check
                         </i>
                     </span>
@@ -186,7 +186,7 @@
             </div>
                 
             <!-- Submission Error -->
-            <div class="customer-feedback-error" style="display: none;">
+            <div id="customer-feedback-error" class="customer-feedback-error" style="display: none;">
                 <div id="" class="c-notice c-notice--danger">
                     <span class="c-notice__icon">
                         <i id="" class="c-icon c-icon--color- c-icon--size-md material-icons">
