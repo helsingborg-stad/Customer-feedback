@@ -132,7 +132,7 @@
                 
                 </div>
 
-                <div class="customer-feedback-comment-email u-margin__top--4">
+                <div class="customer-feedback-comment-email u-margin__top--4" style="display: none;">
                     
                     <!-- Email -->
                     <label 

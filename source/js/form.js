@@ -91,6 +91,19 @@ export default () => {
         });
     };
 
+    Form.prototype.removeJsErrorMessages = function () {
+
+        //Target div 
+        let $target = document.getElementById('customer-feedback');
+
+        //Reset state (remove messages)
+        let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error'); 
+            errorMessages.forEach(errorMessage => {
+                errorMessage.remove(); 
+            }); 
+
+    }
+
     Form.prototype.handleEvents = function () {
 
         let answerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]'); 
@@ -133,11 +146,8 @@ export default () => {
                 $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', false);
                 $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', false);
 
-                //Reset state (remove messages)
-                let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error'); 
-                    errorMessages.forEach(errorMessage => {
-                        errorMessage.remove(); 
-                    }); 
+                //Remove all js error messages
+                self.removeJsErrorMessages(); 
                     
                 //Get vars 
                 let commentType = 'comment';
@@ -234,43 +244,30 @@ export default () => {
 
     };
 
-
     // Comment submit click
     let topicListeners = document.querySelectorAll('[name="customer-feedback-comment-topic"]'); 
 
     topicListeners.forEach(topListener => {
         topListener.addEventListener('change', function(e) {
 
-            let $target = document.getElementById('customer-feedback');
+            let self = this;
 
+            //Container 
+            let $container = document.getElementById('customer-feedback');
 
+            //Remove all js error messages
+            //self.removeJsErrorMessages(); 
+
+            if (e.target.getAttribute('feedback-capability')) {
+                $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', true);
+                $container.querySelector('.customer-feedback-comment-email').style.display = 'block'; 
+            } else {
+                $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', false);
+                $container.querySelector('.customer-feedback-comment-email').style.display = 'none'; 
+            }
 
         }); 
     }); 
-
-
-    /* 
-        $('[name="customer-feedback-comment-topic"]').change(function(e) {
-            $target = $(e.target).parents('.customer-feedback-container');
-            $target.find('div.customer-feedback-topics div.danger').remove();
-
-            if ($(e.target).attr('topic-description')) {
-                $target.find('.topic-description').show().html('<span class="text-sm">' + $(e.target).attr('topic-description') + '</span>');
-            } else {
-                $target.find('.topic-description').hide();
-            }
-
-            if ($(e.target).attr('feedback-capability')) {
-                $target.find('[name="customer-feedback-comment-email"]')
-                    .prop('required', true)
-                        .parent().show();
-            } else {
-                $target.find('[name="customer-feedback-comment-email"]')
-                    .prop('required', false)
-                        .parent().hide();
-            }
-        });
-    };    */
 
     return new Form();
 
