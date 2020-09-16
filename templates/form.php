@@ -86,6 +86,9 @@
                                     <span class="c-option__radio--label-box"></span>
                                     <span class="c-option__radio--label-text"><?php echo $topic->name; ?></span>
                                 </label>
+                                <div class="js-error">
+
+                                </div>
                             </div>
                         <?php endforeach ?>
 

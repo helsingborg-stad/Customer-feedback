@@ -22,7 +22,7 @@ export default () => {
         $.post(ajaxurl, data, function (response) {
 
             //Disable loader
-            document.getElementById("feedback-loader").style.display = 'none';
+            $target.querySelector("#feedback-loader").style.display = 'none';
 
             //Handle response
             if (response == 'true') {
@@ -49,7 +49,7 @@ export default () => {
             answer: answer
         };
 
-        document.getElementById("feedback-loader").style.display = 'block';
+        document.querySelector("#feedback-loader").style.display = 'block';
 
         $.post(ajaxurl, data, function(response) {
 
@@ -175,16 +175,15 @@ export default () => {
                         );  
 
                     //Show invalid notice
-                    $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', true);
-                    $target.querySelector('.customer-feedback-topics .c-option.c-option__radio:last-child').after(topicErrorMessage);
+                    $target.querySelector('.customer-feedback-topics').after(topicErrorMessage);
 
                     //Prohibit submission
                     valid = false; 
                 }
 
                 //Get captcha if not logged in
-                if($target.querySelector('[name="g-recaptcha-response"]').length && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
-                //TODO: ERR    gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
+                if($target.querySelector('[name="g-recaptcha-response"]') && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
+                    gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
                 }
 
                 //Check length
@@ -207,14 +206,17 @@ export default () => {
                     valid = false;
                 }
 
+                console.log(email.length, emailRequired);
+
                 //Check email if exists 
-                if (email.length === 0 && emailRequired == true) {
+                if (email.length === 0 && emailRequired == "true") {
 
                     //Create error node
                     let errorMessage = document.createElement('div');
                         errorMessage.id = 'email-error';
-                        errorMessage.classList = 'c-input-invalid-message feedback-form-dynamic-error'; 
+                        errorMessage.classList = 'c-field__input-invalid-message feedback-form-dynamic-error'; 
                         errorMessage.style.display = 'block'; 
+                        errorMessage.style.marginTop = '0px'; 
                         errorMessage.appendChild(
                             document.createTextNode(feedback.enter_email)
                         );  
@@ -234,7 +236,7 @@ export default () => {
                 }
 
                 //Spin
-                $target.getElementById("#feedback-loader").style.display = 'block'; 
+                $target.querySelector("#feedback-loader").style.display = 'block'; 
                 
                 //Submit
                 self.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha, topic);
@@ -246,17 +248,13 @@ export default () => {
 
     // Comment submit click
     let topicListeners = document.querySelectorAll('[name="customer-feedback-comment-topic"]'); 
+    let self = this;
 
     topicListeners.forEach(topListener => {
         topListener.addEventListener('change', function(e) {
 
-            let self = this;
-
             //Container 
-            let $container = document.getElementById('customer-feedback');
-
-            //Remove all js error messages
-            //self.removeJsErrorMessages(); 
+            let $container = document.querySelector('#customer-feedback');
 
             if (e.target.getAttribute('feedback-capability')) {
                 $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', true);

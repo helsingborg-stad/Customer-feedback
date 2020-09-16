@@ -18,6 +18,23 @@
     animation-duration: 1000ms;
     animation-iteration-count: infinite;
   }
+
+  #topic-error {
+    width: 100%;
+    padding: 8px;
+    display: none;
+    font-size: 80%;
+    color: #fff;
+    background-color: #d73640;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 8px;
+  }
+
+  [aria-invalid="true"] {
+    background-color: rgba(#f00, .2); 
+  }
 }
 
 @keyframes wiggle {
