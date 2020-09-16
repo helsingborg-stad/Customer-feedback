@@ -161,7 +161,20 @@
                 </div>
 
                 <?php if (!is_user_logged_in()) : ?>
+
+                    <script type="text/javascript">
+                        function CaptchaCallback() {
+                            if(feedback.site_key !== "") {
+                                $captchaContainer = document.getElementById('customer-feedback');
+                                $captchaContainer.querySelectorAll(".g-recaptcha").forEach(ReCaptchaInstance => {
+                                    grecaptcha.render(ReCaptchaInstance, {'sitekey' : feedback.site_key});
+                                }); 
+                            }
+                        }
+                    </script>
+
                     <div class="g-recaptcha"></div>
+
                 <?php endif; ?>
 
                 <!-- Submission section -->

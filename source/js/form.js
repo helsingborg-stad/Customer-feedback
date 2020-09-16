@@ -109,12 +109,13 @@ export default () => {
         let answerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]'); 
         let self = this;
 
-        answerButton.forEach(optionButton => {
-            optionButton.addEventListener('click', function(e) {
+        answerButton.forEach(answerButton => {
+            answerButton.addEventListener('click', function(e) {
 
                 //Prevent default action
                 e.preventDefault();
-                
+                e.stopPropagation();
+
                 //Set pressed event
                 this.setAttribute("aria-pressed", true);
 
@@ -182,8 +183,10 @@ export default () => {
                 }
 
                 //Get captcha if not logged in
-                if($target.querySelector('[name="g-recaptcha-response"]') && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
-                    gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
+                if(feedback.site_key) {
+                    if($target.querySelector('[name="g-recaptcha-response"]') && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
+                        gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
+                    }
                 }
 
                 //Check length
@@ -206,8 +209,6 @@ export default () => {
                     valid = false;
                 }
 
-                console.log(email.length, emailRequired);
-
                 //Check email if exists 
                 if (email.length === 0 && emailRequired == "true") {
 
@@ -227,7 +228,6 @@ export default () => {
 
                     //Prohibit submission
                     valid = false;
-
                 }
 
                 //Return if not valid, else continiue. 
