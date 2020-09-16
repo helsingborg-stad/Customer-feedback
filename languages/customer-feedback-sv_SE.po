@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
-"POT-Creation-Date: 2020-09-14 08:42+0200\n"
-"PO-Revision-Date: 2020-09-14 08:43+0200\n"
+"POT-Creation-Date: 2020-09-16 14:39+0200\n"
+"PO-Revision-Date: 2020-09-16 14:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -212,14 +212,14 @@ msgstr "Svar"
 #: source/php/AcfFields/php/customer-feedback.php:23
 #: source/php/Responses.php:328 source/php/Responses.php:340
 #: source/php/Responses.php:465 source/php/Responses.php:471
-#: templates/form.php:27 templates/summary-view.php:38
+#: templates/form.php:41 templates/summary-view.php:38
 msgid "Yes"
 msgstr "Ja"
 
 #: source/php/AcfFields/php/customer-feedback.php:24
 #: source/php/Responses.php:326 source/php/Responses.php:340
 #: source/php/Responses.php:464 source/php/Responses.php:470
-#: templates/form.php:38 templates/summary-view.php:42
+#: templates/form.php:52 templates/summary-view.php:42
 msgid "No"
 msgstr "Nej"
 
@@ -245,6 +245,10 @@ msgstr "Kommentaren måste vara minst %s tecken."
 #: source/php/App.php:46
 msgid "Please select a topic."
 msgstr "Vänligen välj ett ämne."
+
+#: source/php/App.php:47
+msgid "Please enter a valid email."
+msgstr "Vänligen ange en giltig epostadress. "
 
 #: source/php/Form.php:37 source/php/Summary.php:179
 msgid "Did the information on this page help you?"
@@ -464,23 +468,32 @@ msgstr "Sammanfattning av feedback"
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: templates/form.php:106 templates/form.php:108
+#: templates/form.php:30
+msgid ""
+"Something went wrong, please try again later. You might have lost your "
+"internet connection or there is an issue with our server."
+msgstr ""
+"Något gick fel, var god och försök igen. Anslutningen till servern "
+"misslyckades."
+
+#: templates/form.php:125 templates/form.php:126
 msgid "What do you want to give feedback on?"
 msgstr "Vad vill du ge feedback på? "
 
-#: templates/form.php:133 templates/form.php:138
+#: templates/form.php:153 templates/form.php:158
 msgid "Enter your email."
 msgstr "Ange din epostadress."
 
-#: templates/form.php:154
+#: templates/form.php:187
 msgid "Send"
 msgstr "Skicka"
 
-#: templates/form.php:183
-msgid "Something went wrong, please try again later."
-msgstr "Något gick fel, vänligen försök igen senare."
+#: templates/form.php:216
+msgid ""
+"Something went wrong, please try again later. Could not store your response."
+msgstr ""
 
-#: templates/form.php:199
+#: templates/form.php:232
 msgid "You have already given feedback for this content."
 msgstr "Du har redan gett feedback på innehållet för denna sidan."
 
@@ -534,6 +547,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Something went wrong, please try again later."
+#~ msgstr "Något gick fel, vänligen försök igen senare."
 
 #~ msgid "Summaries"
 #~ msgstr "Sammanfattningar"
