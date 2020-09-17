@@ -19,19 +19,40 @@ export default () => {
 
         let $target = target;
 
-        $.post(ajaxurl, data, function (response) {
+        fetch(ajaxurl, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cache-Control': 'no-cache',
+            },
+            body: new URLSearchParams(data)
+        }).then(response => {
+
+            if(response.status != 200) {
+                document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+                return false;
+            }
+
+            return response.json();
+
+        }).then(response => {
 
             //Disable loader
             $target.querySelector("#feedback-loader").style.display = 'none';
 
             //Handle response
-            if (response == 'true') {
+            if (response == true) {
                 $target.querySelector('.customer-feedback-comment').style.display = 'none';
                 $target.querySelector('.customer-feedback-thanks').style.display = 'block';
             } else {
                 $target.querySelector('.customer-feedback-comment').style.display = 'none';
                 $target.querySelector('.customer-feedback-error').style.display = 'block';
             } 
+
+        }).catch(err => { 
+            document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+            return false;
         });
     }; 
 
@@ -51,11 +72,27 @@ export default () => {
 
         document.querySelector("#feedback-loader").style.display = 'block';
 
-        $.post(ajaxurl, data, function(response) {
-
-            //Status
+        fetch(ajaxurl, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cache-Control': 'no-cache',
+            },
+            body: new URLSearchParams(data)
+        }).then(response => {
+            console.log(response.status); 
             if(response.status != 200) {
                 document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+                return false;
+            }
+
+            return response.json();
+
+        }).then(response => {
+
+            if(response === false) {
+                return false; 
             }
 
             if (!isNaN(parseFloat(response)) && isFinite(response)) {
@@ -69,7 +106,6 @@ export default () => {
                 document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
 
                 //Hide current controls 
-                //document.querySelector('.customer-feedback-topics').style.display = "none";
                 document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
                 document.querySelector('.customer-feedback-answers').style.display = "none";
 
@@ -88,7 +124,11 @@ export default () => {
             //Loading done
             document.getElementById("feedback-loader").style.display = 'none'; 
 
+        }).catch(err => { 
+            document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+            return false;
         });
+
     };
 
     Form.prototype.removeJsErrorMessages = function () {
