@@ -5,7 +5,7 @@ export default () => {
     }
 
     Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, gCaptcha, topic) {
-       
+
         let data = {
             action: 'submit_comment',
             postid: postId,
@@ -29,8 +29,8 @@ export default () => {
             body: new URLSearchParams(data)
         }).then(response => {
 
-            if(response.status != 200) {
-                document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+            if (response.status != 200) {
+                document.querySelector('.customer-feedback-js-error').style.display = "block";
                 return false;
             }
 
@@ -48,13 +48,13 @@ export default () => {
             } else {
                 $target.querySelector('.customer-feedback-comment').style.display = 'none';
                 $target.querySelector('.customer-feedback-error').style.display = 'block';
-            } 
+            }
 
-        }).catch(err => { 
-            document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+        }).catch(err => {
+            document.querySelector('.customer-feedback-js-error').style.display = "block";
             return false;
         });
-    }; 
+    };
 
     /**
      * Submits the initail yes or no response
@@ -63,10 +63,10 @@ export default () => {
      * @return {void}w
      */
     Form.prototype.submitInitialResponse = function (target, postId, answer) {
-    
+
         let data = {
             action: 'submit_response',
-            postid: postId, 
+            postid: postId,
             answer: answer
         };
 
@@ -81,9 +81,9 @@ export default () => {
             },
             body: new URLSearchParams(data)
         }).then(response => {
-            console.log(response.status); 
-            if(response.status != 200) {
-                document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+
+            if (response.status != 200) {
+                document.querySelector('.customer-feedback-js-error').style.display = "block";
                 return false;
             }
 
@@ -91,41 +91,43 @@ export default () => {
 
         }).then(response => {
 
-            if(response === false) {
-                return false; 
+            if (response === false) {
+                return false;
             }
 
             if (!isNaN(parseFloat(response)) && isFinite(response)) {
 
                 //Create id holder
-                let feedBackIdElement = document.createElement("input"); 
-                    feedBackIdElement.type = "hidden"
-                    feedBackIdElement.name = "customer-feedback-answer-id"; 
-                    feedBackIdElement.value = response;
+                let feedBackIdElement = document.createElement("input");
+                feedBackIdElement.type = "hidden"
+                feedBackIdElement.name = "customer-feedback-answer-id";
+                feedBackIdElement.value = response;
 
                 document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
 
                 //Hide current controls 
-                document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none"; 
+                document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none";
                 document.querySelector('.customer-feedback-answers').style.display = "none";
 
                 //Show comment section
-                document.querySelector('.customer-feedback-comment').style.display = "block"; 
+                document.querySelector('.customer-feedback-comment').style.display = "block";
             }
 
-            if (data.answer == 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                document.querySelector('.feedback-label-yes').style.display = "block";
+            if (data.answer === 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
+                document.querySelector('.feedback-answer-yes').style.display = "block";
             }
 
-            if (data.answer == 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                document.querySelector('.feedback-label-no').style.display = "block";
+            if (data.answer === 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
+                for (const negativeAnswer of document.querySelectorAll('.feedback-answer-no')) {
+                    negativeAnswer.style.display = "block";
+                }
             }
 
             //Loading done
-            document.getElementById("feedback-loader").style.display = 'none'; 
+            document.getElementById("feedback-loader").style.display = 'none';
 
-        }).catch(err => { 
-            document.querySelector('.customer-feedback-js-error').style.display = "block"; 
+        }).catch(err => {
+            document.querySelector('.customer-feedback-js-error').style.display = "block";
             return false;
         });
 
@@ -137,20 +139,20 @@ export default () => {
         let $target = document.getElementById('customer-feedback');
 
         //Reset state (remove messages)
-        let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error'); 
-            errorMessages.forEach(errorMessage => {
-                errorMessage.remove(); 
-            }); 
+        let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error');
+        errorMessages.forEach(errorMessage => {
+            errorMessage.remove();
+        });
 
     }
 
     Form.prototype.handleEvents = function () {
 
-        let answerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]'); 
+        let answerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]');
         let self = this;
 
         answerButton.forEach(answerButton => {
-            answerButton.addEventListener('click', function(e) {
+            answerButton.addEventListener('click', function (e) {
 
                 //Prevent default action
                 e.preventDefault();
@@ -160,10 +162,10 @@ export default () => {
                 this.setAttribute("aria-pressed", true);
 
                 //Get submission id
-                let FeedBackID = document.getElementById("customer-feedback-post-id").value; 
+                let FeedBackID = document.getElementById("customer-feedback-post-id").value;
 
                 //Get submission answer
-                let Answer = this.getAttribute('value'); 
+                let Answer = this.getAttribute('value');
 
                 //Submit answer
                 self.submitInitialResponse(this, FeedBackID, Answer);
@@ -172,11 +174,11 @@ export default () => {
         });
 
         // Comment submit click
-        let submitButton = document.querySelectorAll('[data-action=customer-feedback-submit-comment]'); 
+        let submitButton = document.querySelectorAll('[data-action=customer-feedback-submit-comment]');
 
         submitButton.forEach(Submit => {
-            Submit.addEventListener('click', function(e) {
-                
+            Submit.addEventListener('click', function (e) {
+
                 e.preventDefault();
 
                 //Target div 
@@ -188,12 +190,12 @@ export default () => {
                 $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', false);
 
                 //Remove all js error messages
-                self.removeJsErrorMessages(); 
-                    
+                self.removeJsErrorMessages();
+
                 //Get vars 
                 let commentType = 'comment';
-                let topic = null; 
-                let gCaptcha = null; 
+                let topic = null;
+                let gCaptcha = null;
                 let answerId = $target.querySelector('[name="customer-feedback-answer-id"]').value;
                 let postId = $target.querySelector('[name="customer-feedback-post-id"]').value;
                 let comment = $target.querySelector('[name="customer-feedback-comment-text"]').value;
@@ -202,29 +204,29 @@ export default () => {
                 let valid = true;
 
                 //Topic
-                if($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
+                if ($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
                     topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
                 } else {
 
                     //Create error node
                     let topicErrorMessage = document.createElement('div');
-                        topicErrorMessage.id = 'topic-error';
-                        topicErrorMessage.classList = 'c-option__input-invalid-message feedback-form-dynamic-error'; 
-                        topicErrorMessage.style.display = 'block'; 
-                        topicErrorMessage.appendChild(
-                            document.createTextNode(feedback.select_topic)
-                        );  
+                    topicErrorMessage.id = 'topic-error';
+                    topicErrorMessage.classList = 'c-option__input-invalid-message feedback-form-dynamic-error';
+                    topicErrorMessage.style.display = 'block';
+                    topicErrorMessage.appendChild(
+                        document.createTextNode(feedback.select_topic)
+                    );
 
                     //Show invalid notice
                     $target.querySelector('.customer-feedback-topics').after(topicErrorMessage);
 
                     //Prohibit submission
-                    valid = false; 
+                    valid = false;
                 }
 
                 //Get captcha if not logged in
-                if(feedback.site_key) {
-                    if($target.querySelector('[name="g-recaptcha-response"]') && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
+                if (feedback.site_key) {
+                    if ($target.querySelector('[name="g-recaptcha-response"]') && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
                         gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
                     }
                 }
@@ -234,12 +236,12 @@ export default () => {
 
                     //Create error node
                     let errorMessage = document.createElement('div');
-                        errorMessage.id = 'length-error';
-                        errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error'; 
-                        errorMessage.style.display = 'block'; 
-                        errorMessage.appendChild(
-                            document.createTextNode(feedback.comment_min_characters)
-                        );  
+                    errorMessage.id = 'length-error';
+                    errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error';
+                    errorMessage.style.display = 'block';
+                    errorMessage.appendChild(
+                        document.createTextNode(feedback.comment_min_characters)
+                    );
 
                     //Show invalid notice
                     $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
@@ -254,13 +256,13 @@ export default () => {
 
                     //Create error node
                     let errorMessage = document.createElement('div');
-                        errorMessage.id = 'email-error';
-                        errorMessage.classList = 'c-field__input-invalid-message feedback-form-dynamic-error'; 
-                        errorMessage.style.display = 'block'; 
-                        errorMessage.style.marginTop = '0px'; 
-                        errorMessage.appendChild(
-                            document.createTextNode(feedback.enter_email)
-                        );  
+                    errorMessage.id = 'email-error';
+                    errorMessage.classList = 'c-field__input-invalid-message feedback-form-dynamic-error';
+                    errorMessage.style.display = 'block';
+                    errorMessage.style.marginTop = '0px';
+                    errorMessage.appendChild(
+                        document.createTextNode(feedback.enter_email)
+                    );
 
                     //Show invalid notice
                     $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', true);
@@ -276,36 +278,36 @@ export default () => {
                 }
 
                 //Spin
-                $target.querySelector("#feedback-loader").style.display = 'block'; 
-                
+                $target.querySelector("#feedback-loader").style.display = 'block';
+
                 //Submit
                 self.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha, topic);
 
-            }); 
+            });
         });
 
     };
 
     // Comment submit click
-    let topicListeners = document.querySelectorAll('[name="customer-feedback-comment-topic"]'); 
+    let topicListeners = document.querySelectorAll('[name="customer-feedback-comment-topic"]');
     let self = this;
 
     topicListeners.forEach(topListener => {
-        topListener.addEventListener('change', function(e) {
+        topListener.addEventListener('change', function (e) {
 
             //Container 
             let $container = document.querySelector('#customer-feedback');
 
             if (e.target.getAttribute('feedback-capability')) {
                 $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', true);
-                $container.querySelector('.customer-feedback-comment-email').style.display = 'block'; 
+                $container.querySelector('.customer-feedback-comment-email').style.display = 'block';
             } else {
                 $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', false);
-                $container.querySelector('.customer-feedback-comment-email').style.display = 'none'; 
+                $container.querySelector('.customer-feedback-comment-email').style.display = 'none';
             }
 
-        }); 
-    }); 
+        });
+    });
 
     return new Form();
 
