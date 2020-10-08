@@ -62,8 +62,8 @@
                 <?php if (!empty($topics) && count($topics) > 1): ?>
                     
                     <!-- Topic segment --> 
-                    <div id="customer-feedback-topics" class="customer-feedback-topics u-margin__top--4">
-                        
+                    <div id="customer-feedback-topics" class="customer-feedback-topics feedback-answer-no u-margin__top--4" style="display:none">
+
                         <label for="customer-feedback-comment-topic-<?php echo $num; ?>" class="c-typography c-typography__variant--h3">
                             <?php echo $topicLabel; ?>
                         </label>
@@ -71,12 +71,12 @@
                         <p class="c-typography typography__variant--small u-margin__top--0">
                             <?php echo $addComment; ?>
                         </p>
-                        
+
                         <?php foreach ($topics as $key => $topic): ?>
                             <div class="c-option c-option__radio">
-                                <input 
+                                <input
                                     id="<?php echo $key; ?>__customer-feedback-comment-topic"
-                                    name="customer-feedback-comment-topic" 
+                                    name="customer-feedback-comment-topic"
                                     class="c-option__radio--hidden-box" placeholder="<?php echo $topic->name; ?>"
                                     type="radio" value="<?php echo $topic->term_id; ?>"
                                     topic-description="<?php echo $topic->description; ?>"
@@ -101,14 +101,14 @@
                     <!-- Headings -->
                     <label 
                         for="customer-feedback-comment-text-<?php echo $num; ?>" 
-                        class="c-typography c-typography__variant--h3 feedback-label-yes"
+                        class="c-typography c-typography__variant--h3 feedback-answer-yes"
                         style="display: none;">
                         <?php echo $positiveLabel; ?>
                     </label>
 
                     <label 
                         for="customer-feedback-comment-text-<?php echo $num; ?>" 
-                        class="c-typography c-typography__variant--h3 feedback-label-no"
+                        class="c-typography c-typography__variant--h3 feedback-answer-no"
                         style="display: none;">
                         <?php echo $negativeLabel; ?>
                     </label>
