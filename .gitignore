@@ -1,7 +1,14 @@
 # ignore all files starting with . or ~
 .*
 ~*
-!.github
+
+# Ignore dist dir
+dist
+dist/
+dist/*
+/dist/
+./dist/
+
 # ignore node/grunt dependency directories
 node_modules/
 
@@ -50,8 +57,4 @@ Thumbs.db
 # track these files, if they exist
 !.gitignore
 !.editorconfig
-
-dist
-dist/
-dist/*
-
+!.github
