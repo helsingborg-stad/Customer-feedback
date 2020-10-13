@@ -209,7 +209,6 @@ export default () => {
                 let valid = true;
 
                 //Topic
-
                 if (!feedbackResponse){
                     if ($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
                         topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
@@ -223,6 +222,8 @@ export default () => {
                         topicErrorMessage.appendChild(
                             document.createTextNode(feedback.select_topic)
                         );
+
+                        $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
 
                         //Show invalid notice
                         $target.querySelector('.customer-feedback-topics').after(topicErrorMessage);
@@ -248,8 +249,11 @@ export default () => {
                     errorMessage.id = 'length-error';
                     errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error';
                     errorMessage.style.display = 'block';
-                    $target.querySelector( '.c-textarea label').remove();
-                    comment
+
+                    // Remove label
+                    if($target.querySelector( '.c-textarea label')) {
+                        $target.querySelector( '.c-textarea label').remove();
+                    }
 
                     errorMessage.appendChild(
                         document.createTextNode(feedback.comment_min_characters)
