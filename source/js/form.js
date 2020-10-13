@@ -250,7 +250,7 @@ export default () => {
                     errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error';
                     errorMessage.style.display = 'block';
 
-                    // Remove label
+                    // Remove offset label
                     if($target.querySelector( '.c-textarea label')) {
                         $target.querySelector( '.c-textarea label').remove();
                     }
