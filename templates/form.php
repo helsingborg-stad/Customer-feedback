@@ -192,7 +192,7 @@
         
             <!-- Submission success -->
             <div id="customer-feedback-thanks" class="customer-feedback-thanks" style="display: none;">
-                <div class="c-notice c-notice--success">
+                <div class="c-notice c-notice--success u-margin__top--2">
                     <span class="c-notice__icon">
                         <i class="c-icon c-icon--color- c-icon--size-md material-icons">
                             check
@@ -206,7 +206,7 @@
                 
             <!-- Submission Error -->
             <div id="customer-feedback-error" class="customer-feedback-error" style="display: none;">
-                <div id="" class="c-notice c-notice--danger">
+                <div id="" class="c-notice c-notice--danger u-margin__top--2">
                     <span class="c-notice__icon">
                         <i id="" class="c-icon c-icon--color- c-icon--size-md material-icons">
                             error_outline
@@ -222,7 +222,7 @@
 
             <!-- Submission already done -->
             <div class="customer-feedback-already-submitted">
-                <div class="c-notice c-notice--info">
+                <div class="c-notice c-notice--info u-margin__top--2">
                     <span class="c-notice__icon">
                         <i id="" class="c-icon c-icon--color- c-icon--size-md material-icons">
                             error_outline
