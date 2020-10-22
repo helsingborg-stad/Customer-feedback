@@ -1,10 +1,13 @@
 export default () => {
 
+    let feedbackResponse = false;
+
     function Form() {
         this.handleEvents();
     }
 
     Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, gCaptcha, topic) {
+
 
         let data = {
             action: 'submit_comment',
@@ -115,11 +118,13 @@ export default () => {
 
             if (data.answer === 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
                 document.querySelector('.feedback-answer-yes').style.display = "block";
+                feedbackResponse = true;
             }
 
             if (data.answer === 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
                 for (const negativeAnswer of document.querySelectorAll('.feedback-answer-no')) {
                     negativeAnswer.style.display = "block";
+                    feedbackResponse = false;
                 }
             }
 
@@ -204,25 +209,30 @@ export default () => {
                 let valid = true;
 
                 //Topic
-                if ($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
-                    topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
-                } else {
+                if (!feedbackResponse){
+                    if ($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
+                        topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
+                    } else {
 
-                    //Create error node
-                    let topicErrorMessage = document.createElement('div');
-                    topicErrorMessage.id = 'topic-error';
-                    topicErrorMessage.classList = 'c-option__input-invalid-message feedback-form-dynamic-error';
-                    topicErrorMessage.style.display = 'block';
-                    topicErrorMessage.appendChild(
-                        document.createTextNode(feedback.select_topic)
-                    );
+                        //Create error node
+                        let topicErrorMessage = document.createElement('div');
+                        topicErrorMessage.id = 'topic-error';
+                        topicErrorMessage.classList = 'c-option__input-invalid-message feedback-form-dynamic-error';
+                        topicErrorMessage.style.display = 'block';
+                        topicErrorMessage.appendChild(
+                            document.createTextNode(feedback.select_topic)
+                        );
 
-                    //Show invalid notice
-                    $target.querySelector('.customer-feedback-topics').after(topicErrorMessage);
+                        $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
 
-                    //Prohibit submission
-                    valid = false;
+                        //Show invalid notice
+                        $target.querySelector('.customer-feedback-topics').after(topicErrorMessage);
+
+                        //Prohibit submission
+                        valid = false;
+                    }
                 }
+
 
                 //Get captcha if not logged in
                 if (feedback.site_key) {
@@ -239,6 +249,12 @@ export default () => {
                     errorMessage.id = 'length-error';
                     errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error';
                     errorMessage.style.display = 'block';
+
+                    // Remove offset label
+                    if($target.querySelector( '.c-textarea label')) {
+                        $target.querySelector( '.c-textarea label').remove();
+                    }
+
                     errorMessage.appendChild(
                         document.createTextNode(feedback.comment_min_characters)
                     );
