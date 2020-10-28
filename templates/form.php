@@ -1,8 +1,5 @@
 <?php $num = isset($num) && $num > 0 ? $num++ : 1; ?>
-<div id="customer-feedback" class="customer-feedback-container c-paper c-paper--padding-3 u-margin__top--6">
-    
-    <input type="hidden" id="customer-feedback-post-id" name="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
-
+<div id="customer-feedback" class="customer-feedback-container c-paper c-paper--padding-3">
     <h4 id="" class="c-typography c-typography__variant--h3">
         <i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
             question_answer
@@ -10,9 +7,9 @@
         <?php echo $mainQuestion ?>
     </h4>
 
-    <p class="c-typography c-typography__variant--byline u-margin__top--0"><?php echo $mainQuestionSub; ?></p>
+    <p class="c-typography c-typography__variant--byline"><?php echo $mainQuestionSub; ?></p>
 
-    <div class="gutter gutter-top gutter-sm">
+    <div class="u-margin__top--3">
         <?php if (!isset($_COOKIE['customer-feedback']) || !in_array(get_the_id(), unserialize(base64_decode(stripslashes($_COOKIE['customer-feedback']))))) : ?>
             
             <!-- Booelan answer section -->
@@ -229,7 +226,7 @@
                         </i>
                     </span>
                     <span class="c-notice__message--sm">
-                        <?php _e('You have already given feedback for this content.','customer-feedback'); ?>
+                        <?php _e('You have already given feedback for this content.', 'customer-feedback'); ?>
                     </span>
                 </div>
             </div>
@@ -239,5 +236,5 @@
         <div id="feedback-loader" class="feedback-loader c-loader c-loader__circular--color--primary c-loader__circular c-loader__circular--md"></div>
 
     </div>
-
+    <input type="hidden" id="customer-feedback-post-id" name="customer-feedback-post-id" value="<?php echo get_the_id(); ?>">
 </div>
