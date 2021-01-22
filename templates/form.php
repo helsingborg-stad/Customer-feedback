@@ -175,13 +175,13 @@
                 <?php endif; ?>
 
                 <!-- Submission section -->
-                <button rel="nofollow" class="c-button c-button__filled c-button__filled--primary c-button--lg u-margin__top--4" aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
+                <button rel="nofollow" class="c-button c-button__filled c-button__filled--primary c-button--md u-margin__top--4" aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
                     <span class="c-button__label">
                         <span class="c-button__label-text">
                             <i class="c-icon c-icon--color-white c-icon--size-inherit material-icons">
                                 send
                             </i>
-                            <?php _e('Send'); ?>
+                            <?php _e('Send', 'customer-feedback'); ?>
                         </span>
                     </span>
                 </button>
