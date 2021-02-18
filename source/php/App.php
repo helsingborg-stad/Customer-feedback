@@ -1,9 +1,17 @@
 <?php
 
 namespace CustomerFeedback;
+use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
+/**
+ * Class App
+ * @package CustomerFeedback
+ */
 class App
 {
+    /**
+     * App constructor.
+     */
     public function __construct()
     {
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
@@ -21,6 +29,9 @@ class App
         new Options();
     }
 
+    /**
+     * @param $postType
+     */
     public function removeUnwantedModuleMetaboxes($postType)
     {
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
@@ -41,7 +52,6 @@ class App
     {
         wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('js/customer-feedback.js', false, '1.0.0', true));
         wp_localize_script('customer-feedback', 'feedback', array(
-            'site_key' => (defined('G_RECAPTCHA_KEY')) ? G_RECAPTCHA_KEY : '',
             'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
             'select_topic' => __('Please select a topic.', 'customer-feedback'),
             'enter_email' => __('Please enter a valid email.', 'customer-feedback')
@@ -52,9 +62,14 @@ class App
         global $post;
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
         $allowedPostTypes = (empty($allowedPostTypes)) ? array('page') : $allowedPostTypes;
+
         if (is_object($post) && in_array($post->post_type, $allowedPostTypes) && (is_single() || is_page())) {
-            wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit', '', '1.0.0', true);
+            // If Captcha Script is not Enqueued
+            if( !wp_script_is( 'municipio-google-recaptcha' ) ) {
+                Captcha::initScripts();
+            }
         }
+
     }
 
     public function adminEnqueue()

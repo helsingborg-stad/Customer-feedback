@@ -2,6 +2,8 @@
 
 namespace CustomerFeedback;
 
+use HelsingborgStad\RecaptchaIntegration as Captcha;
+
 class Responses
 {
     public $postTypeSlug = 'customer-feedback';
@@ -526,6 +528,18 @@ class Responses
     }
 
     /**
+     * Check reCaptcha Keys and if poster is Human or bot.
+     */
+    public static function reCaptchaValidation()
+    {
+        if (is_user_logged_in()) {
+            return;
+        }
+
+        Captcha::initCaptcha();
+    }
+
+    /**
      * Save a comment response as metadata for the page commented on
      * @return string Always returns "true" as a string
      */
@@ -538,15 +552,10 @@ class Responses
         $email = (isset($_POST['email']) && strlen($_POST['email']) > 0) ? $_POST['email'] : null;
         $topicId = (isset($_POST['topicid']) && is_numeric($_POST['topicid'])) ? (int)$_POST['topicid'] : null;
 
-        $theme = wp_get_theme();
-        if (!is_user_logged_in() && ($theme->name == 'Municipio' || $theme->parent_theme == 'Municipio')) {
-            $response = (isset($_POST['captcha']) && strlen($_POST['captcha']) > 0) ? $_POST['captcha'] : null;
-            $reCaptcha = \Municipio\Helper\ReCaptcha::controlReCaptcha($response);
-
-            if (!$reCaptcha) {
-                echo 'false';
-                wp_die();
-            }
+        // Recaptcha
+        if (!is_user_logged_in()) {
+            $_POST['g-recaptcha-response'] = $_POST['captcha'];
+            self::reCaptchaValidation();
         }
 
         if ($answerId && $postId) {

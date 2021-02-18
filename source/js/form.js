@@ -200,7 +200,7 @@ export default () => {
                 //Get vars 
                 let commentType = 'comment';
                 let topic = null;
-                let gCaptcha = null;
+                let gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
                 let answerId = $target.querySelector('[name="customer-feedback-answer-id"]').value;
                 let postId = $target.querySelector('[name="customer-feedback-post-id"]').value;
                 let comment = $target.querySelector('[name="customer-feedback-comment-text"]').value;
@@ -230,14 +230,6 @@ export default () => {
 
                         //Prohibit submission
                         valid = false;
-                    }
-                }
-
-
-                //Get captcha if not logged in
-                if (feedback.site_key) {
-                    if ($target.querySelector('[name="g-recaptcha-response"]') && $target.querySelector('[name="g-recaptcha-response"]').value !== '') {
-                        gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
                     }
                 }
 
