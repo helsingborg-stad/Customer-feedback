@@ -14,8 +14,9 @@ class App
      */
     public function __construct()
     {
-        add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
+
         add_action('admin_enqueue_scripts', array($this, 'adminEnqueue'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'), 30);
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
         add_action('loop_end', function() {
             if(!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD')) {
@@ -64,8 +65,7 @@ class App
         $allowedPostTypes = (empty($allowedPostTypes)) ? array('page') : $allowedPostTypes;
 
         if (is_object($post) && in_array($post->post_type, $allowedPostTypes) && (is_single() || is_page())) {
-            // If Captcha Script is not Enqueued
-            if( !wp_script_is( 'municipio-google-recaptcha' ) ) {
+            if (!wp_script_is('municipio-google-recaptcha')) {
                 Captcha::initScripts();
             }
         }
