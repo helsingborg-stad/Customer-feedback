@@ -63,9 +63,9 @@
                                    name="customer-feedback-comment-email" value="<?php echo $userEmail; ?>">
                         </div>
                         <?php if (!is_user_logged_in()) : ?>
-                            <div class="form-group">
-                                <div class="g-recaptcha"></div>
-                            </div>
+                            <?php if (!is_user_logged_in()) : ?>
+                                <input type="hidden" class="g-recaptcha-response" name="g-recaptcha-response" value="" />
+                            <?php endif; ?>
                         <?php endif; ?>
                         <div class="form-group">
                             <button rel="nofollow" style="margin-top:5px;" class="btn btn-submit"
