@@ -158,7 +158,10 @@
                 </div>
 
                 <?php if (!is_user_logged_in()) : ?>
-                        <input type="hidden" class="g-recaptcha-response" name="g-recaptcha-response" value="" />
+                    <div class="c-typography c-typography__variant--meta u-padding__top--2">
+                        <?php echo _e('This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'customer-feedback'); ?>
+                    </div>
+                    <input type="hidden" class="g-recaptcha-response" name="g-recaptcha-response" value="" />
                 <?php endif; ?>
 
                 <!-- Submission section -->
