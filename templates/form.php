@@ -157,12 +157,10 @@
 
                 </div>
 
-                <?php if (!is_user_logged_in()) : ?>
-                    <div class="c-typography c-typography__variant--meta u-padding__top--2">
+                <div class="c-typography c-typography__variant--meta u-padding__top--2">
                         <?php echo _e('This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'customer-feedback'); ?>
                     </div>
-                    <input type="hidden" class="g-recaptcha-response" name="g-recaptcha-response" value="" />
-                <?php endif; ?>
+                <input type="hidden" class="g-recaptcha-response" name="g-recaptcha-response" value="" />
 
                 <!-- Submission section -->
                 <button rel="nofollow" class="c-button c-button__filled c-button__filled--primary c-button--md u-margin__top--4" aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
