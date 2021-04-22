@@ -147,12 +147,12 @@
                     <!-- Email input -->
                     <div class="c-field c-field__text">
                         <input  
-                            placeholder="<?php _e("Enter your email."); ?>"
+                            placeholder="<?php _e("Enter your email.", 'customer-feedback'); ?>"
                             type="email" 
                             id="customer-feedback-comment-email-<?php echo $num; ?>"
                             name="customer-feedback-comment-email" 
                             value="<?php echo $userEmail; ?>">
-                            <label class="c-field__text--label"><?php _e("Enter your email."); ?></label>
+                            <label class="c-field__text--label"><?php _e("Enter your email.", 'customer-feedback'); ?></label>
                     </div>
 
                 </div>
