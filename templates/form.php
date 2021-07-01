@@ -61,9 +61,9 @@
                     <!-- Topic segment --> 
                     <div id="customer-feedback-topics" class="customer-feedback-topics feedback-answer-no u-margin__top--4" style="display:none">
 
-                        <legend class="c-typography c-typography__variant--h3">
+                        <label class="c-typography c-typography__variant--h3">
                             <?php echo $topicLabel; ?>
-                        </legend>
+                        </label>
 
                         <p class="c-typography typography__variant--small u-margin__top--0">
                             <?php echo $addComment; ?>
