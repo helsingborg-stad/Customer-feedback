@@ -7,9 +7,10 @@ if (php_sapi_name() !== 'cli') {
 
 // Any command needed to run and build plugin assets when newly cheched out of repo.
 $buildCommands = [
-    'npm install --no-progress',
+    'npm ci --no-progress --no-audit',
+    'npx browserslist@latest --update-db',
     'npm run build',
-    'composer install --prefer-dist --no-progress --no-suggest'
+    'composer install --prefer-dist --no-progress'
 ];
 
 // Files and directories not suitable for prod to be removed.
@@ -18,11 +19,8 @@ $removables = [
     '.gitignore',
     '.github',
     'build.php',
-    '.npmrc',
     'composer.json',
-    'env-example',
-    'gulpfile.js',
-    'gulpfile.old.js',
+    'composer.lock',
     'webpack.config.js',
     'node_modules',
     'package-lock.json',
@@ -36,8 +34,10 @@ $output = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
     print "---- Running build command '$buildCommand' for $dirName. ----\n";
+    $timeStart = microtime(true);
     $exitCode = executeCommand($buildCommand);
-    print "---- Done build command '$buildCommand' for $dirName. ----\n";
+    $buildTime = round(microtime(true) - $timeStart);
+    print "---- Done build command '$buildCommand' for $dirName.  Build time: $buildTime seconds. ----\n";
     if ($exitCode > 0) {
         exit($exitCode);
     }

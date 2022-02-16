@@ -1,9 +1,9 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin }= require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const RemoveEmptyScripts = require('webpack-remove-empty-scripts');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -30,6 +30,7 @@ module.exports = {
     filename: devMode ? '[name].js' : '[name].[contenthash:8].js',
     chunkFilename: devMode ? '[id].js' : '[id].[contenthash:8].js',
     path: path.resolve(process.cwd(), 'dist'),
+    publicPath: '',
   },
 
   module: {
@@ -71,40 +72,23 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer],
+                postcssOptions: {
+                    plugins: [autoprefixer],
+                }
             },
           },
           'sass-loader',
         ],
       },
-
       /**
        * Images
        */
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: devMode ? '[name].[ext]' : '[name].[contenthash:8].[ext]',
-            },
-          },
-        ],
-      },
-      /**
-       * Fonts
-       */
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: devMode ? '[name].[ext]' : '[name].[contenthash:8].[ext]',
-            },
-          },
-        ],
+        type: 'asset/resource',
+        generator: {
+            filename: 'images/action_icons/[name][ext]',
+        },
       },
     ],
   },
@@ -114,13 +98,13 @@ module.exports = {
    */
   plugins: [
     new CleanWebpackPlugin(),
-    new FixStyleOnlyEntriesPlugin(),
+    new RemoveEmptyScripts(),
     // Minify css and create css file
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[contenthash:8].css',
       chunkFilename: devMode ? '[name].css' : '[name].[contenthash:8].css',
     }),
-    new ManifestPlugin({
+    new WebpackManifestPlugin({
       fileName: 'manifest.json',
       // Filter manifest items
       filter(file) {
@@ -146,4 +130,6 @@ module.exports = {
       },
     }),
   ],
+  devtool: 'source-map',
+  stats: {children: false}
 };

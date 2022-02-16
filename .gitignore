@@ -9,11 +9,11 @@ dist/*
 /dist/
 ./dist/
 
+vendor/
+
 # ignore node/grunt dependency directories
 node_modules/
-
-# ignore composer lock file
-composer.lock
+.dccache
 
 # ignore jekyll build directory
 /_site
