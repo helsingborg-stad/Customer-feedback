@@ -6,7 +6,7 @@ export default () => {
         this.handleEvents();
     }
 
-    Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, gCaptcha, topic) {
+    Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, topic) {
 
 
         let data = {
@@ -16,7 +16,6 @@ export default () => {
             answerid: answerId,
             commenttype: commentType,
             email: email,
-            captcha: gCaptcha,
             topicid: topic
         };
 
@@ -190,9 +189,17 @@ export default () => {
                 let $target = document.getElementById('customer-feedback');
 
                 //Reset state (make fields valid attr)
-                $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', false);
-                $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', false);
-                $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', false);
+                if($target.querySelector('[name="customer-feedback-comment-text"]') !== null) {
+                    $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', false);
+                }
+
+                if($target.querySelector('[name="customer-feedback-comment-topic"]') !== null) {
+                    $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', false);
+                }
+
+                if($target.querySelector('[name="customer-feedback-comment-email"]') !== null) {
+                    $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', false);
+                }
 
                 //Remove all js error messages
                 self.removeJsErrorMessages();
@@ -200,11 +207,10 @@ export default () => {
                 //Get vars 
                 let commentType = 'comment';
                 let topic = null;
-                let gCaptcha = $target.querySelector('[name="g-recaptcha-response"]').value;
                 let answerId = $target.querySelector('[name="customer-feedback-answer-id"]').value;
                 let postId = $target.querySelector('[name="customer-feedback-post-id"]').value;
-                let comment = $target.querySelector('[name="customer-feedback-comment-text"]').value;
-                let email = $target.querySelector('[name="customer-feedback-comment-email"]').value;
+                let comment = $target.querySelector('[name="customer-feedback-comment-text"]').value ?? '';
+                let email = $target.querySelector('[name="customer-feedback-comment-email"]').value ?? '';
                 let emailRequired = $target.querySelector('[name="customer-feedback-comment-email"]').getAttribute('required');
                 let valid = true;
 
@@ -289,7 +295,7 @@ export default () => {
                 $target.querySelector("#feedback-loader").style.display = 'block';
 
                 //Submit
-                self.submitComment($target, answerId, postId, commentType, comment, email, gCaptcha, topic);
+                self.submitComment($target, answerId, postId, commentType, comment, email, topic);
 
             });
         });
