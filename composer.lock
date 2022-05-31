@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "322f6f5c742646bed654247f4e57fe26",
+    "content-hash": "fcfae9afce43690b238a20e876a91656",
     "packages": [
         {
             "name": "helsingborg-stad/acf-export-manager",
@@ -41,43 +41,6 @@
                 "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues"
             },
             "time": "2018-05-29T07:52:24+00:00"
-        },
-        {
-            "name": "helsingborg-stad/recaptcha-integration",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/recaptcha-integration.git",
-                "reference": "e64e073cd204af6688d170839c92f06c9c223c5f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/recaptcha-integration/zipball/e64e073cd204af6688d170839c92f06c9c223c5f",
-                "reference": "e64e073cd204af6688d170839c92f06c9c223c5f",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "HelsingborgStad\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johan Silvergrund",
-                    "email": "johan.silvergrund@helsingborg.se"
-                }
-            ],
-            "description": "Google ReCAPTCHA v3 integration for Municipio and plugins",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/recaptcha-integration/issues",
-                "source": "https://github.com/helsingborg-stad/recaptcha-integration/tree/1.1.2"
-            },
-            "time": "2021-03-24T10:38:12+00:00"
         }
     ],
     "packages-dev": [],
@@ -88,5 +51,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

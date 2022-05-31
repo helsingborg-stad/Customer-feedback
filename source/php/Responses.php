@@ -2,8 +2,6 @@
 
 namespace CustomerFeedback;
 
-use HelsingborgStad\RecaptchaIntegration as Captcha;
-
 class Responses
 {
     public $postTypeSlug = 'customer-feedback';
@@ -528,18 +526,6 @@ class Responses
     }
 
     /**
-     * Check reCaptcha Keys and if poster is Human or bot.
-     */
-    public static function reCaptchaValidation()
-    {
-        if (is_user_logged_in()) {
-            return;
-        }
-
-        Captcha::initCaptcha();
-    }
-
-    /**
      * Save a comment response as metadata for the page commented on
      * @return string Always returns "true" as a string
      */
@@ -551,12 +537,6 @@ class Responses
         $commentType = (isset($_POST['commenttype']) && strlen($_POST['commenttype']) > 0) ? $_POST['commenttype'] : null;
         $email = (isset($_POST['email']) && strlen($_POST['email']) > 0) ? $_POST['email'] : null;
         $topicId = (isset($_POST['topicid']) && is_numeric($_POST['topicid'])) ? (int)$_POST['topicid'] : null;
-
-        // Recaptcha
-        if (!is_user_logged_in()) {
-            $_POST['g-recaptcha-response'] = $_POST['captcha'];
-            self::reCaptchaValidation();
-        }
 
         if ($answerId && $postId) {
             update_post_meta($answerId, 'customer_feedback_comment', $comment);

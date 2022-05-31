@@ -1,7 +1,6 @@
 <?php
 
 namespace CustomerFeedback;
-use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
 /**
  * Class App
@@ -18,9 +17,9 @@ class App
         add_action('admin_enqueue_scripts', array($this, 'adminEnqueue'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'), 30);
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
-        add_action('loop_end', function() {
-            if(!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD')) {
-                do_action('customer-feedback'); 
+        add_action('loop_end', function () {
+            if (!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD')) {
+                do_action('customer-feedback');
             }
         });
 
@@ -59,17 +58,6 @@ class App
         ));
 
         wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/customer-feedback.css', false, '1.0.0'));
-
-        global $post;
-        $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
-        $allowedPostTypes = (empty($allowedPostTypes)) ? array('page') : $allowedPostTypes;
-
-        if (is_object($post) && in_array($post->post_type, $allowedPostTypes) && (is_single() || is_page())) {
-            if (!wp_script_is('municipio-google-recaptcha')) {
-                Captcha::initScripts();
-            }
-        }
-
     }
 
     public function adminEnqueue()

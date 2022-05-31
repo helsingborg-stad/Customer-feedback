@@ -109,10 +109,7 @@
                         style="display: none;">
                         <?php echo $negativeLabel; ?>
                     </label>
-                    
-                    <!-- Explainer -->
-                    <p class="c-typography c-typography__variant--byline u-margin__top--0"><?php echo $commentExplain; ?></p>
-
+                            
                     <!-- Text input field for comments -->
                     <div class="c-textarea">
                         <textarea 
@@ -122,6 +119,9 @@
                             placeholder="<?php _e("What do you want to give feedback on?", 'customer-feedback'); ?>"></textarea> 
                         <label class="c-textarea--label"><?php _e("What do you want to give feedback on?", 'customer-feedback'); ?></label>
                     </div>
+
+                    <!-- Explainer -->
+                    <p class="c-typography c-typography__variant--meta u-margin__top--0"><?php echo $commentExplain; ?></p>
 
                     <!-- GDPR Notice -->
                     <?php if (!empty($gdpr_complience_notice_content)): ?>
@@ -156,11 +156,6 @@
                     </div>
 
                 </div>
-
-                <div class="c-typography c-typography__variant--meta u-padding__top--2">
-                        <?php echo _e('This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'customer-feedback'); ?>
-                    </div>
-                <input type="hidden" class="g-recaptcha-response" name="g-recaptcha-response" value="" />
 
                 <!-- Submission section -->
                 <button rel="nofollow" class="c-button c-button__filled c-button__filled--primary c-button--md u-margin__top--4" aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
