@@ -20,7 +20,7 @@ class App
     public function removeUnwantedModuleMetaboxes($postType)
     {
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
-        if (is_null($allowedPostTypes)) {
+        if (!is_array($allowedPostTypes)) {
             $allowedPostTypes = array('page');
         }
 
