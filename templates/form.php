@@ -1,5 +1,8 @@
-<?php $num = isset($num) && $num > 0 ? $num++ : 1; ?>
-<div id="customer-feedback" class="customer-feedback-container c-paper c-paper--padding-3">
+<?php $num = isset($num) && $num > 0 ? $num++ : 1;
+    $cardStyle = get_theme_mod('flat_ui_design') ? "c-card--flat u-padding--0" : "u-padding--3";
+?>
+
+<div id="customer-feedback" class="customer-feedback-container c-card <?php echo($cardStyle);?> ">
     <h4 id="" class="c-typography c-typography__variant--h3">
         <i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
             question_answer
