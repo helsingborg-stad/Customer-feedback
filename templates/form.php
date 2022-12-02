@@ -40,7 +40,7 @@ $cardStyle = get_theme_mod('flat_ui_design') ? "c-card--flat u-padding--1" : "u-
 				aria-pressed="false" type="button" value="yes" data-action="customer-feedback-submit-response">
 				<span class="c-button__label">
 					<span class="c-button__label-text">
-						<i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
+						<i aria-hidden class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
 							thumb_up
 						</i>
 						<?php _e('Yes', 'customer-feedback'); ?>
@@ -52,7 +52,7 @@ $cardStyle = get_theme_mod('flat_ui_design') ? "c-card--flat u-padding--1" : "u-
 				aria-pressed="false" type="button" value="no" data-action="customer-feedback-submit-response">
 				<span class="c-button__label">
 					<span class="c-button__label-text">
-						<i class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
+						<i aria-hidden class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
 							thumb_down
 						</i>
 						<?php _e('No', 'customer-feedback'); ?>
