@@ -3,7 +3,7 @@ $cardStyle = get_theme_mod('flat_ui_design') ? "c-card--flat u-padding--1" : "u-
 ?>
 
 <div id="customer-feedback"
-    class="customer-feedback-container c-card <?php echo($cardStyle);?> ">
+    class="customer-feedback-container c-card u-margin__top--3 <?php echo($cardStyle);?> ">
     <h2 id="feedback" class="c-typography c-typography__variant--h3">
         <span aria-hidden="true" class="c-icon c-icon--color-primary c-icon--size-inherit material-icons">
             question_answer
