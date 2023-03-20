@@ -386,8 +386,16 @@ class Responses
         // Filter on has-comment
         if (isset($_GET['has-comment']) && $_GET['has-comment'] === 'yes') {
             $metaQuery[] = array(
-                'key' => 'customer_feedback_comment',
-                'compare' => 'EXISTS'
+                'relation' => 'AND',
+                [
+                    'key' => 'customer_feedback_comment',
+                    'compare' => 'EXISTS'
+                ],
+                [
+                    'key' => 'customer_feedback_comment',
+                    'compare' => '!=',
+                    'value' => ''
+                ]
             );
         }
 
