@@ -17,5 +17,10 @@
     ],
     "require": {
         "helsingborg-stad/acf-export-manager": ">=1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "CustomerFeedback\\": "source/php/"
+        }
     }
 }

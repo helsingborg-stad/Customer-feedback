@@ -26,18 +26,10 @@ add_action('plugins_loaded', function () {
     load_plugin_textdomain('customer-feedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
 });
 
-require_once CUSTOMERFEEDBACK_PATH . 'source/php/Vendor/Psr4ClassLoader.php'; // Psr autoloader
-require_once CUSTOMERFEEDBACK_PATH . 'Public.php'; // Public functions
 if (file_exists(CUSTOMERFEEDBACK_PATH . 'vendor/autoload.php')) {
     require_once CUSTOMERFEEDBACK_PATH . 'vendor/autoload.php';
 }
-
-
-// Instantiate and register the autoloader
-$loader = new CustomerFeedback\Vendor\Psr4ClassLoader();
-$loader->addPrefix('CustomerFeedback', CUSTOMERFEEDBACK_PATH);
-$loader->addPrefix('CustomerFeedback', CUSTOMERFEEDBACK_PATH . 'source/php/');
-$loader->register();
+require_once CUSTOMERFEEDBACK_PATH . 'Public.php'; // Public functions
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {
