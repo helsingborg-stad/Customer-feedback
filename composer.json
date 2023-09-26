@@ -20,7 +20,8 @@
     },
     "autoload": {
         "psr-4": {
-          "CustomerFeedback\\": "source/php/"
+            "CustomerFeedback\\": "source/php/"
         }
-    }
+    },
+    "version": "3.0.0"
 }
