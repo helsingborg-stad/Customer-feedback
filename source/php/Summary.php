@@ -100,14 +100,13 @@ class Summary
         if ($this->getCachedResult($interval) !== false) {
             $report = $this->getCachedResult($interval);
         } else {
-            $report = self::$resultCache[$interval] = $this->renderReport($from, $to, true);
+            [$rendered, $hasContent] = $this->renderReport($from, $to, true);
+            $report = self::$resultCache[$interval] = $rendered;
         }
-
+        
         //Send non empty reports
-        if (!empty($report)) {
-
+        if (!empty($report) && !empty($hasContent)) {
             $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
-
             wp_mail(
                 $email,
                 __('Feedback summary', 'customer-feedback') . ' (' . get_option('blogname') . ')',
@@ -116,7 +115,7 @@ class Summary
                     'Content-Type: text/html; charset=UTF-8',
                     'From: ' . get_option('admin_email')
                 )
-            );
+            );  
         }
     }
 
@@ -173,7 +172,7 @@ class Summary
         }
 
         // Get data from dates
-        $data = $this->getDataBetween($from, $to);
+        [$data, $hasContent] = $this->getDataBetween($from, $to);
 
         // Get question
         $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
@@ -190,7 +189,7 @@ class Summary
         if ($return) {
             ob_start();
             include CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
-            return ob_get_clean();
+            return [ob_get_clean(), $hasContent];
         } else {
             include CUSTOMERFEEDBACK_TEMPLATE_PATH . '/summary-view.php';
         }
@@ -258,7 +257,7 @@ class Summary
             'pending' => $pending
         );
 
-        return $data;
+        return [$data, (!empty($yesno) || !empty($yesnoPercent) || !empty($pending))];
     }
 
     /**
