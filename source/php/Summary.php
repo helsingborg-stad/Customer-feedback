@@ -257,7 +257,7 @@ class Summary
             'pending' => $pending
         );
 
-        return [$data, (!empty($yesno) || !empty($yesnoPercent) || !empty($pending))];
+        return [$data, (!empty($yesno['yes']) || !empty($yesno['no']))];
     }
 
     /**
