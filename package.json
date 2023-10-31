@@ -1,6 +1,6 @@
 {
     "name": "CustomerFeedback",
-    "version": "4.0.3",
+    "version": "4.0.4",
     "description": "Puts a customer feedback form on each page",
     "main": "",
     "scripts": {
