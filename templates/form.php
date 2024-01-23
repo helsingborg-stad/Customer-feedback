@@ -145,8 +145,7 @@ $cardStyle = get_theme_mod('flat_ui_design') ? "c-card--flat u-padding--1" : "u-
 
             </div>
 
-            <div class="customer-feedback-comment-email u-margin__top--4" style="display: none;">
-
+            <div class="customer-feedback-comment-email u-margin__top--4 c-field" style="display: none;">
                 <!-- Email -->
                 <label
                     for="customer-feedback-comment-email-<?php echo $num; ?>"
@@ -160,15 +159,13 @@ $cardStyle = get_theme_mod('flat_ui_design') ? "c-card--flat u-padding--1" : "u-
                 </p>
 
                 <!-- Email input -->
-                <div class="c-field c-field__text">
+                    <div class="c-field__inner c-field__inner--email">
                     <input
                         placeholder="<?php _e("Enter your email.", 'customer-feedback'); ?>"
                         type="email"
                         id="customer-feedback-comment-email-<?php echo $num; ?>"
                         name="customer-feedback-comment-email"
                         value="<?php echo $userEmail; ?>">
-                    <label
-                        class="c-field__text--label"><?php _e("Enter your email.", 'customer-feedback'); ?></label>
                 </div>
 
             </div>
