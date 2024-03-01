@@ -19,12 +19,16 @@ class Form
     {
         global $post;
 
+        if(!is_a($post, 'WP_Post')) {
+            return;
+        }
+
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
         if (is_null($allowedPostTypes)) {
             $allowedPostTypes = array('page');
         }
 
-        if (!is_array($allowedPostTypes) || !in_array($post->post_type, $allowedPostTypes)) {
+        if (!is_array($allowedPostTypes) || !in_array($post->post_type ?? null, $allowedPostTypes)) {
             return;
         }
 
