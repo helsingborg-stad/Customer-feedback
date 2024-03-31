@@ -99,6 +99,7 @@ class Summary
         // Get report (fetch from cache if any)
         if ($this->getCachedResult($interval) !== false) {
             $report = $this->getCachedResult($interval);
+            $hasContent = !empty($report) ? true : false;
         } else {
             [$rendered, $hasContent] = $this->renderReport($from, $to, true);
             $report = self::$resultCache[$interval] = $rendered;
