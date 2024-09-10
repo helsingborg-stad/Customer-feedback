@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/customerfeedback",
-    "version": "4.0.8",
+    "version": "4.0.9",
     "description": "Puts a customer feedback form on each page",
     "main": "",
     "scripts": {
@@ -22,7 +22,9 @@
         "> 1%",
         "not dead"
     ],
-    "files": ["dist/"],
+    "files": [
+        "dist/"
+    ],
     "devDependencies": {
         "@babel/core": "^7.17.2",
         "@babel/plugin-proposal-class-properties": "^7.16.7",
