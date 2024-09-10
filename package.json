@@ -1,5 +1,5 @@
 {
-    "name": "CustomerFeedback",
+    "name": "@helsingborg-stad/customerfeedback",
     "version": "4.0.8",
     "description": "Puts a customer feedback form on each page",
     "main": "",
@@ -10,18 +10,19 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate.git"
+        "url": "https://github.com/helsingborg-stad/customer-feedback.git"
     },
     "author": "Kristoffer Svanmark",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate/issues"
+        "url": "https://github.com/helsingborg-stad/customer-feedback/issues"
     },
-    "homepage": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate",
+    "homepage": "https://github.com/helsingborg-stad/customer-feedback",
     "browserslist": [
         "> 1%",
         "not dead"
     ],
+    "files": ["dist/"],
     "devDependencies": {
         "@babel/core": "^7.17.2",
         "@babel/plugin-proposal-class-properties": "^7.16.7",
