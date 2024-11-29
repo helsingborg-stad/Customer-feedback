@@ -34,10 +34,6 @@ class Form
 
         $postExtended = get_extended($post->post_content);
 
-        if (empty($postExtended['main']) || (strpos($post->post_content, '<!--more-->') !== false && empty($postExtended['extended']))) {
-            return;
-        }
-
         $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
         if (!empty(get_field('customer_feedback_main_question_text', 'option'))) {
             $mainQuestion = get_field('customer_feedback_main_question_text', 'option');
