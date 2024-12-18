@@ -18,7 +18,7 @@ class App
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'), 30);
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
         add_action('loop_end', function () {
-            if (!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD')) {
+            if (!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD') && !is_admin()) {
                 do_action('customer-feedback');
             }
         });
