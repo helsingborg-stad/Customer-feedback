@@ -22,7 +22,7 @@ define('CUSTOMERFEEDBACK_PATH', plugin_dir_path(__FILE__));
 define('CUSTOMERFEEDBACK_URL', plugins_url('', __FILE__));
 define('CUSTOMERFEEDBACK_TEMPLATE_PATH', CUSTOMERFEEDBACK_PATH . 'templates/');
 
-add_action('plugins_loaded', function () {
+add_action('init', function () {
     load_plugin_textdomain('customer-feedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
 });
 
