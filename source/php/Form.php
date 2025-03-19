@@ -101,8 +101,8 @@ class Form
         echo $this->renderView('form', $formData);
 
         echo '<pre>'; 
-        print_r($formData);
-    echo '</pre>';
+            print_r($formData);
+        echo '</pre>';
 
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
     }
@@ -136,8 +136,8 @@ class Form
             'mainQuestion'      => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
             'mainQuestionSub'   => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
             'labels'            => (object) [
-                'negative'          => $getField('customer_feedback_feedback_label_no', __('How can we make the information better?', 'customer-feedback')),
-                'positive'          => $getField('customer_feedback_feedback_label_yes', __('Comment', 'customer-feedback')),
+                'negative'          => $getField('customer_feedback_feedback_label_no', __('Yes', 'customer-feedback')),
+                'positive'          => $getField('customer_feedback_feedback_label_yes', __('No', 'customer-feedback')),
                 'comment_explain'   => __('Note that your comment will become public act.', 'customer-feedback'),
                 'email'             => __('Email address', 'customer-feedback'),
                 'email_explain'     => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
@@ -149,7 +149,11 @@ class Form
             'submittedText'      => $getField('customer_feedback_thanks', ''),
             'user_email'         => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
             'topics'             => [],
-            'gdpr'               => [
+            'topic'              => (object) [
+                'heading'     => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
+                'description' => $getField('customer_feedback_label_topic_description', __('Select a topic that best describes your feedback.', 'customer-feedback')),
+            ],
+            'gdpr'               => (object) [
                 'enabled' => !empty($getField('gdpr_complience_notice')),
                 'content' => $getField('gdpr_complience_notice_content') ?: '',
             ],

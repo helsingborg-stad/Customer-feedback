@@ -21,10 +21,13 @@
     @element(['classList' => ['customer-feedback-comment']])
 
       <!-- Topics -->
-      @includeWhen($topics, 'partials.form.topics')
+      @includeWhen(count($topics), 'partials.form.topics')
 
       <!-- Comment -->
       @include('partials.form.comment')
+
+      <!-- GDPR -->
+      @include('partials.form.gdpr')
 
     @endelement
 

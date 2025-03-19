@@ -1,28 +1,51 @@
 
-    <!-- Topic segment -->
-    <div id="customer-feedback-topics" class="customer-feedback-topics feedback-answer-no u-margin__top--4">
+  <!-- Topic segment -->
+  <div id="customer-feedback-topics" class="customer-feedback-topics feedback-answer-no u-margin__top--4">
 
-        <label class="c-typography c-typography__variant--h3">
-            <?php echo $topicLabel; ?>
-        </label>
+    @typography([
+      'element' => 'h2',
+      'variant' => 'h3',
+    ])
+      {{ $topic->heading }}
+    @endtypography
 
-        <p class="c-typography typography__variant--small u-margin__top--0">
-            <?php echo $addComment; ?>
-        </p>
+    @typography([
+      'element' => 'p',
+      'variant' => 'small',
+      'classList' => [
+        'u-margin__top--0'
+      ]
+    ])
+      {{ $topic->description }}
+    @endtypography
 
-        @foreach ($topics as $key => $topic)
-          @option([
-            'id' => $key,
-            'type' => 'radio',
-            'attributeList' => [
-              'name' => 'customer-feedback-comment-topic',
-              'value' => $topic->id,
-              'topic-description' => $topic->description,
-              'feedback-capability' => $topic->feedback_capability
-            ],
-            'label' => $topic->name
-          ])
-          @endoption
-        @endforeach
-
-    </div>
+    @element([
+      'classList' => [
+        'u-margin__top--2', 
+        'u-padding--2', 
+        'u-border', 
+        'u-border--1', 
+        'u-border__color--secondary', 
+        'u-rounded', 
+        'u-color__bg--complementary-lightest'
+      ],
+      'attributeList' => [
+        'style' => 'line-height: 1;'
+      ]
+    ])
+      @foreach ($topics as $key => $topic)
+        @option([
+          'id' => $key,
+          'type' => 'radio',
+          'attributeList' => [
+            'name' => 'customer-feedback-comment-topic',
+            'value' => $topic->id,
+            'topic-description' => $topic->description,
+            'feedback-capability' => $topic->feedback_capability
+          ],
+          'label' => $topic->name,
+        ])
+        @endoption
+      @endforeach
+    @endelement
+  </div>
