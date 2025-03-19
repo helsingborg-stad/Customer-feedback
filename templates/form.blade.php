@@ -18,7 +18,7 @@
     @include('partials.form.buttons')
 
     <!-- Detailed submission -->
-    @element(['classList' => ['customer-feedback-comment']])
+    @form(['classList' => ['customer-feedback-comment']])
 
       <!-- Topics -->
       @includeWhen(count($topics), 'partials.form.topics')
@@ -29,7 +29,7 @@
       <!-- GDPR -->
       @include('partials.form.gdpr')
 
-    @endelement
+    @endform
 
   @endelement
 @endcard

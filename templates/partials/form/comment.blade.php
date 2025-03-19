@@ -17,7 +17,7 @@
   'type' => 'email',
   'placeholder' => 'email@email.com',
   'value' => $userEmail ?? '',
-  'name' => 'email',
+  'name' => 'customer-feedback-comment-email',
   'autocomplete' => 'email',
   'invalidMessage' => 'Please enter a valid email',
   'label' => "Add your e-mail",
@@ -27,20 +27,6 @@
   ]
 ])
 @endfield
-
-<!-- Submission section -->
-<button rel="nofollow"
-class="c-button c-button__filled c-button__filled--primary c-button--md u-margin__top--4"
-aria-pressed="false" type="button" value="send" data-action="customer-feedback-submit-comment">
-<span class="c-button__label">
-    <span class="c-button__label-text">
-        <i aria-hidden="true" class="c-icon c-icon--color-white c-icon--size-inherit material-icons">
-            send
-        </i>
-        <?php _e('Send', 'customer-feedback'); ?>
-    </span>
-</span>
-</button>
 
 @button([
   'icon' => 'send',
@@ -55,5 +41,8 @@ aria-pressed="false" type="button" value="send" data-action="customer-feedback-s
     'aria-pressed' => 'false',
     'type' => 'submit',
   ],
+  'classList' => [
+    'u-margin__top--2'
+  ]
 ])
 @endbutton
