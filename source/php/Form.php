@@ -133,17 +133,20 @@ class Form
         };
 
         $formData = [
-            'main_question'      => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
-            'main_question_sub'  => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
-            'labels'             => [
-                'negative' => $getField('customer_feedback_feedback_label_no', __('How can we make the information better?', 'customer-feedback')),
-                'positive' => $getField('customer_feedback_feedback_label_yes', __('Comment', 'customer-feedback')),
-                'comment_explain' => __('Note that your comment will become public act.', 'customer-feedback'),
-                'email'           => __('Email address', 'customer-feedback'),
-                'email_explain'   => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
-                'add_comment'     => __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback'),
+            'mainQuestion'      => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
+            'mainQuestionSub'   => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
+            'labels'            => (object) [
+                'negative'          => $getField('customer_feedback_feedback_label_no', __('How can we make the information better?', 'customer-feedback')),
+                'positive'          => $getField('customer_feedback_feedback_label_yes', __('Comment', 'customer-feedback')),
+                'comment_explain'   => __('Note that your comment will become public act.', 'customer-feedback'),
+                'email'             => __('Email address', 'customer-feedback'),
+                'email_explain'     => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
+                'add_comment'       => __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback'),
+                'success'           => __('Thank you', 'customer-feedback'),
+                'error'             => __('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'),
+                'alreadysubmitted'  => __('You have already given feedback for this content.', 'customer-feedback'),
             ],
-            'thanks_text'        => $getField('customer_feedback_thanks', __('Thank you', 'customer-feedback')),
+            'submittedText'      => $getField('customer_feedback_thanks', ''),
             'user_email'         => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
             'topics'             => [],
             'gdpr'               => [
@@ -160,11 +163,11 @@ class Form
 
         if(!empty($topics)) {
             foreach ($topics as $topic) {
-                $formData['topics'][] = [
-                    'id'                 => $topic->term_id,
-                    'name'               => $topic->name,
-                    'description'        => trim($topic->description),
-                    'feedback_capability' => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '',
+                $formData['topics'][] = (object) [
+                    'id'                    => $topic->term_id,
+                    'name'                  => $topic->name,
+                    'description'           => $topic->description,
+                    'feedback_capability'   => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '',
                 ];
             }
         }
@@ -182,6 +185,10 @@ class Form
     public function renderView($view, $data = array()): mixed
     {
         $blade = $this->getBladeEngine();
+
+        if(!$blade) {
+            return false;
+        }
 
         try {
             return $blade->makeView($view, $data, [], [
@@ -201,6 +208,9 @@ class Form
      */
     private function getBladeEngine()
     {
+        if(!class_exists(ComponentLibraryInit::class)) {
+            return false;
+        }
         return (new ComponentLibraryInit([]))->getEngine();
     }
 }
