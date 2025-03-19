@@ -2,6 +2,9 @@
 
 namespace CustomerFeedback;
 
+use Throwable;
+use ComponentLibrary\Init as ComponentLibraryInit;
+use WP_Post;
 class Form
 {
     public function __construct()
@@ -91,6 +94,113 @@ class Form
             $gdpr_complience_notice_content = get_field('gdpr_complience_notice_content', 'option');
         }
 
+        $formData = $this->getFormData();
+
+      
+
+        echo $this->renderView('form', $formData);
+
+        echo '<pre>'; 
+        print_r($formData);
+    echo '</pre>';
+
         include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
+    }
+
+    /**
+     * Get form data
+     * 
+     * @return array
+     */
+    public function getFormData(): array
+    {
+        global $post;
+
+        if (!is_a($post, 'WP_Post')) {
+            return [];
+        }
+
+        // Get allowed post types
+        $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option')) ?: ['page'];
+
+        if (!in_array($post->post_type ?? null, (array) $allowedPostTypes, true)) {
+            return [];
+        }
+
+        // Fetch form labels and text fields
+        $getField = function ($key, $default = '', $postId = 'option') {
+            return function_exists('get_field') && !empty(get_field($key, $postId)) ? get_field($key, $postId) : $default;
+        };
+
+        $formData = [
+            'main_question'      => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
+            'main_question_sub'  => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
+            'labels'             => [
+                'negative' => $getField('customer_feedback_feedback_label_no', __('How can we make the information better?', 'customer-feedback')),
+                'positive' => $getField('customer_feedback_feedback_label_yes', __('Comment', 'customer-feedback')),
+                'comment_explain' => __('Note that your comment will become public act.', 'customer-feedback'),
+                'email'           => __('Email address', 'customer-feedback'),
+                'email_explain'   => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
+                'add_comment'     => __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback'),
+            ],
+            'thanks_text'        => $getField('customer_feedback_thanks', __('Thank you', 'customer-feedback')),
+            'user_email'         => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
+            'topics'             => [],
+            'gdpr'               => [
+                'enabled' => !empty($getField('gdpr_complience_notice')),
+                'content' => $getField('gdpr_complience_notice_content') ?: '',
+            ],
+        ];
+
+        // Fetch topics
+        $topics = get_terms([
+            'taxonomy'   => 'feedback_topic',
+            'hide_empty' => false,
+        ]);
+
+        if(!empty($topics)) {
+            foreach ($topics as $topic) {
+                $formData['topics'][] = [
+                    'id'                 => $topic->term_id,
+                    'name'               => $topic->name,
+                    'description'        => trim($topic->description),
+                    'feedback_capability' => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '',
+                ];
+            }
+        }
+
+        return $formData;
+    }
+
+    /**
+     * Render view
+     * 
+     * @param string $view
+     * @param array $data
+     * @return mixed
+     */
+    public function renderView($view, $data = array()): mixed
+    {
+        $blade = $this->getBladeEngine();
+
+        try {
+            return $blade->makeView($view, $data, [], [
+                constant('CUSTOMERFEEDBACK_TEMPLATE_PATH'),
+            ])->render();
+        } catch (Throwable $e) {
+           $blade->errorHandler($e)->print();
+        }
+
+        return false;
+    }
+
+    /**
+     * Get blade engine 
+     * 
+     * @return Blade
+     */
+    private function getBladeEngine()
+    {
+        return (new ComponentLibraryInit([]))->getEngine();
     }
 }
