@@ -3,7 +3,7 @@
   'type' => 'danger',
   'dismissable' => 'immediate',
   'message' => [
-    'text' => $labels->error
+    'text' => $labels->notification->error
   ],
   'icon' => [
     'name' => 'falling',

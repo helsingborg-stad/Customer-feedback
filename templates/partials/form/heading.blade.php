@@ -1,4 +1,4 @@
-@if($mainQuestion || $mainQuestionSub)
+@if($question->title || $question->description)
   @element(['classList' => ['c-card__header', 'u-padding__bottom--0']])
     @group(['gap' => 1])
       @icon([
@@ -8,17 +8,17 @@
       ])
       @endicon
       @element()
-          @if($mainQuestion)
+          @if($question->title)
             @typography([
                 'element' => 'h2',
                 'classList' => [
                     'c-typography__variant--h2'
                 ]
             ])
-              {{ $mainQuestion }} 
+              {{ $question->title }} 
             @endtypography
           @endif
-          @if($mainQuestionSub)
+          @if($question->description)
             @typography([
                 'element' => 'p',
                 'classList' => [
@@ -26,7 +26,7 @@
                   'u-margin--0'
                 ]
             ])
-              {{ $mainQuestionSub }} 
+              {{ $question->description }} 
             @endtypography
           @endif
       @endelement

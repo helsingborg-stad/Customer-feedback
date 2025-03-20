@@ -3,7 +3,7 @@
   'type' => 'success',
   'dismissable' => 'immediate',
   'message' => [
-    'text' => $submittedText ?: $labels->success
+    'text' => $labels->notification->success
   ],
   'icon' => [
     'name' => 'verified',

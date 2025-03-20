@@ -17,19 +17,20 @@
     <!-- Buttons -->
     @include('partials.form.buttons')
 
-    <!-- Detailed submission -->
-    @form(['classList' => ['customer-feedback-comment']])
+    <!-- Detailed submission (if any topics defined) -->
+    @if($topics)
+      @form(['classList' => ['customer-feedback-comment']])
 
-      <!-- Topics -->
-      @includeWhen(count($topics), 'partials.form.topics')
+        <!-- Topics -->
+        @include('partials.form.topics')
 
-      <!-- Comment -->
-      @include('partials.form.comment')
+        <!-- Comment -->
+        @include('partials.form.comment')
 
-      <!-- GDPR -->
-      @include('partials.form.gdpr')
-
-    @endform
+        <!-- GDPR -->
+        @include('partials.form.gdpr')
+      @endform
+    @endif
 
   @endelement
 @endcard

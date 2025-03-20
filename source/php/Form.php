@@ -133,26 +133,44 @@ class Form
         };
 
         $formData = [
-            'mainQuestion'      => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
-            'mainQuestionSub'   => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
-            'labels'            => (object) [
+            'question' => (object) [
+                'title' => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
+                'description' => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
+            ],
+            'labels' => (object) [
+                
                 'negative'          => $getField('customer_feedback_feedback_label_no', __('Yes', 'customer-feedback')),
                 'positive'          => $getField('customer_feedback_feedback_label_yes', __('No', 'customer-feedback')),
-                'comment_explain'   => __('Note that your comment will become public act.', 'customer-feedback'),
-                'email'             => __('Email address', 'customer-feedback'),
-                'email_explain'     => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
-                'add_comment'       => __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback'),
-                'success'           => __('Thank you', 'customer-feedback'),
-                'error'             => __('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'),
-                'alreadysubmitted'  => __('You have already given feedback for this content.', 'customer-feedback'),
+                
+                'comment' => (object) [
+                    'label'         => __('How can we make the information better?', 'customer-feedback'),
+                    'explain'       => __('Please give us your feedback to help us improve our information.', 'customer-feedback'),
+                    'placeholder'   => __('Please give us your feedback to help us improve our information.', 'customer-feedback'),
+                    'error'         => __('Please enter a comment of minimum 15 characters.', 'customer-feedback'),
+                ],
+
+                'email' => (object) [
+                    'label'         => __('Email address', 'customer-feedback'),
+                    'explain'       => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
+                    'error'        => __('Please enter a valid email address.', 'customer-feedback'),
+                    'placeholder'  => __('email@example.com', 'customer-feedback'),
+                ],
+
+                'notification' => (object) [
+                    'success'           => $getField('customer_feedback_thanks', __('Thank you', 'customer-feedback')),
+                    'error'             => __('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'),
+                    'alreadysubmitted'  => __('You have already given feedback for this content.', 'customer-feedback'),
+                ],  
+
+                'topic' => (object) [
+                    'heading'     => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
+                    'description' => $getField('customer_feedback_label_topic_description', __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback')),
+                ],
+
+                'submit' => __('Submit', 'customer-feedback'),
             ],
-            'submittedText'      => $getField('customer_feedback_thanks', ''),
-            'user_email'         => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
+            'userEmail'          => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
             'topics'             => [],
-            'topic'              => (object) [
-                'heading'     => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
-                'description' => $getField('customer_feedback_label_topic_description', __('Select a topic that best describes your feedback.', 'customer-feedback')),
-            ],
             'gdpr'               => (object) [
                 'enabled' => !empty($getField('gdpr_complience_notice')),
                 'content' => $getField('gdpr_complience_notice_content') ?: '',
@@ -171,7 +189,7 @@ class Form
                     'id'                    => $topic->term_id,
                     'name'                  => $topic->name,
                     'description'           => $topic->description,
-                    'feedback_capability'   => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '',
+                    'feedbackCapability'    => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '0',
                 ];
             }
         }

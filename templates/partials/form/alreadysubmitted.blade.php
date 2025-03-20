@@ -2,7 +2,7 @@
   'id' => 'customer-feedback-thanks',
   'type' => 'info',
   'message' => [
-    'text' => $labels->alreadysubmitted
+    'text' => $labels->notification->alreadysubmitted
   ],
   'icon' => [
     'name' => 'celebration',

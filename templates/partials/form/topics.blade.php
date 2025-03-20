@@ -6,7 +6,7 @@
       'element' => 'h2',
       'variant' => 'h3',
     ])
-      {{ $topic->heading }}
+      {{ $labels->topic->heading }}
     @endtypography
 
     @typography([
@@ -16,7 +16,7 @@
         'u-margin__top--0'
       ]
     ])
-      {{ $topic->description }}
+      {{ $labels->topic->description }}
     @endtypography
 
     @element([
