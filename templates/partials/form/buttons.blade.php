@@ -13,12 +13,12 @@
       'icon'  => 'thumb_up',
       'reversePositions' => true,
       'attributeList' => [
-        'data-action' => 'customer-feedback-submit-response',
+        'data-js-cf-action' => 'yes',
         'value' => 'yes'
       ],
       'classList' => [
         'u-margin--0',
-        'customer-feedback-js-response-yes'
+        'customer-feedback-response-yes'
       ]
   ])
   @endbutton
@@ -30,12 +30,12 @@
       'icon'  => 'thumb_down',
       'reversePositions' => true,
       'attributeList' => [
-        'data-action' => 'customer-feedback-submit-response',
+        'data-js-cf-action' => 'no',
         'value' => 'no'
       ],
       'classList' => [
         'u-margin--0',
-        'customer-feedback-js-response-no'
+        'customer-feedback-response-no'
       ]
   ])
   @endbutton

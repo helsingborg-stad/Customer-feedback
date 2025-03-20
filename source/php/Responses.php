@@ -502,21 +502,6 @@ class Responses
         $postId = (isset($_POST['postid']) && is_numeric($_POST['postid'])) ? $_POST['postid'] : null;
         $answer = (isset($_POST['answer']) && strlen($_POST['answer']) > 0) ? $_POST['answer'] : null;
 
-        $cookieExpireDays = 5;
-        $cookieExpire = time() + (86400 * $cookieExpireDays);
-        if (!isset($_COOKIE['customer-feedback'])) {
-            setcookie('customer-feedback', base64_encode(serialize(array($postId))), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
-        } else {
-            if (in_array($postId, unserialize(base64_decode(stripslashes($_COOKIE['customer-feedback']))))) {
-                echo 'cookie_error';
-                wp_die();
-            }
-
-            $cookieVal = unserialize(base64_decode($_COOKIE['customer-feedback']));
-            $cookieVal[] = $postId;
-            setcookie('customer-feedback', base64_encode(serialize($cookieVal)), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
-        }
-
         if ($postId && $answer) {
             $insertedId = wp_insert_post(array(
                 'post_type' => $this->postTypeSlug,

@@ -1,4 +1,12 @@
-@element(['classList' => ['customer-feedback-comment-section']])
+@element([
+  'classList' => [
+    'customer-feedback-comment-section'
+  ], 
+  'attributeList' => [
+    'data-js-cf-part' => 'comment',
+    'style' => 'display: none;'
+  ]
+])
   @field([
     'id' => 'customer-feedback-comment-text-' . ($num ?? 0),
     'type' => 'text',
@@ -13,6 +21,9 @@
     'multiline' => 8,
     'classList' => [
       'u-margin__top--2'
+    ],
+    'attributeList' => [
+      'data-js-cf-comment' => 'text'
     ]
   ])
   @endfield
@@ -30,6 +41,9 @@
     'helperText' => $labels->email->explain,
     'classList' => [
       'u-margin__top--2'
+    ],
+    'attributeList' => [
+      'data-js-cf-comment' => 'email'
     ]
   ])
   @endfield
@@ -42,6 +56,7 @@
     'color' => 'primary',
     'type' => 'basic',
     'attributeList' => [
+      'data-js-cf-comment' => 'submit',
       'data-action' => 'customer-feedback-submit-comment',
       'rel' => 'nofollow',
       'aria-pressed' => 'false',

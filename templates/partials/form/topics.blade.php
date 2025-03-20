@@ -1,7 +1,16 @@
 
-  <!-- Topic segment -->
-  <div id="customer-feedback-topics" class="customer-feedback-topics feedback-answer-no u-margin__top--4">
-
+<!-- Topic segment -->
+@element([
+  'componentElement' => 'div',
+  'classList' => [
+    'customer-feedback-topics',
+    'u-margin__top--4'
+  ],
+  'attributeList' => [
+    'data-js-cf-part' => 'topics',
+    'style' => 'display: none;'
+  ]
+])
     @typography([
       'element' => 'h2',
       'variant' => 'h3',
@@ -28,9 +37,6 @@
         'u-border__color--secondary', 
         'u-rounded', 
         'u-color__bg--complementary-lightest'
-      ],
-      'attributeList' => [
-        'style' => 'line-height: 1;'
       ]
     ])
       @foreach ($topics as $key => $topic)
@@ -41,11 +47,12 @@
             'name' => 'customer-feedback-comment-topic',
             'value' => $topic->id,
             'topic-description' => $topic->description,
-            'feedback-capability' => $topic->feedback_capability
+            'feedback-capability' => $topic->feedbackCapability,
+            'data-js-cf-topic' => $topic->id
           ],
           'label' => $topic->name,
         ])
         @endoption
       @endforeach
     @endelement
-  </div>
+@endelement

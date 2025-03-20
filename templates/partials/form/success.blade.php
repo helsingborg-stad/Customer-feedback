@@ -10,7 +10,12 @@
     'size' => 'md'
   ],
   'classList' => [
-    'customer-feedback-thanks'
+    'customer-feedback-thanks',
+    'u-margin__top--0'
+  ],
+  'attributeList' => [
+    'data-js-cf-notification' => 'success',
+    'style' => 'display: none;'
   ]
 ])
 @endnotice

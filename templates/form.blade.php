@@ -1,6 +1,10 @@
 @card([
+  'id' => 'customer-feedback',
   'classList' => [
     'c-card--feedback'
+  ],
+  'attributeList' => [
+    'data-js-cf' => $jsonData
   ]
 ])
   <!-- Main question -->
@@ -33,4 +37,8 @@
     @endif
 
   @endelement
+
+  <!-- Loader -->
+  <div class="customer-feedback-loader" data-js-cf-loader="" style="display: none;"></div>
+
 @endcard

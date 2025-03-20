@@ -10,7 +10,12 @@
     'size' => 'md'
   ],
   'classList' => [
-    'customer-feedback-error'
+    'customer-feedback-error',
+    'u-margin__top--0'
+  ],
+  'attributeList' => [
+    'data-js-cf-notification' => 'error',
+    'style' => 'display: none;'
   ]
 ])
 @endnotice

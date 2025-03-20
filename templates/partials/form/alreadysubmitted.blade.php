@@ -1,5 +1,5 @@
 @notice([
-  'id' => 'customer-feedback-thanks',
+  'id' => 'customer-feedback-already-submitted',
   'type' => 'info',
   'message' => [
     'text' => $labels->notification->alreadysubmitted
@@ -9,7 +9,12 @@
     'size' => 'md'
   ],
   'classList' => [
-    'customer-feedback-thanks'
+    'customer-feedback-already-submitted',
+    'u-margin__top--0'
+  ],
+  'attributeList' => [
+    'data-js-cf-notification' => 'alreadysubmitted',
+    'style' => 'display: none;'
   ]
 ])
 @endnotice

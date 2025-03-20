@@ -1,68 +1,55 @@
 export default () => {
-
-    let feedbackResponse = false;
+    const parentDomElement = null;
+    const jsonData = null;
 
     function Form() {
-        this.handleEvents();
+        this.parentDomElement = document.querySelector('[data-js-cf]');
+        if (!this.parentDomElement) {
+            console.error('No customer feedback form found');
+            return;
+        }
+
+        //Parse and store the json data
+        this.getJsonData(this.parentDomElement);
+
+        //Render initial state
+        this.renderInitialState(this.parentDomElement);
+
+        //Handle feedback buttons
+        this.handleFeedbackButtons(this.parentDomElement);
     }
 
-    Form.prototype.submitComment = function (target, answerId, postId, commentType, comment, email, topic) {
+    /**
+     * Get JSON data from data-js-cf attribute
+     * @param {HTMLElement} customerFeedbackInstance
+     * @returns {void}
+     */
+    Form.prototype.getJsonData = function (customerFeedbackInstance) {
+        try {
+            this.jsonData = JSON.parse(customerFeedbackInstance.getAttribute('data-js-cf'));
+        } catch (error) {
+            console.error('Invalid JSON data in data-js-cf attribute:', error);
+        }
+    }
 
-
-        let data = {
-            action: 'submit_comment',
-            postid: postId,
-            comment: comment,
-            answerid: answerId,
-            commenttype: commentType,
-            email: email,
-            topicid: topic
-        };
-
-        let $target = target;
-
-        fetch(ajaxurl, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Cache-Control': 'no-cache',
-            },
-            body: new URLSearchParams(data)
-        }).then(response => {
-
-            if (response.status != 200) {
-                document.querySelector('.customer-feedback-js-error').style.display = "block";
-                return false;
-            }
-
-            return response.json();
-
-        }).then(response => {
-
-            //Disable loader
-            $target.querySelector("#feedback-loader").style.display = 'none';
-
-            //Handle response
-            if (response == true) {
-                $target.querySelector('.customer-feedback-comment').style.display = 'none';
-                $target.querySelector('.customer-feedback-thanks').style.display = 'block';
-            } else {
-                $target.querySelector('.customer-feedback-comment').style.display = 'none';
-                $target.querySelector('.customer-feedback-error').style.display = 'block';
-            }
-
-        }).catch(err => {
-            document.querySelector('.customer-feedback-js-error').style.display = "block";
-            return false;
-        });
+    /**
+     * Render initial state of the form
+     * @param {HTMLElement} customerFeedbackInstance
+     * 
+     * @returns {void}
+     */
+    Form.prototype.renderInitialState = function (customerFeedbackInstance) {
+        if (this.hasGivenFeedback(this.jsonData.postId)) {
+            this.showNotice('alreadysubmitted');
+            this.hidePartial('buttons');
+        }
     };
 
     /**
      * Submits the initail yes or no response
      * @param  {integer} postId Post id
      * @param  {string}  answer Yes or no
-     * @return {void}w
+     * @return {void}
      */
     Form.prototype.submitInitialResponse = function (target, postId, answer) {
 
@@ -72,7 +59,7 @@ export default () => {
             answer: answer
         };
 
-        document.querySelector("#feedback-loader").style.display = 'block';
+        this.showLoader();
 
         fetch(ajaxurl, {
             method: 'POST',
@@ -83,23 +70,23 @@ export default () => {
             },
             body: new URLSearchParams(data)
         }).then(response => {
-
             if (response.status != 200) {
-                document.querySelector('.customer-feedback-js-error').style.display = "block";
-                return false;
+                throw new Error('Invalid response');
             }
-
             return response.json();
-
         }).then(response => {
 
-            if (response === false) {
-                return false;
-            }
+            this.registerFeedBackGiven(postId);
+
+            console.log(response);
+            console.log(response.data);
+
+            /*
+
 
             if (!isNaN(parseFloat(response)) && isFinite(response)) {
 
-                //Create id holder
+                //Create id holder for response item
                 let feedBackIdElement = document.createElement("input");
                 feedBackIdElement.type = "hidden"
                 feedBackIdElement.name = "customer-feedback-answer-id";
@@ -108,6 +95,10 @@ export default () => {
                 document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
 
                 //Hide current controls 
+                foreach(['comment', 'email', 'submit'], function (elementKey) {
+                    this.hideNotice(elementKey);
+                });
+
                 document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none";
                 document.querySelector('.customer-feedback-answers').style.display = "none";
 
@@ -127,202 +118,140 @@ export default () => {
                 }
             }
 
-            //Loading done
-            document.getElementById("feedback-loader").style.display = 'none';
+            */
 
         }).catch(err => {
-            document.querySelector('.customer-feedback-js-error').style.display = "block";
+            this.showNotice('error');
             return false;
+        }).finally(() => {
+            this.hideLoader();
         });
-
     };
 
-    Form.prototype.removeJsErrorMessages = function () {
+    /**
+     * Show a notice based on the key
+     * 
+     * @param {string} key
+     */
+    Form.prototype.showNotice = function (key) {
+        this.showHideNotice(key, true);
+    };
 
-        //Target div 
-        let $target = document.getElementById('customer-feedback');
+    /**
+     * Hide a notice based on the key
+     * 
+     * @param {string} key
+     */
+    Form.prototype.hideNotice = function (key) {
+        this.showHideNotice(key, false);
+    };
 
-        //Reset state (remove messages)
-        let errorMessages = $target.querySelectorAll('.feedback-form-dynamic-error');
-        errorMessages.forEach(errorMessage => {
-            errorMessage.remove();
-        });
+    /**
+     * Hide or show a notice based on the key
+     * 
+     * @param {string} key  What notice to show
+     * @param {boolean} state What display state to set (true = show, false = hide)
+     */
+    Form.prototype.showHideNotice = function (key, state) {
+        this.showHideByKey('data-js-cf-notification', key, state);
+    };
 
+    Form.prototype.showPartial = function (key) {
+        this.showHidePartial(key, true);
     }
 
-    Form.prototype.handleEvents = function () {
+    Form.prototype.hidePartial = function (key) {
+        this.showHidePartial(key, false);
+    }
 
-        let answerButton = document.querySelectorAll('[data-action=customer-feedback-submit-response]');
-        let self = this;
-
-        answerButton.forEach(answerButton => {
-            answerButton.addEventListener('click', function (e) {
-
-                //Prevent default action
-                e.preventDefault();
-                e.stopPropagation();
-
-                //Set pressed event
-                this.setAttribute("aria-pressed", true);
-
-                //Get submission id
-                let FeedBackID = document.getElementById("customer-feedback-post-id").value;
-
-                //Get submission answer
-                let Answer = this.getAttribute('value');
-
-                //Submit answer
-                self.submitInitialResponse(this, FeedBackID, Answer);
-
-            });
-        });
-
-        // Comment submit click
-        let submitButton = document.querySelectorAll('[data-action=customer-feedback-submit-comment]');
-
-        submitButton.forEach(Submit => {
-            Submit.addEventListener('click', function (e) {
-
-                e.preventDefault();
-
-                //Target div 
-                let $target = document.getElementById('customer-feedback');
-
-                //Reset state (make fields valid attr)
-                if($target.querySelector('[name="customer-feedback-comment-text"]') !== null) {
-                    $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', false);
-                }
-
-                if($target.querySelector('[name="customer-feedback-comment-topic"]') !== null) {
-                    $target.querySelector('[name="customer-feedback-comment-topic"]').setAttribute('aria-invalid', false);
-                }
-
-                if($target.querySelector('[name="customer-feedback-comment-email"]') !== null) {
-                    $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', false);
-                }
-
-                //Remove all js error messages
-                self.removeJsErrorMessages();
-
-                //Get vars 
-                let commentType = 'comment';
-                let topic = null;
-                let answerId = $target.querySelector('[name="customer-feedback-answer-id"]').value;
-                let postId = $target.querySelector('[name="customer-feedback-post-id"]').value;
-                let comment = $target.querySelector('[name="customer-feedback-comment-text"]').value ?? '';
-                let email = $target.querySelector('[name="customer-feedback-comment-email"]').value ?? '';
-                let emailRequired = $target.querySelector('[name="customer-feedback-comment-email"]').getAttribute('required');
-                let valid = true;
-
-                //Topic
-                if (!feedbackResponse){
-                    if ($target.querySelectorAll('[name="customer-feedback-comment-topic"]:checked').length == 1) {
-                        topic = $target.querySelector('[name="customer-feedback-comment-topic"]:checked').value;
-                    } else {
-
-                        //Create error node
-                        let topicErrorMessage = document.createElement('div');
-                        topicErrorMessage.id = 'topic-error';
-                        topicErrorMessage.classList = 'c-option__input-invalid-message feedback-form-dynamic-error';
-                        topicErrorMessage.style.display = 'block';
-                        topicErrorMessage.appendChild(
-                            document.createTextNode(feedback.select_topic)
-                        );
-
-                        $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
-
-                        //Show invalid notice
-                        $target.querySelector('.customer-feedback-topics').after(topicErrorMessage);
-
-                        //Prohibit submission
-                        valid = false;
-                    }
-                }
-
-                //Check length
-                if (comment.length < 15) {
-
-                    //Create error node
-                    let errorMessage = document.createElement('div');
-                    errorMessage.id = 'length-error';
-                    errorMessage.classList = 'c-textarea-invalid-message feedback-form-dynamic-error';
-                    errorMessage.style.display = 'block';
-
-                    // Remove offset label
-                    if($target.querySelector( '.c-textarea label')) {
-                        $target.querySelector( '.c-textarea label').remove();
-                    }
-
-                    errorMessage.appendChild(
-                        document.createTextNode(feedback.comment_min_characters)
-                    );
-
-                    //Show invalid notice
-                    $target.querySelector('[name="customer-feedback-comment-text"]').setAttribute('aria-invalid', true);
-                    $target.querySelector('[name="customer-feedback-comment-text"]').after(errorMessage);
-
-                    //Prohibit submission
-                    valid = false;
-                }
-
-                //Check email if exists 
-                if (email.length === 0 && emailRequired == "true") {
-
-                    //Create error node
-                    let errorMessage = document.createElement('div');
-                    errorMessage.id = 'email-error';
-                    errorMessage.classList = 'c-field__input-invalid-message feedback-form-dynamic-error';
-                    errorMessage.style.display = 'block';
-                    errorMessage.style.marginTop = '0px';
-                    errorMessage.appendChild(
-                        document.createTextNode(feedback.enter_email)
-                    );
-
-                    //Show invalid notice
-                    $target.querySelector('[name="customer-feedback-comment-email"]').setAttribute('aria-invalid', true);
-                    $target.querySelector('[name="customer-feedback-comment-email"]').after(errorMessage);
-
-                    //Prohibit submission
-                    valid = false;
-                }
-
-                //Return if not valid, else continiue. 
-                if (!valid) {
-                    return false;
-                }
-
-                //Spin
-                $target.querySelector("#feedback-loader").style.display = 'block';
-
-                //Submit
-                self.submitComment($target, answerId, postId, commentType, comment, email, topic);
-
-            });
-        });
-
+    Form.prototype.showHidePartial = function (key, state) {
+        this.showHideByKey('data-js-cf-part', key, state);
     };
 
-    // Comment submit click
-    let topicListeners = document.querySelectorAll('[name="customer-feedback-comment-topic"]');
-    let self = this;
-
-    topicListeners.forEach(topListener => {
-        topListener.addEventListener('change', function (e) {
-
-            //Container 
-            let $container = document.querySelector('#customer-feedback');
-
-            if (e.target.getAttribute('feedback-capability')) {
-                $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', true);
-                $container.querySelector('.customer-feedback-comment-email').style.display = 'block';
+    /**
+     * Show or hide an element based on a key
+     * 
+     * @param {string} dataElement
+     * @param {string} key
+     * @param {boolean} state
+     */
+    Form.prototype.showHideByKey = function (dataElement, key, state) {
+        const element = this.parentDomElement.querySelector('[' + dataElement + '="' + key + '"]');
+        if (element) {
+            if (state) {
+                element.style.removeProperty('display');
             } else {
-                $container.querySelector('[name="customer-feedback-comment-email"]').setAttribute('required', false);
-                $container.querySelector('.customer-feedback-comment-email').style.display = 'none';
+                element.style.display = 'none';
             }
+        }
+    }
 
-        });
-    });
+    /**
+     * Show loader 
+     */
+    Form.prototype.showLoader = function () {
+        this.parentDomElement.querySelector('[data-js-cf-loader]').style.display = 'block';
+    }
+
+    /**
+     * Hide loader
+     */
+    Form.prototype.hideLoader = function () {
+        this.parentDomElement.querySelector('[data-js-cf-loader]').style.display = 'none';
+    }
+
+    /**
+     * Handle yes/no buttons
+     */
+    Form.prototype.handleFeedbackButtons = function (customerFeedbackInstance) {
+        let     self            = this;
+        const   feedbackButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-action]');
+    
+        if (feedbackButtons.length > 0) {
+            feedbackButtons.forEach(feedbackButton => {
+                feedbackButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+    
+                    // Set pressed state
+                    this.setAttribute("aria-pressed", "true");
+    
+                    // Submit answer
+                    self.submitInitialResponse(
+                        customerFeedbackInstance, 
+                        self.jsonData.postId, 
+                        this.getAttribute('data-js-cf-action')
+                    );
+                });
+            });
+        }
+    };
+
+    /**
+     * Check if post id exists in local storage
+     * @param {int} postId 
+     * @returns {boolean} True if post id exists in local storage, false if not
+     */
+    Form.prototype.hasGivenFeedback = function (postId) {
+        if (!postId) return false;
+        const givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || [];
+        return givenFeedback.includes(postId);
+    };
+    
+    /**
+     * Register post id in local storage
+     * @param {int} postId 
+     * 
+     * @returns {void}
+     */
+    Form.prototype.registerFeedBackGiven = function (postId) {
+        if (!postId) return false;
+        let givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || [];
+        if (!givenFeedback.includes(postId)) {
+            givenFeedback.push(postId);
+            localStorage.setItem('givenFeedback', JSON.stringify(givenFeedback));
+        }
+    };
 
     return new Form();
-
 }
