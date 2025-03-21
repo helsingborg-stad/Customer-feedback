@@ -20,6 +20,87 @@ export default () => {
 
         //Handle feedback buttons
         this.handleFeedbackButtons(this.parentDomElement);
+
+        //Handle topic selection
+        this.handleTopicSelection(this.parentDomElement);
+
+        //Handle form submission
+        this.handleCommentFormSubmission(this.parentDomElement);
+    }
+
+    /**
+     * Handle topic selection, toggles comment section
+     * 
+     * @param {HTMLElement} customerFeedbackInstance
+     * @returns {void} 
+     */
+    Form.prototype.handleTopicSelection = function (customerFeedbackInstance) {
+        let self = this;
+        const topicButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-topic]');
+        if (topicButtons.length > 0) {
+            topicButtons.forEach(topicButton => {
+                topicButton.addEventListener('click', function (e) {
+                    if(this.getAttribute('data-js-cf-has-written-feedback-capability') === 'true') {
+                        self.showPartial('comment');
+                    } else {
+                        self.hidePartial('comment');
+                    }
+                });
+            });
+        }
+    }
+
+    /**
+     * Handle comment form submission
+     * 
+     * @param {HTMLElement} customerFeedbackInstance 
+     * @returns 
+     */
+    Form.prototype.handleCommentFormSubmission = function (customerFeedbackInstance) {
+
+        let self = this;
+        const form = customerFeedbackInstance.querySelector('form');
+        if (!form) return;
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            self.showLoader();
+
+            let data = new FormData(form);
+            data.append('action', 'submit_comment');
+            data.append('initialFeedbackId', self.initialFeedbackId);
+
+            fetch(ajaxurl, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                },
+                body: data
+            }).then(response => {
+                if (response.status != 200) {
+                    throw new Error('Invalid response');
+                }
+                return response.json();
+            }).then(response => {
+                if(!response.data.id) {
+                    throw new Error('Invalid response (no id)');
+                }
+                return response;
+            }).then(response => {
+                self.showNotice('success');
+                self.hidePartial('topics');
+                self.hidePartial('send');
+                self.hidePartial('comment');
+            }).catch(err => {
+                console.error(err);
+                self.showNotice('error');
+            }).finally(() => {
+                self.hideLoader();
+            });
+        });
     }
 
     /**
@@ -95,45 +176,6 @@ export default () => {
             } else {
                 this.showNotice('success');
             }
-
-            
-            
-
-
-            /*
-
-
-            if (!isNaN(parseFloat(response)) && isFinite(response)) {
-
-                //Create id holder for response item
-                let feedBackIdElement = document.createElement("input");
-                feedBackIdElement.type = "hidden"
-                feedBackIdElement.name = "customer-feedback-answer-id";
-                feedBackIdElement.value = response;
-
-                document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
-
-                document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none";
-                document.querySelector('.customer-feedback-answers').style.display = "none";
-
-                //Show comment section
-                document.querySelector('.customer-feedback-comment').style.display = "block";
-            }
-
-            if (data.answer === 'yes' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                document.querySelector('.feedback-answer-yes').style.display = "block";
-                feedbackResponse = true;
-            }
-
-            if (data.answer === 'no' && !isNaN(parseFloat(response)) && isFinite(response)) {
-                for (const negativeAnswer of document.querySelectorAll('.feedback-answer-no')) {
-                    negativeAnswer.style.display = "block";
-                    feedbackResponse = false;
-                }
-            }
-
-            */
-
         }).catch(err => {
             console.error(err);
             this.showNotice('error');
@@ -172,14 +214,30 @@ export default () => {
         this.showHideByKey('data-js-cf-notification', key, state);
     };
 
+    /**
+     * Displays a partial based on a key
+     * 
+     * @param {string} key 
+     */
     Form.prototype.showPartial = function (key) {
         this.showHidePartial(key, true);
     }
 
+    /**
+     * Hides a partial based on a key
+     * 
+     * @param {string} key 
+     */
     Form.prototype.hidePartial = function (key) {
         this.showHidePartial(key, false);
     }
 
+    /**
+     * Shows and hides a partial based on a key
+     * 
+     * @param {string} key 
+     * @param {boolean} state 
+     */
     Form.prototype.showHidePartial = function (key, state) {
         this.showHideByKey('data-js-cf-part', key, state);
     };
@@ -194,31 +252,56 @@ export default () => {
     Form.prototype.showHideByKey = function (dataElement, key, state) {
         const element = this.parentDomElement.querySelector('[' + dataElement + '="' + key + '"]');
         if (element) {
-            this.toggleDisplayClass(element, state);
+            this.toggleDisplay(element, state);
         }
     }
 
-    Form.prototype.toggleDisplayClass = function (element, state) {
-        if (!element) return;
+    /**
+     * Toggle display class, to show or hide an element
+     * 
+     * @param {HTMLElement} element 
+     * @param {boolean} state 
+     * @returns 
+     */
+    Form.prototype.toggleDisplay = function (element, state) {
+        if (!element) {
+            return;
+        }
     
-        const displayClassPattern = /u-display--\S+/g; // Matches any u-display--* class
+        const displayClassPattern = /u-display--\S+/g;
         const currentClasses = [...element.classList].filter(cls => displayClassPattern.test(cls));
     
         if (state) {
-            // Restore previous display class(es) if stored
             const previousDisplay = element.getAttribute('data-display-toggle');
             if (previousDisplay) {
                 element.classList.add(...previousDisplay.split(' '));
                 element.removeAttribute('data-display-toggle');
             }
             element.classList.remove('u-display--none');
+
+            //If there are any form elements in this element, enable them
+            const formElements = element.querySelectorAll('input, textarea, button, select');
+            if (formElements.length > 0) {
+                formElements.forEach(formElement => {
+                    formElement.disabled = false;
+                });
+            }
+
         } else {
-            // Store existing u-display--* classes before hiding
             if (currentClasses.length > 0) {
                 element.setAttribute('data-display-toggle', currentClasses.join(' '));
                 element.classList.remove(...currentClasses);
             }
             element.classList.add('u-display--none');
+
+            //If there are any form elements in this element, reset them and disable them
+            const formElements = element.querySelectorAll('input, textarea, button, select');
+            if (formElements.length > 0) {
+                formElements.forEach(formElement => {
+                    formElement.value = '';
+                    formElement.disabled = true;
+                });
+            }
         }
     }
 

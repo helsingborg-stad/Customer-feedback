@@ -20,7 +20,7 @@
     'required' => true,
     'multiline' => 8,
     'classList' => [
-      'u-margin__top--2'
+      'u-margin__top--4'
     ],
     'attributeList' => [
       'data-js-cf-comment' => 'text'
@@ -40,7 +40,7 @@
     'required' => false,
     'helperText' => $labels->email->explain,
     'classList' => [
-      'u-margin__top--2'
+      'u-margin__top--3'
     ],
     'attributeList' => [
       'data-js-cf-comment' => 'email'
@@ -48,7 +48,6 @@
   ])
   @endfield
 
-  
 @endelement
 
 @element([
@@ -75,7 +74,7 @@
       'type' => 'submit',
     ],
     'classList' => [
-      'u-margin__top--2'
+      'u-margin__top--3'
     ]
   ])
   @endbutton

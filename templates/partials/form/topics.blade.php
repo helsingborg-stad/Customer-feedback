@@ -46,7 +46,7 @@
             'name' => 'customer-feedback-comment-topic',
             'value' => $topic->id,
             'topic-description' => $topic->description,
-            'feedback-capability' => $topic->feedbackCapability,
+            'data-js-cf-has-written-feedback-capability' => $topic->feedbackCapability ? 'true' : 'false',
             'data-js-cf-topic' => $topic->id
           ],
           'label' => $topic->name,
