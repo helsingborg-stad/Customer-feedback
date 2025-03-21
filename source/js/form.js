@@ -16,7 +16,7 @@ export default () => {
         this.getSettings(this.parentDomElement);
 
         //Render initial state
-        //this.renderInitialState(this.parentDomElement);
+        this.renderInitialState(this.parentDomElement);
 
         //Handle feedback buttons
         this.handleFeedbackButtons(this.parentDomElement);
@@ -70,7 +70,8 @@ export default () => {
 
             let data = new FormData(form);
             data.append('action', 'submit_comment');
-            data.append('initialFeedbackId', self.initialFeedbackId);
+            data.append('answerid', self.initialFeedbackId);
+            data.append('postid', self.settings.postId);
 
             fetch(ajaxurl, {
                 method: 'POST',
