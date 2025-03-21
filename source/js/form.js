@@ -16,7 +16,7 @@ export default () => {
         this.getSettings(this.parentDomElement);
 
         //Render initial state
-        this.renderInitialState(this.parentDomElement);
+        //this.renderInitialState(this.parentDomElement);
 
         //Handle feedback buttons
         this.handleFeedbackButtons(this.parentDomElement);

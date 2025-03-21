@@ -52,9 +52,9 @@ class Responses
     */
     public function registerPostType()
     {
-        $nameSingular = 'Feedback';
-        $namePlural = 'Feedback';
-        $description = 'Create shortlinks to your posts or pages';
+        $nameSingular = __('Feedback', 'customer-feedback');
+        $namePlural = __('Feedback', 'customer-feedback');
+        $description = __('Feedback from visitors', 'customer-feedback');
 
         $labels = array(
             'name'               => _x($nameSingular, 'post type general name', 'customer-feedback'),
@@ -549,6 +549,7 @@ class Responses
             update_post_meta($answerId, 'customer_feedback_comment', $comment);
             update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
             update_post_meta($answerId, 'customer_feedback_email', $email);
+            
             if ($topicId) {
                 wp_set_post_terms($answerId, array($topicId), 'feedback_topic');
             }

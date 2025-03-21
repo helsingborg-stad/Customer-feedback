@@ -8,9 +8,9 @@
   ]
 ])
   @field([
-    'id' => 'customer-feedback-comment-text-' . ($num ?? 0),
+    'id' => 'customer-feedback-comment-text',
     'type' => 'text',
-    'name' => 'customer-feedback-comment-text',
+    'name' => 'comment',
     'autocomplete' => 'off',
     'label' => $labels->comment->label,
     'placeholder' => $labels->comment->placeholder,
@@ -29,11 +29,11 @@
   @endfield
 
   @field([
-    'id' => "customer-feedback-comment-email-" . ($num ?? 0),
+    'id' => "customer-feedback-comment-email",
     'type' => 'email',
     'placeholder' => $labels->email->placeholder,
     'value' => $userEmail ?? '',
-    'name' => 'customer-feedback-comment-email',
+    'name' => 'email',
     'autocomplete' => 'email',
     'invalidMessage' => $labels->email->error,
     'label' => $labels->email->label,
