@@ -1,11 +1,11 @@
 <!-- GDPR Notice -->
 @element([
   'classList' => [
-    'customer-feedback-gdpr-section'
+    'customer-feedback-gdpr-section',
+    'u-display--none'
   ], 
   'attributeList' => [
-    'data-js-cf-part' => 'gdpr',
-    'style' => 'display: none;'
+    'data-js-cf-part' => 'gdpr'
   ]
 ])
   @if($gdpr->enabled)

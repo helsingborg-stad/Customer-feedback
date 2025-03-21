@@ -4,11 +4,10 @@
   'componentElement' => 'div',
   'classList' => [
     'customer-feedback-topics',
-    'u-margin__top--4'
+    'u-display--none'
   ],
   'attributeList' => [
-    'data-js-cf-part' => 'topics',
-    'style' => 'display: none;'
+    'data-js-cf-part' => 'topics'
   ]
 ])
     @typography([

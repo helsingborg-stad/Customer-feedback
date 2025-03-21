@@ -498,7 +498,7 @@ class Responses
      */
     public function submitResponse()
     {
-        $insertedId = 'false';
+        $insertedId = false;
         $postId = (isset($_POST['postid']) && is_numeric($_POST['postid'])) ? $_POST['postid'] : null;
         $answer = (isset($_POST['answer']) && strlen($_POST['answer']) > 0) ? $_POST['answer'] : null;
 
@@ -514,7 +514,21 @@ class Responses
             update_post_meta($insertedId, 'customer_feedback_answer', $answer);
         }
 
-        echo $insertedId;
+        if($insertedId) {
+            wp_send_json([
+                'state' => 'success',
+                'message' => __('Response saved', 'customer-feedback'),
+                'data' => [
+                    'id' => $insertedId
+                ]
+            ], 200);
+        } else {
+            wp_send_json([
+                'state' => 'error',
+                'message' => __('Failed to save response', 'customer-feedback')
+            ], 500);
+        }
+        
         wp_die();
     }
 

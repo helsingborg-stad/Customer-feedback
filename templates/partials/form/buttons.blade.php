@@ -2,9 +2,11 @@
     'componentElement' => 'div',
     'classList' => [
         'u-display--flex',
-        'u-gap-2',
-        'u-margin__top--2'
-    ]
+        'u-gap-2'
+  ],
+  'attributeList' => [
+    'data-js-cf-part' => 'buttons'
+  ]
 ])
   @button([
       'text' => $labels->positive,

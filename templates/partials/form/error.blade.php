@@ -11,11 +11,11 @@
   ],
   'classList' => [
     'customer-feedback-error',
-    'u-margin__top--0'
+    'u-margin__top--0',
+    'u-display--none'
   ],
   'attributeList' => [
-    'data-js-cf-notification' => 'error',
-    'style' => 'display: none;'
+    'data-js-cf-notification' => 'error'
   ]
 ])
 @endnotice

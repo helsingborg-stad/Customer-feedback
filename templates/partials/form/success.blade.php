@@ -11,11 +11,11 @@
   ],
   'classList' => [
     'customer-feedback-thanks',
-    'u-margin__top--0'
+    'u-margin__top--0',
+    'u-display--none'
   ],
   'attributeList' => [
-    'data-js-cf-notification' => 'success',
-    'style' => 'display: none;'
+    'data-js-cf-notification' => 'success'
   ]
 ])
 @endnotice

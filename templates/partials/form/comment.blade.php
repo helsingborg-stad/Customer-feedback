@@ -1,10 +1,10 @@
 @element([
   'classList' => [
-    'customer-feedback-comment-section'
+    'customer-feedback-comment-section',
+    'u-display--none'
   ], 
   'attributeList' => [
-    'data-js-cf-part' => 'comment',
-    'style' => 'display: none;'
+    'data-js-cf-part' => 'comment'
   ]
 ])
   @field([
@@ -48,6 +48,18 @@
   ])
   @endfield
 
+  
+@endelement
+
+@element([
+  'classList' => [
+    'customer-feedback-send-section',
+    'u-display--none'
+  ], 
+  'attributeList' => [
+    'data-js-cf-part' => 'send'
+  ]
+])
   @button([
     'icon' => 'send',
     'reversePositions' => true,

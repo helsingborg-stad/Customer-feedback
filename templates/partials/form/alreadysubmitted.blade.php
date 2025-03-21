@@ -10,11 +10,11 @@
   ],
   'classList' => [
     'customer-feedback-already-submitted',
-    'u-margin__top--0'
+    'u-margin__top--0',
+    'u-display--none'
   ],
   'attributeList' => [
-    'data-js-cf-notification' => 'alreadysubmitted',
-    'style' => 'display: none;'
+    'data-js-cf-notification' => 'alreadysubmitted'
   ]
 ])
 @endnotice

@@ -1,6 +1,9 @@
 export default () => {
+
     const parentDomElement = null;
-    const jsonData = null;
+
+    let settings = null;
+    let initialFeedbackId = null;
 
     function Form() {
         this.parentDomElement = document.querySelector('[data-js-cf]');
@@ -10,10 +13,10 @@ export default () => {
         }
 
         //Parse and store the json data
-        this.getJsonData(this.parentDomElement);
+        this.getSettings(this.parentDomElement);
 
         //Render initial state
-        this.renderInitialState(this.parentDomElement);
+        //this.renderInitialState(this.parentDomElement);
 
         //Handle feedback buttons
         this.handleFeedbackButtons(this.parentDomElement);
@@ -24,11 +27,11 @@ export default () => {
      * @param {HTMLElement} customerFeedbackInstance
      * @returns {void}
      */
-    Form.prototype.getJsonData = function (customerFeedbackInstance) {
+    Form.prototype.getSettings = function (customerFeedbackInstance) {
         try {
-            this.jsonData = JSON.parse(customerFeedbackInstance.getAttribute('data-js-cf'));
+            this.settings = JSON.parse(customerFeedbackInstance.getAttribute('data-js-cf'));
         } catch (error) {
-            console.error('Invalid JSON data in data-js-cf attribute:', error);
+            console.error('Invalid settings JSON data in data-js-cf attribute:', error);
         }
     }
 
@@ -39,7 +42,7 @@ export default () => {
      * @returns {void}
      */
     Form.prototype.renderInitialState = function (customerFeedbackInstance) {
-        if (this.hasGivenFeedback(this.jsonData.postId)) {
+        if (this.hasGivenFeedback(this.settings.postId)) {
             this.showNotice('alreadysubmitted');
             this.hidePartial('buttons');
         }
@@ -75,11 +78,27 @@ export default () => {
             }
             return response.json();
         }).then(response => {
-
+            if(!response.data.id) {
+                throw new Error('Invalid response (no id)');
+            }
+            return response;
+        }).then(response => {
+            this.hidePartial('buttons');
+            return response;
+        }).then(response => {
             this.registerFeedBackGiven(postId);
 
-            console.log(response);
-            console.log(response.data);
+            if(this.settings.topics) {
+                this.initialFeedbackId = response.data.id;
+                this.showPartial('topics');
+                this.showPartial('send');
+            } else {
+                this.showNotice('success');
+            }
+
+            
+            
+
 
             /*
 
@@ -93,11 +112,6 @@ export default () => {
                 feedBackIdElement.value = response;
 
                 document.querySelector('[name="customer-feedback-post-id"]').parentElement.appendChild(feedBackIdElement);
-
-                //Hide current controls 
-                foreach(['comment', 'email', 'submit'], function (elementKey) {
-                    this.hideNotice(elementKey);
-                });
 
                 document.querySelector('.customer-feedback-comment-email').parentElement.style.display = "none";
                 document.querySelector('.customer-feedback-answers').style.display = "none";
@@ -121,7 +135,9 @@ export default () => {
             */
 
         }).catch(err => {
+            console.error(err);
             this.showNotice('error');
+            this.hidePartial('buttons');
             return false;
         }).finally(() => {
             this.hideLoader();
@@ -178,11 +194,31 @@ export default () => {
     Form.prototype.showHideByKey = function (dataElement, key, state) {
         const element = this.parentDomElement.querySelector('[' + dataElement + '="' + key + '"]');
         if (element) {
-            if (state) {
-                element.style.removeProperty('display');
-            } else {
-                element.style.display = 'none';
+            this.toggleDisplayClass(element, state);
+        }
+    }
+
+    Form.prototype.toggleDisplayClass = function (element, state) {
+        if (!element) return;
+    
+        const displayClassPattern = /u-display--\S+/g; // Matches any u-display--* class
+        const currentClasses = [...element.classList].filter(cls => displayClassPattern.test(cls));
+    
+        if (state) {
+            // Restore previous display class(es) if stored
+            const previousDisplay = element.getAttribute('data-display-toggle');
+            if (previousDisplay) {
+                element.classList.add(...previousDisplay.split(' '));
+                element.removeAttribute('data-display-toggle');
             }
+            element.classList.remove('u-display--none');
+        } else {
+            // Store existing u-display--* classes before hiding
+            if (currentClasses.length > 0) {
+                element.setAttribute('data-display-toggle', currentClasses.join(' '));
+                element.classList.remove(...currentClasses);
+            }
+            element.classList.add('u-display--none');
         }
     }
 
@@ -219,7 +255,7 @@ export default () => {
                     // Submit answer
                     self.submitInitialResponse(
                         customerFeedbackInstance, 
-                        self.jsonData.postId, 
+                        self.settings.postId, 
                         this.getAttribute('data-js-cf-action')
                     );
                 });
