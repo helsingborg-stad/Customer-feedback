@@ -553,16 +553,33 @@ class Responses
                 wp_set_post_terms($answerId, array($topicId), 'feedback_topic');
             }
 
-            wp_update_post(array(
+            $insertedId = wp_update_post(array(
                 'ID' => $answerId,
                 'post_status' => 'pending'
             ));
 
-            \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email, $topicId);
+            if($insertedId) {
+                \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email, $topicId);
 
-            echo 'true';
+                wp_send_json([
+                    'state' => 'success',
+                    'message' => __('Response saved', 'customer-feedback'),
+                    'data' => [
+                        'id' => $insertedId
+                    ]
+                ], 200);
+            } else {
+                wp_send_json([
+                    'state' => 'error',
+                    'message' => __('Failed to save comment', 'customer-feedback')
+                ], 500);
+            }
+
         } else {
-            echo 'false';
+            wp_send_json([
+                'state' => 'error',
+                'message' => __('Failed to save comment (not enough data)', 'customer-feedback')
+            ], 500);
         }
 
         wp_die();
