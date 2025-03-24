@@ -19,13 +19,13 @@ export default () => {
         //this.renderInitialState(this.parentDomElement);
 
         //Handle feedback buttons
-        this.handleFeedbackButtons(this.parentDomElement);
+        //this.handleFeedbackButtons(this.parentDomElement);
 
         //Handle topic selection
-        this.handleTopicSelection(this.parentDomElement);
+        //this.handleTopicSelection(this.parentDomElement);
 
         //Handle form submission
-        this.handleCommentFormSubmission(this.parentDomElement);
+        //this.handleCommentFormSubmission(this.parentDomElement);
     }
 
     /**

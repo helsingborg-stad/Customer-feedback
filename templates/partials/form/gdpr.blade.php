@@ -1,22 +1,10 @@
-<!-- GDPR Notice -->
-@element([
-  'classList' => [
-    'customer-feedback-gdpr-section',
-    'u-display--none'
-  ], 
-  'attributeList' => [
-    'data-js-cf-part' => 'gdpr'
-  ]
+@typography([
+    'element' => 'span',
+    'variant' => 'meta',
+    'classList' => [
+        'c-typography--meta',
+        'u-margin__top--0'
+    ]
 ])
-  @if($gdpr->enabled)
-    @typography([
-        'element' => 'p',
-        'variant' => 'meta',
-        'classList' => [
-            'c-typography--meta'
-        ]
-    ])
-      {{ $gdpr->content }}
-    @endtypography
-  @endif
-@endelement
+  {{ $gdpr->content }}
+@endtypography

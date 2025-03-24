@@ -24,13 +24,18 @@
           'aria-label' => ''
         ],
         'classList' => [
-          'u-visibly--hidden'
+          'u-visibility--hidden'
         ]
       ])
       @endicon
     @endif
   @endelement
-  @element(['classList' => ['customer-feedback-section-content']])
+  @element([
+      'classList' => array_filter(array_merge([
+        'customer-feedback-section-content'
+      ], isset($customClasses) && is_array($customClasses) ? $customClasses : [])),
+    ]
+  )
     @include('partials.form.' . $section)
   @endelement
 @endelement

@@ -108,13 +108,10 @@
 
   .c-icon {
     opacity: 0.5;
+    margin-top: 0.15em;
   }
 }
 .customer-feedback-section-content {
   width: 100%;
   padding: calc(var(--base, 8px) * 2);
-
-  .customer-feedback-main-heading:first-child {
-    margin-top: -0.15em;
-  }
 }

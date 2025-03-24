@@ -11,8 +11,7 @@
   ],
   'classList' => [
     'customer-feedback-error',
-    'u-margin__top--0',
-    'u-display--none'
+    'u-margin__top--0'
   ],
   'attributeList' => [
     'data-js-cf-notification' => 'error'

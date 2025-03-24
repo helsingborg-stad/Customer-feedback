@@ -13,16 +13,16 @@
     ['section' => 'heading', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => ($question->title || $question->description)]
   )
 
-  <!-- Buttons -->
-  @include(
-    'partials.section', 
-    ['section' => 'buttons', 'isHidden' => false, 'icon' => 'unknown_med', 'shouldRender' => true]
-  )
-
   <!-- Notification -->
   @include(
     'partials.section', 
-    ['section' => 'notices', 'isHidden' => false, 'icon' => 'unknown_med', 'shouldRender' => true]
+    ['section' => 'notices', 'isHidden' => false, 'icon' => false, 'shouldRender' => true]
+  )
+
+  <!-- Buttons -->
+  @include(
+    'partials.section', 
+    ['section' => 'buttons', 'isHidden' => false, 'icon' => false, 'shouldRender' => true]
   )
 
   <!-- Topics -->
@@ -34,13 +34,13 @@
   <!-- Comment -->
   @include(
     'partials.section', 
-    ['section' => 'comment', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => true]
+    ['section' => 'comment', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => true, 'customClasses' => ['u-gap-2']]
   )
 
   <!-- GDPR -->
   @include(
     'partials.section', 
-    ['section' => 'gdpr', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => true]
+    ['section' => 'gdpr', 'isHidden' => false, 'icon' => false, 'shouldRender' => $gdpr->enabled]
   )
 
   <!-- Loader -->

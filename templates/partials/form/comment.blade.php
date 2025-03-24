@@ -1,12 +1,3 @@
-@element([
-  'classList' => [
-    'customer-feedback-comment-section',
-    'u-display--none'
-  ], 
-  'attributeList' => [
-    'data-js-cf-part' => 'comment'
-  ]
-])
   @field([
     'id' => 'customer-feedback-comment-text',
     'type' => 'text',
@@ -18,9 +9,8 @@
     'invalidMessage' => $labels->comment->error,
     'helperText' => $labels->comment->explain,
     'required' => true,
-    'multiline' => 8,
+    'multiline' => 6,
     'classList' => [
-      'u-margin__top--4'
     ],
     'attributeList' => [
       'data-js-cf-comment' => 'text'
@@ -48,17 +38,7 @@
   ])
   @endfield
 
-@endelement
 
-@element([
-  'classList' => [
-    'customer-feedback-send-section',
-    'u-display--none'
-  ], 
-  'attributeList' => [
-    'data-js-cf-part' => 'send'
-  ]
-])
   @button([
     'icon' => 'send',
     'reversePositions' => true,
@@ -78,4 +58,3 @@
     ]
   ])
   @endbutton
-@endelement
