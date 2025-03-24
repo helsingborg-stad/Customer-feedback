@@ -29,6 +29,46 @@ export default () => {
     }
 
     /**
+     * Get JSON data from data-js-cf attribute
+     * @param {HTMLElement} customerFeedbackInstance
+     * @returns {void}
+     */
+    Form.prototype.getSettings = function (customerFeedbackInstance) {
+        try {
+            this.settings = JSON.parse(customerFeedbackInstance.getAttribute('data-js-cf'));
+        } catch (error) {
+            console.error('Invalid settings JSON data in data-js-cf attribute:', error);
+        }
+    }
+
+    /**
+     * Handle yes/no buttons
+     */
+    Form.prototype.handleFeedbackButtons = function (customerFeedbackInstance) {
+        let     self            = this;
+        const   feedbackButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-action]');
+    
+        if (feedbackButtons.length > 0) {
+            feedbackButtons.forEach(feedbackButton => {
+                feedbackButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+    
+                    // Set pressed state
+                    this.setAttribute("aria-pressed", "true");
+    
+                    // Submit answer
+                    self.submitInitialResponse(
+                        customerFeedbackInstance, 
+                        self.settings.postId, 
+                        this.getAttribute('data-js-cf-action')
+                    );
+                });
+            });
+        }
+    };
+
+    /**
      * Handle topic selection, toggles comment section
      * 
      * @param {HTMLElement} customerFeedbackInstance
@@ -47,7 +87,7 @@ export default () => {
                         self.showSubPartial('text');
                         self.showSubPartial('submit');
 
-                        if(this.getAttribute('data-js-cf-has-written-feedback-capability-email') === 'true') {
+                        if(this.getAttribute('data-js-cf-has-written-feedback-email') === 'true') {
                             self.showSubPartial('email');
                         } else {
                             self.hideSubPartial('email');
@@ -118,19 +158,6 @@ export default () => {
                 self.hideLoader();
             });
         });
-    }
-
-    /**
-     * Get JSON data from data-js-cf attribute
-     * @param {HTMLElement} customerFeedbackInstance
-     * @returns {void}
-     */
-    Form.prototype.getSettings = function (customerFeedbackInstance) {
-        try {
-            this.settings = JSON.parse(customerFeedbackInstance.getAttribute('data-js-cf'));
-        } catch (error) {
-            console.error('Invalid settings JSON data in data-js-cf attribute:', error);
-        }
     }
 
     /**
@@ -381,34 +408,7 @@ export default () => {
     Form.prototype.hideLoader = function () {
         this.parentDomElement.querySelector('[data-js-cf-loader]').style.display = 'none';
     }
-
-    /**
-     * Handle yes/no buttons
-     */
-    Form.prototype.handleFeedbackButtons = function (customerFeedbackInstance) {
-        let     self            = this;
-        const   feedbackButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-action]');
     
-        if (feedbackButtons.length > 0) {
-            feedbackButtons.forEach(feedbackButton => {
-                feedbackButton.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-    
-                    // Set pressed state
-                    this.setAttribute("aria-pressed", "true");
-    
-                    // Submit answer
-                    self.submitInitialResponse(
-                        customerFeedbackInstance, 
-                        self.settings.postId, 
-                        this.getAttribute('data-js-cf-action')
-                    );
-                });
-            });
-        }
-    };
-
     /**
      * Check if post id exists in local storage
      * @param {int} postId 
