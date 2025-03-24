@@ -42,6 +42,31 @@ export default () => {
     }
 
     /**
+     * Render initial state of the form
+     * @param {HTMLElement} customerFeedbackInstance
+     * 
+     * @returns {void}
+     */
+    Form.prototype.renderInitialState = function (customerFeedbackInstance) {
+
+        this.hidePartial('notices');
+        this.hidePartial('topics');
+        this.hidePartial('comment');
+        this.hidePartial('gdpr');
+        
+        this.hideNotice('error');
+        this.hideNotice('success');
+
+        if (this.hasGivenFeedback(this.settings.postId)) {
+            this.showNotice('alreadysubmitted');
+            this.hidePartial('buttons');
+        } else {
+            this.hideNotice('alreadysubmitted');
+            this.showPartial('buttons');
+        }
+    };
+
+    /**
      * Handle yes/no buttons
      */
     Form.prototype.handleFeedbackButtons = function (customerFeedbackInstance) {
@@ -159,31 +184,6 @@ export default () => {
             });
         });
     }
-
-    /**
-     * Render initial state of the form
-     * @param {HTMLElement} customerFeedbackInstance
-     * 
-     * @returns {void}
-     */
-    Form.prototype.renderInitialState = function (customerFeedbackInstance) {
-
-        this.hidePartial('notices');
-        this.hidePartial('topics');
-        this.hidePartial('comment');
-        this.hidePartial('gdpr');
-        
-        this.hideNotice('error');
-        this.hideNotice('success');
-
-        if (this.hasGivenFeedback(this.settings.postId)) {
-            this.showNotice('alreadysubmitted');
-            this.hidePartial('buttons');
-        } else {
-            this.hideNotice('alreadysubmitted');
-            this.showPartial('buttons');
-        }
-    };
 
     /**
      * Submits the initail yes or no response
@@ -415,7 +415,6 @@ export default () => {
      * @returns {boolean} True if post id exists in local storage, false if not
      */
     Form.prototype.hasGivenFeedback = function (postId) {
-        return false;
         if (!postId) return false;
         const givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || [];
         return givenFeedback.includes(postId);
