@@ -7,7 +7,9 @@
     'data-js-cf' => $jsonData
   ]
 ])
-  <form>
+
+  @form(['id' => 'customer-feedback-form', 'validate' => true])
+  
     <!-- Main question -->
     @include(
       'partials.section', 
@@ -47,5 +49,6 @@
     <!-- Loader -->
     <div class="customer-feedback-loader" data-js-cf-loader="" style="display: none;"></div>
 
-  </form>
+  @endform
+
 @endpaper
