@@ -77,6 +77,8 @@ export default () => {
             e.stopPropagation();
 
             self.showLoader();
+            this.hideNotice('error');
+            this.hideNotice('success');
 
             let data = new FormData(form);
             data.append('action', 'submit_comment');
@@ -104,6 +106,7 @@ export default () => {
                 self.showNotice('success');
                 self.hidePartial('topics');
                 self.hidePartial('comment');
+                self.hidePartial('gdpr');
             }).catch(err => {
                 console.error(err);
                 self.showNotice('error');
@@ -235,6 +238,8 @@ export default () => {
     Form.prototype.showHideNotice = function (key, state) {
         if(state == false) {
             this.hidePartial('notices');
+        } else {
+            this.showPartial('notices');
         }
         this.showHideByKey('data-js-cf-notification', key, state);
     };
