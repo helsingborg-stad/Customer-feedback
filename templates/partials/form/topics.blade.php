@@ -1,50 +1,38 @@
+@typography([
+  'element' => 'h2',
+  'variant' => 'h3',
+])
+  {{ $labels->topic->heading }}
+@endtypography
 
-<!-- Topic segment -->
-@element([
-  'componentElement' => 'div',
+@typography([
+  'element' => 'p',
+  'variant' => 'small',
   'classList' => [
-    'customer-feedback-topics',
-  ],
-  'attributeList' => [
-    'data-js-cf-part' => 'topics'
+    'u-margin__top--0'
   ]
 ])
-    @typography([
-      'element' => 'h2',
-      'variant' => 'h3',
-    ])
-      {{ $labels->topic->heading }}
-    @endtypography
+  {{ $labels->topic->description }}
+@endtypography
 
-    @typography([
-      'element' => 'p',
-      'variant' => 'small',
-      'classList' => [
-        'u-margin__top--0'
-      ]
+@element([
+  'classList' => [
+    'u-margin__top--2'
+  ]
+])
+  @foreach ($topics as $key => $topic)
+    @option([
+      'id' => $key,
+      'type' => 'radio',
+      'attributeList' => [
+        'name' => 'topicid',
+        'value' => $topic->id,
+        'topic-description' => $topic->description,
+        'data-js-cf-has-written-feedback-capability' => $topic->feedbackCapability ? 'true' : 'false',
+        'data-js-cf-topic' => $topic->id
+      ],
+      'label' => $topic->name,
     ])
-      {{ $labels->topic->description }}
-    @endtypography
-
-    @element([
-      'classList' => [
-        'u-margin__top--2'
-      ]
-    ])
-      @foreach ($topics as $key => $topic)
-        @option([
-          'id' => $key,
-          'type' => 'radio',
-          'attributeList' => [
-            'name' => 'topicid',
-            'value' => $topic->id,
-            'topic-description' => $topic->description,
-            'data-js-cf-has-written-feedback-capability' => $topic->feedbackCapability ? 'true' : 'false',
-            'data-js-cf-topic' => $topic->id
-          ],
-          'label' => $topic->name,
-        ])
-        @endoption
-      @endforeach
-    @endelement
+    @endoption
+  @endforeach
 @endelement

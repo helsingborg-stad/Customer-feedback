@@ -3,6 +3,7 @@
     'customer-feedback-section',
     'customer-feedback-section-' . $section,
     $isHidden ? 'u-display--none' : 'u-display--flex',
+    $hasBorder ? '' : 'customer-feedback-section-borderless'
   ],
   'attributeList' => [
     'data-js-cf-part' => $section
@@ -17,7 +18,7 @@
       @endicon
     @else
       @icon([
-        'icon' => 'unknown_med',
+        'icon' => 'placeholder',
         'size' => 'md',
         'attributeList' => [
           'aria-hidden' => 'true',

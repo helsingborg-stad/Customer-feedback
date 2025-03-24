@@ -16,16 +16,16 @@ export default () => {
         this.getSettings(this.parentDomElement);
 
         //Render initial state
-        //this.renderInitialState(this.parentDomElement);
+        this.renderInitialState(this.parentDomElement);
 
         //Handle feedback buttons
-        //this.handleFeedbackButtons(this.parentDomElement);
+        this.handleFeedbackButtons(this.parentDomElement);
 
         //Handle topic selection
-        //this.handleTopicSelection(this.parentDomElement);
+        this.handleTopicSelection(this.parentDomElement);
 
         //Handle form submission
-        //this.handleCommentFormSubmission(this.parentDomElement);
+        this.handleCommentFormSubmission(this.parentDomElement);
     }
 
     /**
@@ -40,12 +40,20 @@ export default () => {
         if (topicButtons.length > 0) {
             topicButtons.forEach(topicButton => {
                 topicButton.addEventListener('click', function (e) {
+                    self.showPartial('comment');
+
                     if(this.getAttribute('data-js-cf-has-written-feedback-capability') === 'true') {
-                        self.showPartial('comment');
                         self.showPartial('gdpr');
+
+                        self.showSubPartial('text');
+                        self.showSubPartial('email');
+                        self.showSubPartial('submit');
                     } else {
-                        self.hidePartial('comment');
                         self.hidePartial('gdpr');
+
+                        self.hideSubPartial('text');
+                        self.hideSubPartial('email');
+                        self.showSubPartial('submit');
                     }
                 });
             });
@@ -96,8 +104,6 @@ export default () => {
                 self.showNotice('success');
                 self.hidePartial('topics');
                 self.hidePartial('comment');
-                self.hidePartial('gdpr');
-                self.hidePartial('send');
             }).catch(err => {
                 console.error(err);
                 self.showNotice('error');
@@ -127,9 +133,21 @@ export default () => {
      * @returns {void}
      */
     Form.prototype.renderInitialState = function (customerFeedbackInstance) {
+
+        this.hidePartial('notices');
+        this.hidePartial('topics');
+        this.hidePartial('comment');
+        this.hidePartial('gdpr');
+        
+        this.hideNotice('error');
+        this.hideNotice('success');
+
         if (this.hasGivenFeedback(this.settings.postId)) {
             this.showNotice('alreadysubmitted');
             this.hidePartial('buttons');
+        } else {
+            this.hideNotice('alreadysubmitted');
+            this.showPartial('buttons');
         }
     };
 
@@ -215,6 +233,9 @@ export default () => {
      * @param {boolean} state What display state to set (true = show, false = hide)
      */
     Form.prototype.showHideNotice = function (key, state) {
+        if(state == false) {
+            this.hidePartial('notices');
+        }
         this.showHideByKey('data-js-cf-notification', key, state);
     };
 
@@ -235,6 +256,35 @@ export default () => {
     Form.prototype.hidePartial = function (key) {
         this.showHidePartial(key, false);
     }
+
+
+    /**
+     * Displays a partial based on a key
+     * 
+     * @param {string} key 
+     */
+    Form.prototype.showSubPartial = function (key) {
+        this.showHideSubPartial(key, true);
+    }
+
+    /**
+     * Hides a partial based on a key
+     * 
+     * @param {string} key 
+     */
+    Form.prototype.hideSubPartial = function (key) {
+        this.showHideSubPartial(key, false);
+    }
+
+     /**
+     * Shows and hides a partial based on a key
+     * 
+     * @param {string} key 
+     * @param {boolean} state 
+     */
+     Form.prototype.showHideSubPartial = function (key, state) {
+        this.showHideByKey('data-js-cf-sub-part', key, state);
+    };
 
     /**
      * Shows and hides a partial based on a key
@@ -356,6 +406,7 @@ export default () => {
      * @returns {boolean} True if post id exists in local storage, false if not
      */
     Form.prototype.hasGivenFeedback = function (postId) {
+        return false;
         if (!postId) return false;
         const givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || [];
         return givenFeedback.includes(postId);

@@ -3,9 +3,6 @@
     'classList' => [
         'u-display--flex',
         'u-gap-2'
-  ],
-  'attributeList' => [
-    'data-js-cf-part' => 'buttons'
   ]
 ])
   @button([
