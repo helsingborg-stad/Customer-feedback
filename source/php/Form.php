@@ -74,8 +74,8 @@ class Form
                 
                 'comment' => (object) [
                     'label'         => __('How can we make the information better?', 'customer-feedback'),
-                    'explain'       => __('Please give us your feedback to help us improve our information.', 'customer-feedback'),
-                    'placeholder'   => __('Please give us your feedback to help us improve our information.', 'customer-feedback'),
+                    'explain'       => false,
+                    'placeholder'   => false,
                     'error'         => __('Please enter a comment of minimum 15 characters.', 'customer-feedback'),
                 ],
 
