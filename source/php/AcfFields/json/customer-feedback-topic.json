@@ -4,8 +4,9 @@
     "fields": [
         {
             "key": "field_59c9fb9093d94",
-            "label": "Feedback",
+            "label": "Users can give written feedback",
             "name": "topic_feedback_capability",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -15,16 +16,45 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Add feedback capability",
+            "message": "If this is enabled, a textfield will appear when the topic is selected.",
             "default_value": 0,
-            "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": ""
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
+            "key": "field_67e1748ad8e8d",
+            "label": "Users can give email in written feedback",
+            "name": "topic_feedback_capability_email",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_59c9fb9093d94",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "If this is enabled, a email field will appear when the topic is selected.",
+            "default_value": 1,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
         },
         {
             "key": "field_59d60e93873e6",
             "label": "Forwarding",
             "name": "topic_feedback_forwarding",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -52,11 +82,17 @@
     ],
     "menu_order": 0,
     "position": "normal",
-    "style": "seamless",
+    "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": ""
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 

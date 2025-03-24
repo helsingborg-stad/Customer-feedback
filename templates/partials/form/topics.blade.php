@@ -28,7 +28,8 @@
         'name' => 'topicid',
         'value' => $topic->id,
         'topic-description' => $topic->description,
-        'data-js-cf-has-written-feedback-capability' => $topic->feedbackCapability ? 'true' : 'false',
+        'data-js-cf-has-written-feedback-capability'  => $topic->feedbackCapability ? 'true' : 'false',
+        'data-js-cf-has-written-feedback-email'       => $topic->feedbackCapability && $topic->feedbackCapabilityEmail ? 'true' : 'false',
         'data-js-cf-topic' => $topic->id
       ],
       'label' => $topic->name,

@@ -44,11 +44,15 @@ export default () => {
 
                     if(this.getAttribute('data-js-cf-has-written-feedback-capability') === 'true') {
                         self.showPartial('gdpr');
-
                         self.showSubPartial('text');
-                        self.showSubPartial('email');
                         self.showSubPartial('submit');
-                    } else {
+
+                        if(this.getAttribute('data-js-cf-has-written-feedback-capability-email') === 'true') {
+                            self.showSubPartial('email');
+                        } else {
+                            self.hideSubPartial('email');
+                        }
+                    } else { 
                         self.hidePartial('gdpr');
 
                         self.hideSubPartial('text');
@@ -77,8 +81,8 @@ export default () => {
             e.stopPropagation();
 
             self.showLoader();
-            this.hideNotice('error');
-            this.hideNotice('success');
+            self.hideNotice('error');
+            self.hideNotice('success');
 
             let data = new FormData(form);
             data.append('action', 'submit_comment');

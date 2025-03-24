@@ -117,10 +117,11 @@ class Form
         if(!empty($topics)) {
             foreach ($topics as $topic) {
                 $formData['topics'][] = (object) [
-                    'id'                    => $topic->term_id,
-                    'name'                  => $topic->name,
-                    'description'           => $topic->description,
-                    'feedbackCapability'    => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '0',
+                    'id'                        => $topic->term_id,
+                    'name'                      => $topic->name,
+                    'description'               => $topic->description,
+                    'feedbackCapability'        => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '0',
+                    'feedbackCapabilityEmail'   => $getField('topic_feedback_capability_email', '', 'feedback_topic_' . $topic->term_id) ?: '0',
                 ];
             }
         }
