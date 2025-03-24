@@ -4,7 +4,6 @@
   'componentElement' => 'div',
   'classList' => [
     'customer-feedback-topics',
-    'u-display--none'
   ],
   'attributeList' => [
     'data-js-cf-part' => 'topics'
@@ -29,13 +28,7 @@
 
     @element([
       'classList' => [
-        'u-margin__top--2', 
-        'u-padding--2', 
-        'u-border', 
-        'u-border--1', 
-        'u-border__color--secondary', 
-        'u-rounded', 
-        'u-color__bg--complementary-lightest'
+        'u-margin__top--2'
       ]
     ])
       @foreach ($topics as $key => $topic)

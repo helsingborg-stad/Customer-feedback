@@ -96,3 +96,25 @@
   0% , 60% , 100%{ transform: translate(-50%, -50%) scale(1) }
   80% { transform: translate(-50%, -50%) scale(1.2)}
 }
+
+.customer-feedback-section + .customer-feedback-section .customer-feedback-section-content {
+  border-top: 1px solid var(--color-border, #0000000f);
+}
+
+.customer-feedback-section-icon {
+  padding: calc(var(--base, 8px) * 2);
+  background-color: #00000003;
+  border-right: 1px solid var(--color-border, #0000000f);
+
+  .c-icon {
+    opacity: 0.5;
+  }
+}
+.customer-feedback-section-content {
+  width: 100%;
+  padding: calc(var(--base, 8px) * 2);
+
+  .customer-feedback-main-heading:first-child {
+    margin-top: -0.15em;
+  }
+}

@@ -42,8 +42,10 @@ export default () => {
                 topicButton.addEventListener('click', function (e) {
                     if(this.getAttribute('data-js-cf-has-written-feedback-capability') === 'true') {
                         self.showPartial('comment');
+                        self.showPartial('gdpr');
                     } else {
                         self.hidePartial('comment');
+                        self.hidePartial('gdpr');
                     }
                 });
             });
@@ -93,8 +95,9 @@ export default () => {
             }).then(response => {
                 self.showNotice('success');
                 self.hidePartial('topics');
-                self.hidePartial('send');
                 self.hidePartial('comment');
+                self.hidePartial('gdpr');
+                self.hidePartial('send');
             }).catch(err => {
                 console.error(err);
                 self.showNotice('error');

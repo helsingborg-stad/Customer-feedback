@@ -1,4 +1,4 @@
-@card([
+@paper([
   'id' => 'customer-feedback',
   'classList' => [
     'c-card--feedback'
@@ -8,37 +8,41 @@
   ]
 ])
   <!-- Main question -->
-  @include('partials.form.heading')
+  @include(
+    'partials.section', 
+    ['section' => 'heading', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => ($question->title || $question->description)]
+  )
 
-  <!-- Body -->
-  @element(['classList' => ['c-card__body']])
-  
-    <!-- Notices -->
-    @include('partials.form.success')
-    @include('partials.form.error')
-    @include('partials.form.alreadysubmitted')
+  <!-- Buttons -->
+  @include(
+    'partials.section', 
+    ['section' => 'buttons', 'isHidden' => false, 'icon' => 'unknown_med', 'shouldRender' => true]
+  )
 
-    <!-- Buttons -->
-    @include('partials.form.buttons')
+  <!-- Notification -->
+  @include(
+    'partials.section', 
+    ['section' => 'notices', 'isHidden' => false, 'icon' => 'unknown_med', 'shouldRender' => true]
+  )
 
-    <!-- Detailed submission (if any topics defined) -->
-    @if($topics)
-      @form(['classList' => ['customer-feedback-comment']])
+  <!-- Topics -->
+  @include(
+    'partials.section', 
+    ['section' => 'topics', 'isHidden' => false, 'icon' => 'topic', 'shouldRender' => (bool) $topics]
+  )
 
-        <!-- Topics -->
-        @include('partials.form.topics')
+  <!-- Comment -->
+  @include(
+    'partials.section', 
+    ['section' => 'comment', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => true]
+  )
 
-        <!-- Comment -->
-        @include('partials.form.comment')
-
-        <!-- GDPR -->
-        @include('partials.form.gdpr')
-      @endform
-    @endif
-
-  @endelement
+  <!-- GDPR -->
+  @include(
+    'partials.section', 
+    ['section' => 'gdpr', 'isHidden' => false, 'icon' => 'forum', 'shouldRender' => true]
+  )
 
   <!-- Loader -->
   <div class="customer-feedback-loader" data-js-cf-loader="" style="display: none;"></div>
-
-@endcard
+@endpaper
