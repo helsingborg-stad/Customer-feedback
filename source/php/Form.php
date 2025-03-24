@@ -81,7 +81,7 @@ class Form
 
                 'email' => (object) [
                     'label'         => __('Email address', 'customer-feedback'),
-                    'explain'       => __('Please give us your email address to get a reply on your feedback.', 'customer-feedback'),
+                    'explain'       => false,
                     'error'        => __('Please enter a valid email address.', 'customer-feedback'),
                     'placeholder'  => __('email@example.com', 'customer-feedback'),
                 ],
