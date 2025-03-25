@@ -9,7 +9,7 @@
 ])
 
   @form(['id' => 'customer-feedback-form', 'validate' => true])
-  
+
     <!-- Main question -->
     @include(
       'partials.section', 
@@ -19,31 +19,31 @@
     <!-- Notification -->
     @include(
       'partials.section', 
-      ['section' => 'notices', 'isHidden' => false, 'hasBorder' => false, 'icon' => false, 'shouldRender' => true]
+      ['section' => 'notices', 'isHidden' => true, 'hasBorder' => false, 'icon' => false, 'shouldRender' => true]
     )
 
     <!-- Buttons -->
     @include(
       'partials.section', 
-      ['section' => 'buttons', 'isHidden' => false, 'hasBorder' => false, 'icon' => false, 'shouldRender' => true]
+      ['section' => 'buttons', 'isHidden' => true, 'hasBorder' => false, 'icon' => false, 'shouldRender' => true]
     )
 
     <!-- Topics -->
     @include(
       'partials.section', 
-      ['section' => 'topics', 'isHidden' => false, 'hasBorder' => true, 'icon' => 'category', 'shouldRender' => (bool) $topics]
+      ['section' => 'topics', 'isHidden' => true, 'hasBorder' => true, 'icon' => 'category', 'shouldRender' => (bool) $topics]
     )
 
     <!-- Comment -->
     @include(
       'partials.section', 
-      ['section' => 'comment', 'isHidden' => false, 'hasBorder' => true, 'icon' => 'edit_document', 'shouldRender' => true, 'customClasses' => ['u-gap-2']]
+      ['section' => 'comment', 'isHidden' => true, 'hasBorder' => true, 'icon' => 'edit_document', 'shouldRender' => true, 'customClasses' => ['u-gap-2']]
     )
 
     <!-- GDPR -->
     @include(
       'partials.section', 
-      ['section' => 'gdpr', 'isHidden' => false, 'hasBorder' => false, 'icon' => false, 'shouldRender' => $gdpr->enabled]
+      ['section' => 'gdpr', 'isHidden' => true, 'hasBorder' => false, 'icon' => false, 'shouldRender' => $gdpr->enabled]
     )
 
     <!-- Loader -->
