@@ -426,13 +426,23 @@ export default () => {
      * 
      * @returns {void}
      */
-    Form.prototype.registerFeedBackGiven = function (postId) {
-        if (!postId) return false;
-        let givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || [];
-        if (!givenFeedback.includes(postId)) {
-            givenFeedback.push(postId);
-            localStorage.setItem('givenFeedback', JSON.stringify(givenFeedback));
+    Form.prototype.registerFeedBackGiven = function (postId, days = 7) {
+        if (!postId) {
+            return false;
         }
+    
+        let givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || {};
+    
+        let now = Date.now();
+        let lastGiven = givenFeedback[postId] || 0;
+        let timePassed = (now - lastGiven) / (1000 * 60 * 60 * 24);
+    
+        if (timePassed >= days) {
+            givenFeedback[postId] = now;
+            localStorage.setItem('givenFeedback', JSON.stringify(givenFeedback));
+            return true;
+        }
+        return false;
     };
 
     return new Form();
