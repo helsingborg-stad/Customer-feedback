@@ -225,7 +225,7 @@ export default () => {
         }).then(response => {
             this.registerFeedBackGiven(postId, this.settings.frequency);
 
-            if(this.settings.topics) {
+            if (Array.isArray(this.settings.topics) && this.settings.topics.length > 0) {
                 this.initialFeedbackId = response.data.id;
                 this.showPartial('topics');
                 this.showPartial('send');
