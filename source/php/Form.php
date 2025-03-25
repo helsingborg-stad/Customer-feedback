@@ -69,8 +69,8 @@ class Form
             ],
             'labels' => (object) [
                 
-                'negative'          => $getField('customer_feedback_feedback_label_no', __('Yes', 'customer-feedback')),
-                'positive'          => $getField('customer_feedback_feedback_label_yes', __('No', 'customer-feedback')),
+                'negative'          => $getField('customer_feedback_feedback_label_no', __('No', 'customer-feedback')),
+                'positive'          => $getField('customer_feedback_feedback_label_yes', __('Yes', 'customer-feedback')),
                 
                 'comment' => (object) [
                     'label'         => __('How can we make the information better?', 'customer-feedback'),
