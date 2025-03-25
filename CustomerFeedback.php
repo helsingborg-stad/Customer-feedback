@@ -22,14 +22,13 @@ define('CUSTOMERFEEDBACK_PATH', plugin_dir_path(__FILE__));
 define('CUSTOMERFEEDBACK_URL', plugins_url('', __FILE__));
 define('CUSTOMERFEEDBACK_TEMPLATE_PATH', CUSTOMERFEEDBACK_PATH . 'templates/');
 
-add_action('init', function () {
-    load_plugin_textdomain('customer-feedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
-});
-
 if (file_exists(CUSTOMERFEEDBACK_PATH . 'vendor/autoload.php')) {
     require_once CUSTOMERFEEDBACK_PATH . 'vendor/autoload.php';
 }
-require_once CUSTOMERFEEDBACK_PATH . 'Public.php'; // Public functions
+
+add_action('init', function () {
+    load_plugin_textdomain('customer-feedback', false, plugin_basename(dirname(__FILE__)) . '/languages');
+});
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {

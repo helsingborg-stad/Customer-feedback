@@ -2,6 +2,9 @@
 
 namespace CustomerFeedback;
 
+use Throwable;
+use ComponentLibrary\Init as ComponentLibraryInit;
+use WP_Post;
 class Form
 {
     public function __construct()
@@ -11,16 +14,27 @@ class Form
 
     /**
      * Appends the "did you find what you are looking for"
-     * form to the bottom of the content if inside the main loop and content has characters
-     * @param  string $content The original content
-     * @return string          The original content with form appended to bottom
+     * form to the bottom of the content if inside the main loop
      */
-    public function appendForm()
+    public function appendForm(): void
+    {
+        if (!$this->shouldRenderForm()) {
+            return;
+        }
+        echo $this->renderView('form', $this->getFormData());
+    }
+
+    /**
+     * Check if form should be rendered
+     * 
+     * @return bool
+     */
+    private function shouldRenderForm(): bool
     {
         global $post;
 
-        if(!is_a($post, 'WP_Post')) {
-            return;
+        if (!is_a($post, 'WP_Post')) {
+            return false;
         }
 
         $allowedPostTypes = apply_filters('CustomerFeedback/post_types', get_field('customer_feedback_posttypes', 'option'));
@@ -29,68 +43,143 @@ class Form
         }
 
         if (!is_array($allowedPostTypes) || !in_array($post->post_type ?? null, $allowedPostTypes)) {
-            return;
+            return false;
         }
 
-        $postExtended = get_extended($post->post_content);
+        return true;
+    }
 
-        $mainQuestion = __('Did the information on this page help you?', 'customer-feedback');
-        if (!empty(get_field('customer_feedback_main_question_text', 'option'))) {
-            $mainQuestion = get_field('customer_feedback_main_question_text', 'option');
-        }
+    /**
+     * Get form data
+     * 
+     * @return array
+     */
+    public function getFormData(): array
+    {
 
-        $mainQuestionSub = __('Answer the question to help us improve our information.', 'customer-feedback');
-        if (function_exists('get_field') && !empty(get_field('customer_feedback_main_question_sub', 'option'))) {
-            $mainQuestionSub = get_field('customer_feedback_main_question_sub', 'option');
-        }
+        // Fetch form labels and text fields
+        $getField = function ($key, $default = '', $postId = 'option') {
+            return function_exists('get_field') && !empty(get_field($key, $postId)) ? get_field($key, $postId) : $default;
+        };
 
-        $negativeLabel = __('How can we make the information better?', 'customer-feedback');
-        if (function_exists('get_field') && !empty(get_field('customer_feedback_feedback_label_no', 'option'))) {
-            $negativeLabel = get_field('customer_feedback_feedback_label_no', 'option');
-        }
+        $formData = [
+            'question' => (object) [
+                'title' => $getField('customer_feedback_main_question_text', __('Did the information on this page help you?', 'customer-feedback')),
+                'description' => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
+            ],
+            'labels' => (object) [
+                
+                'negative'          => $getField('customer_feedback_feedback_label_no', __('Yes', 'customer-feedback')),
+                'positive'          => $getField('customer_feedback_feedback_label_yes', __('No', 'customer-feedback')),
+                
+                'comment' => (object) [
+                    'label'         => __('How can we make the information better?', 'customer-feedback'),
+                    'explain'       => false,
+                    'placeholder'   => false,
+                    'error'         => __('Please enter a comment of minimum 15 characters.', 'customer-feedback'),
+                ],
 
-        $positiveLabel = __('Comment', 'customer-feedback');
-        if (function_exists('get_field') && !empty(get_field('customer_feedback_feedback_label_yes', 'option'))) {
-            $positiveLabel = get_field('customer_feedback_feedback_label_yes', 'option');
-        }
+                'email' => (object) [
+                    'label'         => __('Email address', 'customer-feedback'),
+                    'explain'       => false,
+                    'error'        => __('Please enter a valid email address.', 'customer-feedback'),
+                    'placeholder'  => __('email@example.com', 'customer-feedback'),
+                ],
 
-        $commentExplain = __('Note that your comment will become public act.', 'customer-feedback');
-        $emailLabel = __('Email address', 'customer-feedback');
-        $emailExplain = __('Please give us your email address to get a reply on your feedback.', 'customer-feedback');
-        $addComment = __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback');
+                'notification' => (object) [
+                    'success'           => $getField('customer_feedback_thanks', __('Thank you', 'customer-feedback')),
+                    'error'             => __('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'),
+                    'alreadysubmitted'  => __('You have already given feedback for this content.', 'customer-feedback'),
+                ],  
 
-        $thanksText = __('Thank you', 'customer-feedback');
-        if (function_exists('get_field') && !empty(get_field('customer_feedback_thanks', 'option'))) {
-            $thanksText = get_field('customer_feedback_thanks', 'option');
-        }
+                'topic' => (object) [
+                    'heading'     => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
+                    'description' => $getField('customer_feedback_label_topic_description', __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback')),
+                ],
 
-        $userEmail = null;
-        if (is_user_logged_in()) {
-            $userdata = get_userdata(get_current_user_id());
-            $userEmail = $userdata->user_email;
-        }
+                'submit' => __('Submit', 'customer-feedback'),
+            ],
+            'userEmail'          => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
+            'topics'             => [],
+            'gdpr'               => (object) [
+                'enabled' => !empty($getField('gdpr_complience_notice')),
+                'content' => $getField('gdpr_complience_notice_content') ?: '',
+            ],
+            'postId'    => $this->getCurrentPostId(),
+            'frequency' => (int) $getField('customer_feedback_feedback_frequency', 0, 'option'),
+        ];
 
-        $topics = get_terms( array(
-            'taxonomy' => 'feedback_topic',
+        // Fetch topics
+        $topics = get_terms([
+            'taxonomy'   => 'feedback_topic',
             'hide_empty' => false,
-        ));
+        ]);
 
-        $topicLabel = __('Topic', 'customer-feedback');
-        if (function_exists('get_field') && !empty(get_field('customer_feedback_label_topic', 'option'))) {
-            $topicLabel = get_field('customer_feedback_label_topic', 'option');
-        }
-
-        if (!empty($topics)) {
+        if(!empty($topics)) {
             foreach ($topics as $topic) {
-                $topic->description = trim($topic->description);
-                $topic->feedback_capability = get_field('topic_feedback_capability', 'feedback_topic_' . $topic->term_id);
+                $formData['topics'][] = (object) [
+                    'id'                        => $topic->term_id,
+                    'name'                      => $topic->name,
+                    'description'               => $topic->description,
+                    'feedbackCapability'        => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '0',
+                    'feedbackCapabilityEmail'   => $getField('topic_feedback_capability_email', '', 'feedback_topic_' . $topic->term_id) ?: '0',
+                ];
             }
         }
-        $gdpr = !empty(get_field('gdpr_complience_notice', 'option'));
-        if ($gdpr !== false) {
-            $gdpr_complience_notice_content = get_field('gdpr_complience_notice_content', 'option');
+
+        // Add json data
+        $formData['jsonData'] = json_encode($formData);
+
+        return $formData;
+    }
+
+    /**
+     * Get current post id
+     * 
+     * @return int
+     */
+    private function getCurrentPostId(): int
+    {
+        global $post;
+        return is_a($post, WP_Post::class) ? $post->ID : 0;
+    }
+
+    /**
+     * Render view
+     * 
+     * @param string $view
+     * @param array $data
+     * @return mixed
+     */
+    public function renderView($view, $data = array()): mixed
+    {
+        $blade = $this->getBladeEngine();
+
+        if(!$blade) {
+            return false;
         }
 
-        include CUSTOMERFEEDBACK_TEMPLATE_PATH . 'form.php';
+        try {
+            return $blade->makeView($view, $data, [], [
+                constant('CUSTOMERFEEDBACK_TEMPLATE_PATH'),
+            ])->render();
+        } catch (Throwable $e) {
+           $blade->errorHandler($e)->print();
+        }
+
+        return false;
+    }
+
+    /**
+     * Get blade engine 
+     * 
+     * @return Blade
+     */
+    private function getBladeEngine()
+    {
+        if(!class_exists(ComponentLibraryInit::class)) {
+            return false;
+        }
+        return (new ComponentLibraryInit([]))->getEngine();
     }
 }

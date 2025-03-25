@@ -52,9 +52,9 @@ class Responses
     */
     public function registerPostType()
     {
-        $nameSingular = 'Feedback';
-        $namePlural = 'Feedback';
-        $description = 'Create shortlinks to your posts or pages';
+        $nameSingular = __('Feedback', 'customer-feedback');
+        $namePlural = __('Feedback', 'customer-feedback');
+        $description = __('Feedback from visitors', 'customer-feedback');
 
         $labels = array(
             'name'               => _x($nameSingular, 'post type general name', 'customer-feedback'),
@@ -493,43 +493,46 @@ class Responses
     }
 
     /**
-     * Saves the "Yes" or "No" response as counters in metadata
-     * @return integer The last inserted id from db
+     * Save a user response
+     * @return void Sends a JSON response and exits
      */
-    public function submitResponse()
-    {
-        $insertedId = 'false';
-        $postId = (isset($_POST['postid']) && is_numeric($_POST['postid'])) ? $_POST['postid'] : null;
-        $answer = (isset($_POST['answer']) && strlen($_POST['answer']) > 0) ? $_POST['answer'] : null;
+    public function submitResponse() {
+        // Validate input
+        $postId = isset($_POST['postid']) && is_numeric($_POST['postid']) ? (int) $_POST['postid'] : null;
+        $answer = isset($_POST['answer']) && !empty($_POST['answer']) ? wp_kses_post($_POST['answer']) : null;
 
-        $cookieExpireDays = 5;
-        $cookieExpire = time() + (86400 * $cookieExpireDays);
-        if (!isset($_COOKIE['customer-feedback'])) {
-            setcookie('customer-feedback', base64_encode(serialize(array($postId))), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
-        } else {
-            if (in_array($postId, unserialize(base64_decode(stripslashes($_COOKIE['customer-feedback']))))) {
-                echo 'cookie_error';
-                wp_die();
-            }
-
-            $cookieVal = unserialize(base64_decode($_COOKIE['customer-feedback']));
-            $cookieVal[] = $postId;
-            setcookie('customer-feedback', base64_encode(serialize($cookieVal)), $cookieExpire, COOKIEPATH, COOKIE_DOMAIN);
+        if (!$postId || !$answer) {
+            wp_send_json([
+                'state'   => 'error',
+                'message' => esc_html__('Failed to save response (not enough data).', 'customer-feedback')
+            ], 400);
         }
 
-        if ($postId && $answer) {
-            $insertedId = wp_insert_post(array(
-                'post_type' => $this->postTypeSlug,
-                'post_status' => 'publish',
-                'post_title' => get_the_title($postId)
-            ));
+        // Insert response post
+        $insertedId = wp_insert_post([
+            'post_type'   => $this->postTypeSlug,
+            'post_status' => 'publish',
+            'post_title'  => sanitize_text_field(get_the_title($postId))
+        ]);
 
+        if ($insertedId) {
+            // Store metadata securely
             update_post_meta($insertedId, 'customer_feedback_page_reference', $postId);
-            update_post_meta($insertedId, 'customer_feedback_ip', $_SERVER['REMOTE_ADDR']);
+            update_post_meta($insertedId, 'customer_feedback_ip', sanitize_text_field(wp_privacy_anonymize_ip($_SERVER['REMOTE_ADDR'] ?? '')));
             update_post_meta($insertedId, 'customer_feedback_answer', $answer);
+
+            wp_send_json([
+                'state'   => 'success',
+                'message' => esc_html__('Response saved.', 'customer-feedback'),
+                'data'    => ['id' => $insertedId]
+            ], 200);
+        } else {
+            wp_send_json([
+                'state'   => 'error',
+                'message' => esc_html__('Failed to save response.', 'customer-feedback')
+            ], 500);
         }
 
-        echo $insertedId;
         wp_die();
     }
 
@@ -539,31 +542,46 @@ class Responses
      */
     public function submitComment()
     {
-        $answerId = (isset($_POST['answerid']) && is_numeric($_POST['answerid'])) ? $_POST['answerid'] : null;
-        $postId = (isset($_POST['postid']) && is_numeric($_POST['postid'])) ? $_POST['postid'] : null;
-        $comment = (isset($_POST['comment']) && strlen($_POST['comment']) > 0) ? $_POST['comment'] : null;
-        $commentType = (isset($_POST['commenttype']) && strlen($_POST['commenttype']) > 0) ? $_POST['commenttype'] : null;
-        $email = (isset($_POST['email']) && strlen($_POST['email']) > 0) ? $_POST['email'] : null;
-        $topicId = (isset($_POST['topicid']) && is_numeric($_POST['topicid'])) ? (int)$_POST['topicid'] : null;
+        // Validate input
+        $answerId = isset($_POST['answerid']) && is_numeric($_POST['answerid']) ? (int) $_POST['answerid'] : null;
+        $postId   = isset($_POST['postid']) && is_numeric($_POST['postid']) ? (int) $_POST['postid'] : null;
+        $comment  = isset($_POST['comment']) && !empty($_POST['comment']) ? wp_kses_post($_POST['comment']) : null;
+        $email    = isset($_POST['email']) && !empty($_POST['email']) ? sanitize_email($_POST['email']) : null;
+        $topicId  = isset($_POST['topicid']) && is_numeric($_POST['topicid']) ? (int) $_POST['topicid'] : null;
 
-        if ($answerId && $postId) {
-            update_post_meta($answerId, 'customer_feedback_comment', $comment);
-            update_post_meta($answerId, 'customer_feedback_comment_type', $commentType);
-            update_post_meta($answerId, 'customer_feedback_email', $email);
-            if ($topicId) {
-                wp_set_post_terms($answerId, array($topicId), 'feedback_topic');
-            }
+        // Ensure required fields are present
+        if (!$answerId || !$postId) {
+            wp_send_json([
+                'state'   => 'error',
+                'message' => esc_html__('Failed to save comment (not enough data).', 'customer-feedback')
+            ], 400);
+        }
 
-            wp_update_post(array(
-                'ID' => $answerId,
-                'post_status' => 'pending'
-            ));
+        update_post_meta($answerId, 'customer_feedback_comment', $comment);
+        update_post_meta($answerId, 'customer_feedback_email', $email);
 
+        if ($topicId) {
+            wp_set_post_terms($answerId, [$topicId], 'feedback_topic');
+        }
+
+        // Update post status to pending
+        $insertedId = wp_update_post([
+            'ID'         => $answerId,
+            'post_status' => 'pending'
+        ]);
+
+        if ($insertedId) {
             \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email, $topicId);
-
-            echo 'true';
+            wp_send_json([
+                'state'   => 'success',
+                'message' => esc_html__('Response saved.', 'customer-feedback'),
+                'data'    => ['id' => $insertedId]
+            ], 200);
         } else {
-            echo 'false';
+            wp_send_json([
+                'state'   => 'error',
+                'message' => esc_html__('Failed to save comment.', 'customer-feedback')
+            ], 500);
         }
 
         wp_die();
