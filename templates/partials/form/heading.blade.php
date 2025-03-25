@@ -15,7 +15,7 @@
         'element' => 'p',
         'classList' => [
           'c-typography__variant--body',
-          'u-margin--0'
+          'u-margin__top--1'
         ]
     ])
       {!! $question->description !!} 
