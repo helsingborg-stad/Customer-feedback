@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/customerfeedback",
-    "version": "4.1.3",
+    "version": "4.1.5",
     "description": "Puts a customer feedback form on each page",
     "main": "",
     "scripts": {
