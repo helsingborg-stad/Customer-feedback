@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
 "POT-Creation-Date: 2025-03-25 10:24+0100\n"
-"PO-Revision-Date: 2025-03-25 10:32+0100\n"
+"PO-Revision-Date: 2025-03-25 10:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -312,8 +312,7 @@ msgstr "Du har redan gett feedback på innehållet för denna sidan."
 #: source/php/Form.php:97
 msgid ""
 "Please complete your feedback by selecting a category and entering a comment."
-msgstr ""
-"Komplettera din feedback genom att välja en kategori och ange kommentar."
+msgstr "Komplettera din feedback genom att välja en kategori."
 
 #: source/php/Form.php:100
 msgid "Submit"
