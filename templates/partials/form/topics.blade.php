@@ -22,7 +22,7 @@
 ])
   @foreach ($topics as $key => $topic)
     @option([
-      'id' => $key,
+      'id' => 'customer-feedback-topic-' . $topic->id,
       'type' => 'radio',
       'attributeList' => [
         'name' => 'topicid',

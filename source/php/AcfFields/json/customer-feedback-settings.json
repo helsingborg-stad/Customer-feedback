@@ -6,6 +6,7 @@
             "key": "field_59118fbef0608",
             "label": "Main question",
             "name": "customer_feedback_main_question_text",
+            "aria-label": "",
             "type": "text",
             "instructions": "Leave empty to use default.",
             "required": 0,
@@ -25,6 +26,7 @@
             "key": "field_5911901df0609",
             "label": "Sub question",
             "name": "customer_feedback_main_question_sub",
+            "aria-label": "",
             "type": "text",
             "instructions": "Leave empty to use default.",
             "required": 0,
@@ -44,6 +46,7 @@
             "key": "field_5911905af060a",
             "label": "Feedback form label for negative feedback",
             "name": "customer_feedback_feedback_label_no",
+            "aria-label": "",
             "type": "text",
             "instructions": "Feedback form label if answer is \"No\". Leave empty to use default.",
             "required": 0,
@@ -63,6 +66,7 @@
             "key": "field_595f8d9d2bf2c",
             "label": "Feedback form label for positive feedback",
             "name": "customer_feedback_feedback_label_yes",
+            "aria-label": "",
             "type": "text",
             "instructions": "Feedback form label if answer is \"Yes\". Leave empty to use default.",
             "required": 0,
@@ -82,6 +86,7 @@
             "key": "field_59ca1b4fd1228",
             "label": "Feedback form label for topic",
             "name": "customer_feedback_label_topic",
+            "aria-label": "",
             "type": "text",
             "instructions": "Leave empty to use default",
             "required": 0,
@@ -101,6 +106,7 @@
             "key": "field_59119076f060b",
             "label": "Completion message",
             "name": "customer_feedback_thanks",
+            "aria-label": "",
             "type": "text",
             "instructions": "Leave empty to use default.",
             "required": 0,
@@ -113,6 +119,28 @@
             "default_value": "",
             "maxlength": "",
             "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_67e26273806c0",
+            "label": "Feedback frequency",
+            "name": "customer_feedback_feedback_frequency",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Set how often a user can give feedback",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 7,
+            "min": 0,
+            "max": 365,
+            "placeholder": "",
+            "step": "",
             "prepend": "",
             "append": ""
         }
@@ -132,7 +160,13 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": ""
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 

@@ -57,7 +57,7 @@ export default () => {
         this.hideNotice('error');
         this.hideNotice('success');
 
-        if (this.hasGivenFeedback(this.settings.postId)) {
+        if (this.hasGivenFeedback(this.settings.postId, this.settings.frequency)) {
             this.showNotice('alreadysubmitted');
             this.hidePartial('buttons');
         } else {
@@ -223,7 +223,7 @@ export default () => {
             this.hidePartial('buttons');
             return response;
         }).then(response => {
-            this.registerFeedBackGiven(postId);
+            this.registerFeedBackGiven(postId, this.settings.frequency);
 
             if(this.settings.topics) {
                 this.initialFeedbackId = response.data.id;
@@ -388,7 +388,6 @@ export default () => {
             const formElements = element.querySelectorAll('input, textarea, button, select');
             if (formElements.length > 0) {
                 formElements.forEach(formElement => {
-                    formElement.value = '';
                     formElement.disabled = true;
                 });
             }
@@ -414,10 +413,15 @@ export default () => {
      * @param {int} postId 
      * @returns {boolean} True if post id exists in local storage, false if not
      */
-    Form.prototype.hasGivenFeedback = function (postId) {
+    Form.prototype.hasGivenFeedback = function (postId, days = 7) {
         if (!postId) return false;
-        const givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || [];
-        return givenFeedback.includes(postId);
+    
+        const givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || {};
+        const lastGiven = givenFeedback[postId] || 0;
+        const now = Date.now();
+        const timePassed = (now - lastGiven) / (1000 * 60 * 60 * 24); // Convert milliseconds to days
+    
+        return timePassed < days; // Returns true if feedback was given within N days
     };
     
     /**
