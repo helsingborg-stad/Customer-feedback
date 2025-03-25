@@ -18,7 +18,7 @@
           'u-margin--0'
         ]
     ])
-      {{ $question->description }} 
+      {!! $question->description !!} 
     @endtypography
   @endif
 @endif

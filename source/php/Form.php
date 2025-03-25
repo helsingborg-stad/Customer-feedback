@@ -94,7 +94,9 @@ class Form
 
                 'topic' => (object) [
                     'heading'     => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
-                    'description' => $getField('customer_feedback_label_topic_description', __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback')),
+                    'description' => strip_tags(
+                        $getField('customer_feedback_label_topic_description', __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback'))
+                    , '<a>'),
                 ],
 
                 'submit' => __('Submit', 'customer-feedback'),
