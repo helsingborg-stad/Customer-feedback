@@ -6,5 +6,5 @@
         'u-margin__top--0'
     ]
 ])
-  {{ $gdpr->content }}
+  {!! $gdpr->content !!}
 @endtypography

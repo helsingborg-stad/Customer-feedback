@@ -103,7 +103,7 @@ class Form
             'topics'             => [],
             'gdpr'               => (object) [
                 'enabled' => !empty($getField('gdpr_complience_notice')),
-                'content' => $getField('gdpr_complience_notice_content') ?: '',
+                'content' => strip_tags($getField('gdpr_complience_notice_content') ?: '', '<a>')
             ],
             'postId'    => $this->getCurrentPostId(),
             'frequency' => (int) $getField('customer_feedback_feedback_frequency', 0, 'option'),
