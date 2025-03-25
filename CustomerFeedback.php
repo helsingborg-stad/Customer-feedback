@@ -4,7 +4,7 @@
  * Plugin Name:       Customer Feedback
  * Plugin URI:        https://github.com/helsingborg-stad/Customer-feedback
  * Description:       Puts a customer feedback form on each page
- * Version: 4.0.12
+ * Version: 4.1.0
  * Author:            Kristoffer Svanmark
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
