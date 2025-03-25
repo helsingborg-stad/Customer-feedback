@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Customer Feedback\n"
 "POT-Creation-Date: 2025-03-25 10:24+0100\n"
-"PO-Revision-Date: 2025-03-25 10:28+0100\n"
+"PO-Revision-Date: 2025-03-25 10:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -288,7 +288,7 @@ msgstr "Vänligen ange minst 15 tecken."
 
 #: source/php/Form.php:85
 msgid "Please enter a valid email address."
-msgstr "Vänligen ange en giltig epostadress. "
+msgstr "Vänligen ange en giltig epostadress."
 
 #: source/php/Form.php:86
 msgid "email@example.com"
@@ -303,7 +303,7 @@ msgid ""
 "Something went wrong, please try again later. Could not store your response."
 msgstr ""
 "Någonting gick fel, vänligen försök igen senare. Ditt svar har inte "
-"registrerats. "
+"registrerats."
 
 #: source/php/Form.php:92
 msgid "You have already given feedback for this content."
@@ -322,7 +322,7 @@ msgstr "Skicka"
 #: source/php/Forwarding.php:47 source/php/Responses.php:55
 #: source/php/Responses.php:56
 msgid "Feedback"
-msgstr "Återkoppling"
+msgstr "Feedback"
 
 #: source/php/Forwarding.php:48
 msgid "Hey, you've got new feedback!"
@@ -500,11 +500,11 @@ msgstr "Kunde inte spara ditt svar (information saknas)."
 
 #: source/php/Responses.php:526 source/php/Responses.php:577
 msgid "Response saved."
-msgstr "Svaret sparades. "
+msgstr "Svaret sparades."
 
 #: source/php/Responses.php:532
 msgid "Failed to save response."
-msgstr "Kunde inte spara svar. "
+msgstr "Kunde inte spara svar."
 
 #: source/php/Responses.php:556
 msgid "Failed to save comment (not enough data)."
@@ -512,11 +512,11 @@ msgstr "Kunde inte spara svar (otillräcklig information)."
 
 #: source/php/Responses.php:583
 msgid "Failed to save comment."
-msgstr "Kunde inte spara kommentar. "
+msgstr "Kunde inte spara kommentar."
 
 #: source/php/Responses.php:598
 msgid "Feedback ID"
-msgstr "Återkopplings ID"
+msgstr "Feedback ID"
 
 #: source/php/Summary.php:64
 msgid "weekly"
@@ -565,7 +565,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "Puts a customer feedback form on each page"
-msgstr "Lägger till en ruta för feedback på varje sida i after_loop hooken."
+msgstr "Lägger till en ruta för feedback på varje sida i after_loop hooken"
 
 #. Author of the plugin/theme
 msgid "Kristoffer Svanmark"
