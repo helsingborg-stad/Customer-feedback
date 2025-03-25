@@ -430,6 +430,10 @@ export default () => {
         if (!postId) {
             return false;
         }
+
+        if(days == 0) {
+            return true;
+        }
     
         let givenFeedback = JSON.parse(localStorage.getItem('givenFeedback')) || {};
     
