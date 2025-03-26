@@ -123,7 +123,7 @@ class Form
                     'id'                        => $topic->term_id,
                     'name'                      => $topic->name,
                     'description'               => $topic->description,
-                    'feedbackCapability'        => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '0',
+                    'feedbackCapability'        => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '1',
                     'feedbackCapabilityEmail'   => $getField('topic_feedback_capability_email', '', 'feedback_topic_' . $topic->term_id) ?: '0',
                 ];
             }
