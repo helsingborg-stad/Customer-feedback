@@ -27,7 +27,7 @@
       'value' => $topic->id,
       'attributeList' => [
         'name' => 'topicid',
-        'topic-description' => $topic->description,
+        'data-js-cf-topic-description' => $topic->description,
         'data-js-cf-has-written-feedback-capability'  => $topic->feedbackCapability ? 'true' : 'false',
         'data-js-cf-has-written-feedback-email'       => $topic->feedbackCapability && $topic->feedbackCapabilityEmail ? 'true' : 'false',
         'data-js-cf-topic' => $topic->id
