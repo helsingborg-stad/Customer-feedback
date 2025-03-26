@@ -24,9 +24,9 @@
     @option([
       'id' => 'customer-feedback-topic-' . $topic->id,
       'type' => 'radio',
+      'value' => $topic->id,
       'attributeList' => [
         'name' => 'topicid',
-        'value' => $topic->id,
         'topic-description' => $topic->description,
         'data-js-cf-has-written-feedback-capability'  => $topic->feedbackCapability ? 'true' : 'false',
         'data-js-cf-has-written-feedback-email'       => $topic->feedbackCapability && $topic->feedbackCapabilityEmail ? 'true' : 'false',
