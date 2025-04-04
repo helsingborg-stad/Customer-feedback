@@ -8,7 +8,6 @@ export default () => {
     function Form() {
         this.parentDomElement = document.querySelector('[data-js-cf]');
         if (!this.parentDomElement) {
-            console.error('No customer feedback form found');
             return;
         }
 
