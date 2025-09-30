@@ -5,14 +5,17 @@ namespace CustomerFeedback;
 use Throwable;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use WP_Post;
+
 class Form
 {
+    private string $sidebarId = 'content-area-bottom';
+
     public function addHooks(): void
     {
         add_action('customer-feedback', array($this, 'appendForm'));
 
         add_filter('Municipio/RenderSidebar', function ($id, $shouldRender) {
-            if ($id === 'content-area-bottom') {
+            if ($id === $this->sidebarId) {
                 return true;
             }
 
@@ -20,7 +23,7 @@ class Form
         }, 10, 2);
 
         add_action('dynamic_sidebar_after', function ($index) {
-            if ($index !== 'content-area-bottom') {
+            if ($index !== $this->sidebarId) {
                 return;
             }
 
