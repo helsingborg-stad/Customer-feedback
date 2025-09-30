@@ -7,9 +7,25 @@ use ComponentLibrary\Init as ComponentLibraryInit;
 use WP_Post;
 class Form
 {
-    public function __construct()
+    public function addHooks(): void
     {
         add_action('customer-feedback', array($this, 'appendForm'));
+
+        add_filter('Municipio/RenderSidebar', function ($id, $shouldRender) {
+            if ($id === 'content-area-bottom') {
+                return true;
+            }
+
+            return $shouldRender;
+        }, 10, 2);
+
+        add_action('dynamic_sidebar_after', function ($index) {
+            if ($index !== 'content-area-bottom') {
+                return;
+            }
+
+            do_action('customer-feedback');
+        });
     }
 
     /**

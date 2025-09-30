@@ -1,7 +1,8 @@
 @paper([
   'id' => 'customer-feedback',
   'classList' => [
-    'c-paper--feedback'
+    'c-paper--feedback',
+    'u-margin__y--3'
   ],
   'attributeList' => [
     'data-js-cf' => $jsonData
