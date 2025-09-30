@@ -14,6 +14,10 @@ class Form
     {
         add_action('customer-feedback', array($this, 'appendForm'));
 
+        if (!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD') && !is_admin()) {
+            return;
+        }
+
         add_filter('Municipio/RenderSidebar', function ($id, $shouldRender) {
             if ($id === $this->sidebarId) {
                 return true;
