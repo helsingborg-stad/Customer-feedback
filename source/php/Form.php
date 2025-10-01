@@ -18,13 +18,13 @@ class Form
             return;
         }
 
-        add_filter('Municipio/RenderSidebar', function ($id, $shouldRender) {
+        add_filter('is_active_sidebar', function ($shouldRender, $id) {
             if ($id === $this->sidebarId) {
                 return true;
             }
 
             return $shouldRender;
-        }, 10, 2);
+        }, 11, 2);
 
         add_action('dynamic_sidebar_after', function ($index) {
             if ($index !== $this->sidebarId) {
