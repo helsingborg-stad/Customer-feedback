@@ -13,8 +13,8 @@ class Form
     public function addHooks(): void
     {
         add_action('customer-feedback', array($this, 'appendForm'));
-
-        if (!defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD') && !is_admin()) {
+        
+        if (defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD') || is_admin()) {
             return;
         }
 
