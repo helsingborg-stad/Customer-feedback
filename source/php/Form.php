@@ -5,11 +5,34 @@ namespace CustomerFeedback;
 use Throwable;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use WP_Post;
+
 class Form
 {
-    public function __construct()
+    private string $sidebarId = 'content-area-bottom';
+
+    public function addHooks(): void
     {
         add_action('customer-feedback', array($this, 'appendForm'));
+        
+        if (defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD') || is_admin()) {
+            return;
+        }
+
+        add_filter('is_active_sidebar', function ($shouldRender, $id) {
+            if ($id === $this->sidebarId) {
+                return true;
+            }
+
+            return $shouldRender;
+        }, 11, 2);
+
+        add_action('dynamic_sidebar_after', function ($index) {
+            if ($index !== $this->sidebarId) {
+                return;
+            }
+
+            do_action('customer-feedback');
+        });
     }
 
     /**
