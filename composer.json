@@ -16,7 +16,8 @@
         }
     ],
     "require": {
-        "helsingborg-stad/acf-export-manager": ">=1.0.0"
+        "helsingborg-stad/acf-export-manager": ">=1.0.0",
+        "helsingborg-stad/component-library": "^4.0.0"
     },
     "autoload": {
         "psr-4": {
