@@ -23,6 +23,5 @@
         "psr-4": {
             "CustomerFeedback\\": "source/php/"
         }
-    },
-    "version": "4.1.18"
+    }
 }
