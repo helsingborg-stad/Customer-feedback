@@ -3,6 +3,12 @@
 ## Problem
 Google Translate modifierar DOM-strukturen genom att omsluta textinnehåll med `<font>`-element, vilket kan orsaka att JavaScript-funktionalitet slutar fungera. Detta påverkar särskilt chattfunktionen på helsingborg.se där interaktiva element kan försvinna eller sluta fungera när Google Translate är aktiverat.
 
+**Specifika problem:**
+- Chattwidgets försvinner när Google Translate aktiveras
+- JavaScript-fel som "Failed to execute 'removeChild' on 'Node'"
+- Event listeners slutar fungera efter DOM-manipulation
+- Särskilt problematiskt på translate.goog domäner där översättning är aktiv från start
+
 ## Teknisk förklaring
 När Google Translate aktiveras:
 1. Ersätter det textnoder med `<font>`-element för översättning
@@ -48,16 +54,43 @@ Denna fix implementerar flera skydd:
 - Upptäcker Google Translate `<font>`-element
 - Triggar återbindning av event listeners
 
+### `checkExistingGoogleTranslate()`
+- Kontrollerar om Google Translate redan är aktivt vid sidladdning
+- Upptäcker translate.goog domäner och befintliga font-element
+- Initierar kompatibilitetsläge automatiskt
+
+### `reapplyTranslateAttributes()`
+- Återapplicerar `translate="no"` attribut som kan ha förlorats
+- Säkerställer att kritiska element förblir skyddade
+
+### `validateFormFunctionality()`
+- Validerar att formulärfunktionalitet fungerar korrekt
+- Upptäcker frånkopplade element och triggar återbindning vid behov
+
 ### `rebindEventListeners()`
 - Återbinder alla event listeners efter Google Translate-aktivering
 - Säkerställer att funktionalitet bevaras
+- Inkluderar förbättrad loggning för felsökning
 
 ## Testning
 För att testa lösningen:
+
+### Standard Google Translate-test:
 1. Aktivera Google Translate på sidan
 2. Översätt till valfritt språk
 3. Verifiera att chattfunktionen fortfarande fungerar
 4. Testa alla interaktiva element (knappar, formulär, etc.)
+
+### Translate.goog domän-test:
+1. Gå direkt till en translate.goog URL (t.ex. helsingborg-se.translate.goog/?_x_tr_sl=sv&_x_tr_tl=en&_x_tr_hl=sv)
+2. Kontrollera att inga JavaScript-fel uppstår i konsolen
+3. Verifiera att chattfunktionen laddas och fungerar korrekt
+4. Testa alla formulärfunktioner
+
+### Felsökning:
+- Öppna utvecklarkonsolen för att se loggmeddelanden från Customer Feedback
+- Sök efter meddelanden som börjar med "Customer Feedback:"
+- Kontrollera att `translate="no"` attribut finns på kritiska element
 
 ## Kompatibilitet
 - Fungerar med alla moderna webbläsare

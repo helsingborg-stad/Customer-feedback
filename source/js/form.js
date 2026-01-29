@@ -13,6 +13,9 @@ export default () => {
 
         // Protect against Google Translate DOM manipulation
         this.protectFromGoogleTranslate();
+        
+        // Check if Google Translate is already active
+        this.checkExistingGoogleTranslate();
 
         //Parse and store the json data
         this.getSettings(this.parentDomElement);
@@ -49,36 +52,85 @@ export default () => {
     };
 
     /**
+     * Check if Google Translate is already active on page load
+     * @returns {void}
+     */
+    Form.prototype.checkExistingGoogleTranslate = function () {
+        // Check for existing font elements (Google Translate signature)
+        const fontElements = document.querySelectorAll('font');
+        const translateElements = document.querySelectorAll('[class*="skiptranslate"], [class*="notranslate"]');
+        
+        // Check if we're on a translate.goog domain
+        const isTranslateGoogDomain = window.location.hostname.includes('translate.goog');
+        
+        // Check if HTML lang attribute has been changed
+        const htmlLang = document.documentElement.getAttribute('lang');
+        const isTranslated = htmlLang && htmlLang !== 'sv' && htmlLang !== 'en';
+        
+        if (fontElements.length > 0 || translateElements.length > 0 || isTranslateGoogDomain || isTranslated) {
+            console.log('Customer Feedback: Google Translate detected on page load, initializing compatibility mode');
+            
+            // Delay the handling to ensure DOM is stable
+            setTimeout(() => {
+                this.handleGoogleTranslateActivation();
+            }, 200);
+        }
+    };
+
+    /**
      * Override DOM manipulation methods to handle Google Translate interference
      * @returns {void}
      */
     Form.prototype.overrideNodeMethods = function () {
+        // Only override if not already done to prevent multiple overrides
+        if (window.customerFeedbackDOMOverridden) {
+            return;
+        }
+        
         const originalRemoveChild = Node.prototype.removeChild;
         const originalInsertBefore = Node.prototype.insertBefore;
         
         Node.prototype.removeChild = function(child) {
             try {
-                if (this.contains(child)) {
+                // Check if child exists and is actually a child of this node
+                if (child && child.parentNode === this) {
                     return originalRemoveChild.call(this, child);
                 }
+                // If not a child, just return the child without error
+                console.warn('Customer Feedback: Attempted to remove non-child node, likely Google Translate interference');
                 return child;
             } catch (error) {
-                console.warn('Google Translate interference detected, skipping removeChild:', error);
+                console.warn('Customer Feedback: Google Translate interference detected, skipping removeChild:', error);
                 return child;
             }
         };
         
         Node.prototype.insertBefore = function(newNode, referenceNode) {
             try {
-                if (!referenceNode || this.contains(referenceNode)) {
+                // If no reference node, use appendChild
+                if (!referenceNode) {
+                    return this.appendChild(newNode);
+                }
+                // Check if reference node is actually a child
+                if (referenceNode.parentNode === this) {
                     return originalInsertBefore.call(this, newNode, referenceNode);
                 }
+                // If reference node is not a child, append to end
+                console.warn('Customer Feedback: Reference node not found, using appendChild instead');
                 return this.appendChild(newNode);
             } catch (error) {
-                console.warn('Google Translate interference detected, using appendChild instead:', error);
-                return this.appendChild(newNode);
+                console.warn('Customer Feedback: Google Translate interference detected, using appendChild instead:', error);
+                try {
+                    return this.appendChild(newNode);
+                } catch (appendError) {
+                    console.error('Customer Feedback: Failed to append node:', appendError);
+                    return newNode;
+                }
             }
         };
+        
+        // Mark as overridden to prevent multiple overrides
+        window.customerFeedbackDOMOverridden = true;
     };
 
     /**
@@ -90,25 +142,61 @@ export default () => {
             return;
         }
 
+        const self = this;
         const observer = new MutationObserver((mutations) => {
             let googleTranslateDetected = false;
+            let significantChange = false;
             
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList') {
+                    // Check for added nodes
                     mutation.addedNodes.forEach((node) => {
-                        if (node.nodeType === Node.ELEMENT_NODE && 
-                            (node.tagName === 'FONT' || node.classList?.contains('skiptranslate'))) {
-                            googleTranslateDetected = true;
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            // Detect Google Translate font elements
+                            if (node.tagName === 'FONT' || 
+                                node.classList?.contains('skiptranslate') ||
+                                node.classList?.contains('notranslate')) {
+                                googleTranslateDetected = true;
+                            }
+                            // Also check for nested font elements
+                            if (node.querySelectorAll && node.querySelectorAll('font').length > 0) {
+                                googleTranslateDetected = true;
+                            }
                         }
                     });
+                    
+                    // Check for removed nodes that might indicate DOM restructuring
+                    if (mutation.removedNodes.length > 0) {
+                        significantChange = true;
+                    }
+                }
+                
+                // Check for attribute changes that might indicate translation
+                if (mutation.type === 'attributes') {
+                    if (mutation.attributeName === 'lang' || 
+                        mutation.attributeName === 'class') {
+                        significantChange = true;
+                    }
                 }
             });
 
-            if (googleTranslateDetected) {
-                this.handleGoogleTranslateActivation();
+            if (googleTranslateDetected || significantChange) {
+                // Debounce the handling to avoid excessive calls
+                clearTimeout(self.translateTimeout);
+                self.translateTimeout = setTimeout(() => {
+                    self.handleGoogleTranslateActivation();
+                }, 150);
             }
         });
 
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['lang', 'class']
+        });
+
+        // Also observe the specific form element
         observer.observe(this.parentDomElement, {
             childList: true,
             subtree: true,
@@ -123,10 +211,91 @@ export default () => {
      * @returns {void}
      */
     Form.prototype.handleGoogleTranslateActivation = function () {
+        console.log('Customer Feedback: Handling Google Translate activation');
+        
+        // Mark that we're in translate mode
+        this.isTranslateMode = true;
+        
+        // Re-apply translate="no" attributes that might have been lost
+        this.reapplyTranslateAttributes();
+        
         // Re-bind event listeners that might have been affected
         setTimeout(() => {
             this.rebindEventListeners();
         }, 100);
+        
+        // Additional safety check after a longer delay
+        setTimeout(() => {
+            this.validateFormFunctionality();
+        }, 500);
+    };
+
+    /**
+     * Re-apply translate="no" attributes that might have been lost
+     * @returns {void}
+     */
+    Form.prototype.reapplyTranslateAttributes = function () {
+        // Re-apply to main container
+        this.parentDomElement.setAttribute('translate', 'no');
+        
+        // Re-apply to form elements
+        const form = this.parentDomElement.querySelector('form');
+        if (form) {
+            form.setAttribute('translate', 'no');
+        }
+        
+        // Re-apply to buttons
+        const buttons = this.parentDomElement.querySelectorAll('[data-js-cf-action]');
+        buttons.forEach(button => {
+            button.setAttribute('translate', 'no');
+        });
+        
+        // Re-apply to topic elements
+        const topics = this.parentDomElement.querySelectorAll('[data-js-cf-topic]');
+        topics.forEach(topic => {
+            topic.setAttribute('translate', 'no');
+        });
+    };
+
+    /**
+     * Validate that form functionality is working correctly
+     * @returns {void}
+     */
+    Form.prototype.validateFormFunctionality = function () {
+        const buttons = this.parentDomElement.querySelectorAll('[data-js-cf-action]');
+        const topics = this.parentDomElement.querySelectorAll('[data-js-cf-topic]');
+        const form = this.parentDomElement.querySelector('form');
+        
+        let issuesFound = 0;
+        
+        // Check if buttons are still properly attached
+        buttons.forEach(button => {
+            if (!button.parentNode) {
+                issuesFound++;
+                console.warn('Customer Feedback: Detached button found, rebinding may be needed');
+            }
+        });
+        
+        // Check if topics are still properly attached
+        topics.forEach(topic => {
+            if (!topic.parentNode) {
+                issuesFound++;
+                console.warn('Customer Feedback: Detached topic found, rebinding may be needed');
+            }
+        });
+        
+        // Check if form is still properly attached
+        if (form && !form.parentNode) {
+            issuesFound++;
+            console.warn('Customer Feedback: Detached form found, rebinding may be needed');
+        }
+        
+        if (issuesFound > 0) {
+            console.log('Customer Feedback: Issues detected, performing additional rebinding');
+            this.rebindEventListeners();
+        } else {
+            console.log('Customer Feedback: Form functionality validated successfully');
+        }
     };
 
     /**
@@ -134,6 +303,8 @@ export default () => {
      * @returns {void}
      */
     Form.prototype.rebindEventListeners = function () {
+        console.log('Customer Feedback: Rebinding event listeners');
+        
         // Re-handle feedback buttons
         this.handleFeedbackButtons(this.parentDomElement);
         
