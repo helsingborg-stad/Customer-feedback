@@ -13,7 +13,8 @@
       'reversePositions' => true,
       'attributeList' => [
         'data-js-cf-action' => 'yes',
-        'value' => 'yes'
+        'value' => 'yes',
+        'translate' => 'no'
       ],
       'classList' => [
         'u-margin--0',
@@ -30,7 +31,8 @@
       'reversePositions' => true,
       'attributeList' => [
         'data-js-cf-action' => 'no',
-        'value' => 'no'
+        'value' => 'no',
+        'translate' => 'no'
       ],
       'classList' => [
         'u-margin--0',

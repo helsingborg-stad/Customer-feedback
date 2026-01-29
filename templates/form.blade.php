@@ -5,11 +5,12 @@
     'u-margin__y--3'
   ],
   'attributeList' => [
-    'data-js-cf' => $jsonData
+    'data-js-cf' => $jsonData,
+    'translate' => 'no'
   ]
 ])
 
-  @form(['id' => 'customer-feedback-form', 'validate' => true])
+  @form(['id' => 'customer-feedback-form', 'validate' => true, 'attributeList' => ['translate' => 'no']])
 
     <!-- Main question -->
     @include(

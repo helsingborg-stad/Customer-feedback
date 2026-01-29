@@ -1,6 +1,26 @@
 #customer-feedback {
   position: relative; 
-  overflow: hidden; 
+  overflow: hidden;
+
+  /* Google Translate compatibility fixes */
+  font[style*="vertical-align"] {
+    vertical-align: inherit !important;
+  }
+  
+  /* Ensure buttons and interactive elements remain functional */
+  button, input, select, textarea {
+    font: inherit;
+  }
+  
+  /* Prevent Google Translate from breaking layout */
+  font {
+    display: inline;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+  } 
 
   /* Loader */
   .customer-feedback-loader,

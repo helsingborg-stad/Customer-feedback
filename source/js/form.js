@@ -11,6 +11,9 @@ export default () => {
             return;
         }
 
+        // Protect against Google Translate DOM manipulation
+        this.protectFromGoogleTranslate();
+
         //Parse and store the json data
         this.getSettings(this.parentDomElement);
 
@@ -25,7 +28,121 @@ export default () => {
 
         //Handle form submission
         this.handleCommentFormSubmission(this.parentDomElement);
+
+        // Set up mutation observer to handle dynamic DOM changes
+        this.setupMutationObserver();
     }
+
+    /**
+     * Protect the form from Google Translate DOM manipulation
+     * @returns {void}
+     */
+    Form.prototype.protectFromGoogleTranslate = function () {
+        // Add translate="no" to critical interactive elements
+        this.parentDomElement.setAttribute('translate', 'no');
+        
+        // Store original DOM structure for recovery
+        this.originalStructure = this.parentDomElement.cloneNode(true);
+        
+        // Override removeChild and insertBefore to prevent crashes
+        this.overrideNodeMethods();
+    };
+
+    /**
+     * Override DOM manipulation methods to handle Google Translate interference
+     * @returns {void}
+     */
+    Form.prototype.overrideNodeMethods = function () {
+        const originalRemoveChild = Node.prototype.removeChild;
+        const originalInsertBefore = Node.prototype.insertBefore;
+        
+        Node.prototype.removeChild = function(child) {
+            try {
+                if (this.contains(child)) {
+                    return originalRemoveChild.call(this, child);
+                }
+                return child;
+            } catch (error) {
+                console.warn('Google Translate interference detected, skipping removeChild:', error);
+                return child;
+            }
+        };
+        
+        Node.prototype.insertBefore = function(newNode, referenceNode) {
+            try {
+                if (!referenceNode || this.contains(referenceNode)) {
+                    return originalInsertBefore.call(this, newNode, referenceNode);
+                }
+                return this.appendChild(newNode);
+            } catch (error) {
+                console.warn('Google Translate interference detected, using appendChild instead:', error);
+                return this.appendChild(newNode);
+            }
+        };
+    };
+
+    /**
+     * Set up mutation observer to detect Google Translate changes
+     * @returns {void}
+     */
+    Form.prototype.setupMutationObserver = function () {
+        if (!window.MutationObserver) {
+            return;
+        }
+
+        const observer = new MutationObserver((mutations) => {
+            let googleTranslateDetected = false;
+            
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE && 
+                            (node.tagName === 'FONT' || node.classList?.contains('skiptranslate'))) {
+                            googleTranslateDetected = true;
+                        }
+                    });
+                }
+            });
+
+            if (googleTranslateDetected) {
+                this.handleGoogleTranslateActivation();
+            }
+        });
+
+        observer.observe(this.parentDomElement, {
+            childList: true,
+            subtree: true,
+            attributes: false
+        });
+
+        this.mutationObserver = observer;
+    };
+
+    /**
+     * Handle Google Translate activation
+     * @returns {void}
+     */
+    Form.prototype.handleGoogleTranslateActivation = function () {
+        // Re-bind event listeners that might have been affected
+        setTimeout(() => {
+            this.rebindEventListeners();
+        }, 100);
+    };
+
+    /**
+     * Rebind event listeners after Google Translate interference
+     * @returns {void}
+     */
+    Form.prototype.rebindEventListeners = function () {
+        // Re-handle feedback buttons
+        this.handleFeedbackButtons(this.parentDomElement);
+        
+        // Re-handle topic selection
+        this.handleTopicSelection(this.parentDomElement);
+        
+        // Re-handle form submission
+        this.handleCommentFormSubmission(this.parentDomElement);
+    };
 
     /**
      * Get JSON data from data-js-cf attribute
@@ -69,25 +186,37 @@ export default () => {
      * Handle yes/no buttons
      */
     Form.prototype.handleFeedbackButtons = function (customerFeedbackInstance) {
-        let     self            = this;
-        const   feedbackButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-action]');
+        let self = this;
+        
+        // Remove existing event listeners to prevent duplicates
+        const existingButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-action]');
+        existingButtons.forEach(button => {
+            button.removeEventListener('click', this.feedbackButtonHandler);
+        });
+        
+        // Create a bound handler function
+        this.feedbackButtonHandler = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Set pressed state
+            this.setAttribute("aria-pressed", "true");
+
+            // Submit answer
+            self.submitInitialResponse(
+                customerFeedbackInstance, 
+                self.settings.postId, 
+                this.getAttribute('data-js-cf-action')
+            );
+        };
+        
+        const feedbackButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-action]');
     
         if (feedbackButtons.length > 0) {
             feedbackButtons.forEach(feedbackButton => {
-                feedbackButton.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-    
-                    // Set pressed state
-                    this.setAttribute("aria-pressed", "true");
-    
-                    // Submit answer
-                    self.submitInitialResponse(
-                        customerFeedbackInstance, 
-                        self.settings.postId, 
-                        this.getAttribute('data-js-cf-action')
-                    );
-                });
+                // Add translate="no" to preserve functionality
+                feedbackButton.setAttribute('translate', 'no');
+                feedbackButton.addEventListener('click', this.feedbackButtonHandler);
             });
         }
     };
@@ -100,30 +229,42 @@ export default () => {
      */
     Form.prototype.handleTopicSelection = function (customerFeedbackInstance) {
         let self = this;
+        
+        // Remove existing event listeners to prevent duplicates
+        const existingTopicButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-topic]');
+        existingTopicButtons.forEach(button => {
+            button.removeEventListener('click', this.topicButtonHandler);
+        });
+        
+        // Create a bound handler function
+        this.topicButtonHandler = function (e) {
+            self.showPartial('comment');
+
+            if(this.getAttribute('data-js-cf-has-written-feedback-capability') === 'true') {
+                self.showPartial('gdpr');
+                self.showSubPartial('text');
+                self.showSubPartial('submit');
+
+                if(this.getAttribute('data-js-cf-has-written-feedback-email') === 'true') {
+                    self.showSubPartial('email');
+                } else {
+                    self.hideSubPartial('email');
+                }
+            } else { 
+                self.hidePartial('gdpr');
+
+                self.hideSubPartial('text');
+                self.hideSubPartial('email');
+                self.showSubPartial('submit');
+            }
+        };
+        
         const topicButtons = customerFeedbackInstance.querySelectorAll('[data-js-cf-topic]');
         if (topicButtons.length > 0) {
             topicButtons.forEach(topicButton => {
-                topicButton.addEventListener('click', function (e) {
-                    self.showPartial('comment');
-
-                    if(this.getAttribute('data-js-cf-has-written-feedback-capability') === 'true') {
-                        self.showPartial('gdpr');
-                        self.showSubPartial('text');
-                        self.showSubPartial('submit');
-
-                        if(this.getAttribute('data-js-cf-has-written-feedback-email') === 'true') {
-                            self.showSubPartial('email');
-                        } else {
-                            self.hideSubPartial('email');
-                        }
-                    } else { 
-                        self.hidePartial('gdpr');
-
-                        self.hideSubPartial('text');
-                        self.hideSubPartial('email');
-                        self.showSubPartial('submit');
-                    }
-                });
+                // Add translate="no" to preserve functionality
+                topicButton.setAttribute('translate', 'no');
+                topicButton.addEventListener('click', this.topicButtonHandler);
             });
         }
     }
@@ -135,12 +276,15 @@ export default () => {
      * @returns 
      */
     Form.prototype.handleCommentFormSubmission = function (customerFeedbackInstance) {
-
         let self = this;
         const form = customerFeedbackInstance.querySelector('form');
         if (!form) return;
 
-        form.addEventListener('submit', function (e) {
+        // Remove existing event listeners to prevent duplicates
+        form.removeEventListener('submit', this.formSubmitHandler);
+        
+        // Create a bound handler function
+        this.formSubmitHandler = function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -181,7 +325,11 @@ export default () => {
             }).finally(() => {
                 self.hideLoader();
             });
-        });
+        };
+
+        // Add translate="no" to form to preserve functionality
+        form.setAttribute('translate', 'no');
+        form.addEventListener('submit', this.formSubmitHandler);
     }
 
     /**
