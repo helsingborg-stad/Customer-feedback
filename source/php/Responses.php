@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CustomerFeedback;
 
 class Responses
@@ -12,7 +14,7 @@ class Responses
         add_action('init', array($this, 'registerTaxonomy'));
 
         // Set comment field as readonly
-        add_action('acf/load_field/name=customer_feedback_comment', function ($field) {
+        add_action('acf/load_field/name=customer_feedback_comment', static function ($field) {
             $field['readonly'] = 1;
             return $field;
         });
@@ -43,13 +45,13 @@ class Responses
     }
 
     /**
-    * Registers a new post type
-    * @uses $wp_post_types Inserts new post type object into the list
-    *
-    * @param string  Post type key, must not exceed 20 characters
-    * @param array|string  See optional args description above.
-    * @return object|WP_Error the registered post type object, or an error object
-    */
+     * Registers a new post type
+     * @uses $wp_post_types Inserts new post type object into the list
+     *
+     * @param string  Post type key, must not exceed 20 characters
+     * @param array|string  See optional args description above.
+     * @return object|WP_Error the registered post type object, or an error object
+     */
     public function registerPostType()
     {
         $nameSingular = __('Feedback', 'customer-feedback');
@@ -57,37 +59,37 @@ class Responses
         $description = __('Feedback from visitors', 'customer-feedback');
 
         $labels = array(
-            'name'               => _x($nameSingular, 'post type general name', 'customer-feedback'),
-            'singular_name'      => _x($nameSingular, 'post type singular name', 'customer-feedback'),
-            'menu_name'          => _x($namePlural, 'admin menu', 'customer-feedback'),
-            'name_admin_bar'     => _x($nameSingular, 'add new on admin bar', 'customer-feedback'),
-            'add_new'            => _x('Add New', 'add new button', 'customer-feedback'),
-            'add_new_item'       => sprintf(__('Add new %s', 'customer-feedback'), $nameSingular),
-            'new_item'           => sprintf(__('New %s', 'customer-feedback'), $nameSingular),
-            'edit_item'          => sprintf(__('Edit %s', 'customer-feedback'), $nameSingular),
-            'view_item'          => sprintf(__('View %s', 'customer-feedback'), $nameSingular),
-            'all_items'          => sprintf(__('All %s', 'customer-feedback'), $namePlural),
-            'search_items'       => sprintf(__('Search %s', 'customer-feedback'), $namePlural),
-            'parent_item_colon'  => sprintf(__('Parent %s', 'customer-feedback'), $namePlural),
-            'not_found'          => sprintf(__('No %s', 'customer-feedback'), $namePlural),
-            'not_found_in_trash' => sprintf(__('No %s in trash', 'customer-feedback'), $namePlural)
+            'name' => _x($nameSingular, 'post type general name', 'customer-feedback'),
+            'singular_name' => _x($nameSingular, 'post type singular name', 'customer-feedback'),
+            'menu_name' => _x($namePlural, 'admin menu', 'customer-feedback'),
+            'name_admin_bar' => _x($nameSingular, 'add new on admin bar', 'customer-feedback'),
+            'add_new' => _x('Add New', 'add new button', 'customer-feedback'),
+            'add_new_item' => sprintf(__('Add new %s', 'customer-feedback'), $nameSingular),
+            'new_item' => sprintf(__('New %s', 'customer-feedback'), $nameSingular),
+            'edit_item' => sprintf(__('Edit %s', 'customer-feedback'), $nameSingular),
+            'view_item' => sprintf(__('View %s', 'customer-feedback'), $nameSingular),
+            'all_items' => sprintf(__('All %s', 'customer-feedback'), $namePlural),
+            'search_items' => sprintf(__('Search %s', 'customer-feedback'), $namePlural),
+            'parent_item_colon' => sprintf(__('Parent %s', 'customer-feedback'), $namePlural),
+            'not_found' => sprintf(__('No %s', 'customer-feedback'), $namePlural),
+            'not_found_in_trash' => sprintf(__('No %s in trash', 'customer-feedback'), $namePlural),
         );
 
         $args = array(
-            'labels'               => $labels,
-            'description'          => __($description, 'customer-feedback'),
-            'public'               => false,
-            'publicly_queriable'   => false,
-            'show_ui'              => true,
-            'show_in_nav_menus'    => false,
-            'show_in_menu'         => true,
-            'has_archive'          => false,
-            'rewrite'              => false,
-            'hierarchical'         => false,
-            'menu_position'        => 100,
-            'exclude_from_search'  => true,
-            'menu_icon'            => 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNDY5Ljg2MiA0NjkuODYzIj48ZyBmaWxsPSIjRkZGIj48cGF0aCBkPSJNNDQ3LjYzMyAzOS41MzdoLTE5MS4xOWMtMTIuMjYgMC0yMi4yMzIgOS45NzItMjIuMjMyIDIyLjIzdjk4LjY1MmMwIDEyLjI1NyA5Ljk3NCAyMi4yMjggMjIuMjMzIDIyLjIyOGgxNi43ODd2MzkuMTZhNi45MiA2LjkyIDAgMCAwIDExLjQ0MiA1LjIzNWw1MS4zOC00NC4zOTZoMTExLjU4YzEyLjI1NyAwIDIyLjIzLTkuOTczIDIyLjIzLTIyLjIzdi05OC42NWMwLTEyLjI1OC05Ljk3LTIyLjIzLTIyLjIzLTIyLjIzek0yOTYuNjg2IDEyNy40NWMtOS43NDMgMC0xNy42NDItNy45LTE3LjY0Mi0xNy42NDRzNy44OTctMTcuNjQ0IDE3LjY0Mi0xNy42NDRjOS43NDYgMCAxNy42NDYgNy45IDE3LjY0NiAxNy42NDQtLjAwMiA5Ljc0My03LjkgMTcuNjQ0LTE3LjY0NiAxNy42NDR6bTU1LjM1IDBjLTkuNzQgMC0xNy42NDMtNy45LTE3LjY0My0xNy42NDRzNy45LTE3LjY0NCAxNy42NDQtMTcuNjQ0YzkuNzQ0IDAgMTcuNjQ1IDcuOSAxNy42NDUgMTcuNjQ0IDAgOS43NDMtNy45IDE3LjY0NC0xNy42NDUgMTcuNjQ0em01NS4zNTUgMGMtOS43NDIgMC0xNy42NDItNy45LTE3LjY0Mi0xNy42NDRzNy44OTgtMTcuNjQ0IDE3LjY0My0xNy42NDRjOS43NDYgMCAxNy42NDUgNy45IDE3LjY0NSAxNy42NDQtLjAwMiA5Ljc0My03LjkwMiAxNy42NDQtMTcuNjQ0IDE3LjY0NHpNMTQwLjg1NyAxMzQuOTU4Yy00My4wOTMgMC02Ni45NCAyMi4zMy02Ni41MDYgNjUuMzU4LjYzMiA1OC45MzIgMjUuNjc0IDk0LjY4MiA2Ni41MDcgOTQuMDU4IDAgMCA2Ni40NzMgMi42OTUgNjYuNDczLTk0LjA1OCAwLTQzLjAyOC0yMi40NTctNjUuMzU4LTY2LjQ3My02NS4zNTh6TTI1OC40MzQgMzM5LjEwM2wtNjYuNDItMjYuNDgtMTUuNTUzLTEzLjEwN2ExMC4zNSAxMC4zNSAwIDAgMC0xMy45ODUuNTc0bC0yMS42MjQgMjEuNTA0LTIxLjY4Ny0yMS41MWExMC4zNTYgMTAuMzU2IDAgMCAwLTEzLjk3NS0uNTY3bC0xNS41NTYgMTMuMTA2LTY2LjQyMyAyNi40ODRDMS44MiAzNDcuNjI3IDEuODM1IDQyMy4zNyAwIDQzMC4zMjdoMjgxLjY3NGMtMS44MzItNi45NC0xLjg0My04Mi43MTItMjMuMjQtOTEuMjI0eiIvPjwvZz48L3N2Zz4=',
-            'supports'             => array('title')
+            'labels' => $labels,
+            'description' => __($description, 'customer-feedback'),
+            'public' => false,
+            'publicly_queriable' => false,
+            'show_ui' => true,
+            'show_in_nav_menus' => false,
+            'show_in_menu' => true,
+            'has_archive' => false,
+            'rewrite' => false,
+            'hierarchical' => false,
+            'menu_position' => 100,
+            'exclude_from_search' => true,
+            'menu_icon' => 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNDY5Ljg2MiA0NjkuODYzIj48ZyBmaWxsPSIjRkZGIj48cGF0aCBkPSJNNDQ3LjYzMyAzOS41MzdoLTE5MS4xOWMtMTIuMjYgMC0yMi4yMzIgOS45NzItMjIuMjMyIDIyLjIzdjk4LjY1MmMwIDEyLjI1NyA5Ljk3NCAyMi4yMjggMjIuMjMzIDIyLjIyOGgxNi43ODd2MzkuMTZhNi45MiA2LjkyIDAgMCAwIDExLjQ0MiA1LjIzNWw1MS4zOC00NC4zOTZoMTExLjU4YzEyLjI1NyAwIDIyLjIzLTkuOTczIDIyLjIzLTIyLjIzdi05OC42NWMwLTEyLjI1OC05Ljk3LTIyLjIzLTIyLjIzLTIyLjIzek0yOTYuNjg2IDEyNy40NWMtOS43NDMgMC0xNy42NDItNy45LTE3LjY0Mi0xNy42NDRzNy44OTctMTcuNjQ0IDE3LjY0Mi0xNy42NDRjOS43NDYgMCAxNy42NDYgNy45IDE3LjY0NiAxNy42NDQtLjAwMiA5Ljc0My03LjkgMTcuNjQ0LTE3LjY0NiAxNy42NDR6bTU1LjM1IDBjLTkuNzQgMC0xNy42NDMtNy45LTE3LjY0My0xNy42NDRzNy45LTE3LjY0NCAxNy42NDQtMTcuNjQ0YzkuNzQ0IDAgMTcuNjQ1IDcuOSAxNy42NDUgMTcuNjQ0IDAgOS43NDMtNy45IDE3LjY0NC0xNy42NDUgMTcuNjQ0em01NS4zNTUgMGMtOS43NDIgMC0xNy42NDItNy45LTE3LjY0Mi0xNy42NDRzNy44OTgtMTcuNjQ0IDE3LjY0My0xNy42NDRjOS43NDYgMCAxNy42NDUgNy45IDE3LjY0NSAxNy42NDQtLjAwMiA5Ljc0My03LjkwMiAxNy42NDQtMTcuNjQ0IDE3LjY0NHpNMTQwLjg1NyAxMzQuOTU4Yy00My4wOTMgMC02Ni45NCAyMi4zMy02Ni41MDYgNjUuMzU4LjYzMiA1OC45MzIgMjUuNjc0IDk0LjY4MiA2Ni41MDcgOTQuMDU4IDAgMCA2Ni40NzMgMi42OTUgNjYuNDczLTk0LjA1OCAwLTQzLjAyOC0yMi40NTctNjUuMzU4LTY2LjQ3My02NS4zNTh6TTI1OC40MzQgMzM5LjEwM2wtNjYuNDItMjYuNDgtMTUuNTUzLTEzLjEwN2ExMC4zNSAxMC4zNSAwIDAgMC0xMy45ODUuNTc0bC0yMS42MjQgMjEuNTA0LTIxLjY4Ny0yMS41MWExMC4zNTYgMTAuMzU2IDAgMCAwLTEzLjk3NS0uNTY3bC0xNS41NTYgMTMuMTA2LTY2LjQyMyAyNi40ODRDMS44MiAzNDcuNjI3IDEuODM1IDQyMy4zNyAwIDQzMC4zMjdoMjgxLjY3NGMtMS44MzItNi45NC0xLjg0My04Mi43MTItMjMuMjQtOTEuMjI0eiIvPjwvZz48L3N2Zz4=',
+            'supports' => array('title'),
         );
 
         register_post_type($this->postTypeSlug, $args);
@@ -96,32 +98,33 @@ class Responses
     /**
      * Register a 'topic' taxonomy for post type 'customer-feedback'.
      */
-    public function registerTaxonomy() {
+    public function registerTaxonomy()
+    {
         $namePlural = __('Topics', 'customer-feedback');
         $nameSingular = __('Topic', 'customer-feedback');
 
         $labels = array(
-            'name'              => $namePlural,
-            'singular_name'     => $nameSingular,
-            'search_items'      => sprintf(__('Search %s', 'customer-feedback'), $namePlural),
-            'all_items'         => sprintf(__('All %s', 'customer-feedback'), $namePlural),
-            'parent_item'       => sprintf(__('Parent %s:', 'customer-feedback'), $nameSingular),
+            'name' => $namePlural,
+            'singular_name' => $nameSingular,
+            'search_items' => sprintf(__('Search %s', 'customer-feedback'), $namePlural),
+            'all_items' => sprintf(__('All %s', 'customer-feedback'), $namePlural),
+            'parent_item' => sprintf(__('Parent %s:', 'customer-feedback'), $nameSingular),
             'parent_item_colon' => sprintf(__('Parent %s:', 'customer-feedback'), $nameSingular) . ':',
-            'edit_item'         => sprintf(__('Edit %s', 'customer-feedback'), $nameSingular),
-            'update_item'       => sprintf(__('Update %s', 'customer-feedback'), $nameSingular),
-            'add_new_item'      => sprintf(__('Add New %s', 'customer-feedback'), $nameSingular),
-            'new_item_name'     => sprintf(__('New %s Name', 'customer-feedback'), $nameSingular),
-            'menu_name'         => $nameSingular,
+            'edit_item' => sprintf(__('Edit %s', 'customer-feedback'), $nameSingular),
+            'update_item' => sprintf(__('Update %s', 'customer-feedback'), $nameSingular),
+            'add_new_item' => sprintf(__('Add New %s', 'customer-feedback'), $nameSingular),
+            'new_item_name' => sprintf(__('New %s Name', 'customer-feedback'), $nameSingular),
+            'menu_name' => $nameSingular,
         );
 
         $args = array(
-            'hierarchical'      => false,
-            'labels'            => $labels,
-            'show_ui'           => true,
+            'hierarchical' => false,
+            'labels' => $labels,
+            'show_ui' => true,
             'show_admin_column' => true,
-            'query_var'         => true,
-            'meta_box_cb'       => false,
-            'rewrite'           => array('slug' => 'topic'),
+            'query_var' => true,
+            'meta_box_cb' => false,
+            'rewrite' => array('slug' => 'topic'),
         );
 
         register_taxonomy('feedback_topic', array($this->postTypeSlug), $args);
@@ -145,8 +148,8 @@ class Responses
             'post_status' => array('publish', 'pending', 'draft'),
             'date_query' => array(
                 array(
-                    'after'  => $modDate,
-                    'inclusive' => true
+                    'after' => $modDate,
+                    'inclusive' => true,
                 ),
             ),
             'meta_query' => array(
@@ -154,9 +157,9 @@ class Responses
                 array(
                     'key' => 'customer_feedback_page_reference',
                     'value' => $postId,
-                    'comare' => '='
-                )
-            )
+                    'comare' => '=',
+                ),
+            ),
         ));
 
         // Get answer meta
@@ -169,7 +172,7 @@ class Responses
         if ($type === 'percent') {
             $total = array_sum($answers);
 
-            $answers = array_map(function ($item) use ($total) {
+            $answers = array_map(static function ($item) use ($total) {
                 if ($total === 0) {
                     return 0;
                 }
@@ -216,7 +219,7 @@ class Responses
     {
         $allowedPostTypes = get_field('customer_feedback_posttypes', 'option');
 
-        if (!isset($post->ID) || (is_array($allowedPostTypes) && !in_array($postType, $allowedPostTypes))) {
+        if (!isset($post->ID) || is_array($allowedPostTypes) && !in_array($postType, $allowedPostTypes)) {
             return;
         }
 
@@ -234,8 +237,8 @@ class Responses
             'side',
             'default',
             array(
-                'results' => $answers
-            )
+                'results' => $answers,
+            ),
         );
     }
 
@@ -296,17 +299,15 @@ class Responses
      */
     public function listColumns($columns)
     {
-        $columns = array(
-            'cb'     => '<input type="checkbox">',
-            'title'  => __('Page', 'customer-feedback'),
-            'id'     => __('ID', 'customer-feedback'),
+        return array(
+            'cb' => '<input type="checkbox">',
+            'title' => __('Page', 'customer-feedback'),
+            'id' => __('ID', 'customer-feedback'),
             'answer' => __('Answer', 'customer-feedback'),
-            'hasComment'   => __('Has comment', 'customer-feedback'),
+            'hasComment' => __('Has comment', 'customer-feedback'),
             'topic' => __('Topic', 'customer-feedback'),
-            'date'   => __('Date')
+            'date' => __('Date'),
         );
-
-        return $columns;
     }
 
     /**
@@ -332,12 +333,12 @@ class Responses
                 $topics = wp_get_post_terms($postId, 'feedback_topic');
                 if (!empty($topics)) {
                     foreach ($topics as $key => $topic) {
-                        echo ($key == 0) ? $topic->name : ', ' . $topic->name;
+                        echo $key == 0 ? $topic->name : ', ' . $topic->name;
                     }
                 }
                 break;
             case 'hasComment':
-                echo (!empty(get_field('customer_feedback_comment', $postId))) ? __('Yes') : __('No');
+                echo !empty(get_field('customer_feedback_comment', $postId)) ? __('Yes') : __('No');
                 break;
         }
     }
@@ -374,13 +375,13 @@ class Responses
                     'taxonomy' => 'feedback_topic',
                     'field' => 'slug',
                     'terms' => $_GET['feedback_topic'],
-                    'operator' => 'IN'
-                )
+                    'operator' => 'IN',
+                ),
             ));
         }
 
         $metaQuery = array(
-            'relation' => 'AND'
+            'relation' => 'AND',
         );
 
         // Filter on has-comment
@@ -389,20 +390,20 @@ class Responses
                 'relation' => 'AND',
                 [
                     'key' => 'customer_feedback_comment',
-                    'compare' => 'EXISTS'
+                    'compare' => 'EXISTS',
                 ],
                 [
                     'key' => 'customer_feedback_comment',
                     'compare' => '!=',
-                    'value' => ''
-                ]
+                    'value' => '',
+                ],
             );
         }
 
         if (isset($_GET['has-comment']) && $_GET['has-comment'] === 'no') {
             $metaQuery[] = array(
                 'key' => 'customer_feedback_comment',
-                'compare' => 'NOT EXISTS'
+                'compare' => 'NOT EXISTS',
             );
         }
 
@@ -411,15 +412,14 @@ class Responses
                 'relation' => 'OR',
                 array(
                     'key' => 'customer_feedback_comment',
-                    'compare' => 'EXISTS'
+                    'compare' => 'EXISTS',
                 ),
                 array(
                     'key' => 'customer_feedback_comment',
-                    'compare' => 'NOT EXISTS'
-                )
+                    'compare' => 'NOT EXISTS',
+                ),
             );
         }
-
 
         // Filter on answer
         if (isset($_GET['answer']) && $_GET['answer'] === 'yes') {
@@ -428,8 +428,8 @@ class Responses
                 array(
                     'key' => 'customer_feedback_answer',
                     'value' => 'yes',
-                    'compare' => '='
-                )
+                    'compare' => '=',
+                ),
             );
         }
 
@@ -438,13 +438,13 @@ class Responses
                 'relation' => 'OR',
                 array(
                     'key' => 'customer_feedback_answer',
-                    'compare' => 'NOT EXISTS'
+                    'compare' => 'NOT EXISTS',
                 ),
                 array(
                     'key' => 'customer_feedback_answer',
                     'value' => 'no',
-                    'compare' => '='
-                )
+                    'compare' => '=',
+                ),
             );
         }
 
@@ -480,7 +480,7 @@ class Responses
         </select>';
 
         // Filter by feedback topics
-        $topics = get_terms( array(
+        $topics = get_terms(array(
             'taxonomy' => 'feedback_topic',
             'hide_empty' => false,
         ));
@@ -489,30 +489,30 @@ class Responses
             echo '<option value="' . $topic->slug . '" ' . selected(true, isset($_GET['feedback_topic']) && $_GET['feedback_topic'] == $topic->slug, false) . '>' . $topic->name . '</option>';
         }
         echo '</select>';
-
     }
 
     /**
      * Save a user response
      * @return void Sends a JSON response and exits
      */
-    public function submitResponse() {
+    public function submitResponse()
+    {
         // Validate input
         $postId = isset($_POST['postid']) && is_numeric($_POST['postid']) ? (int) $_POST['postid'] : null;
         $answer = isset($_POST['answer']) && !empty($_POST['answer']) ? wp_kses_post($_POST['answer']) : null;
 
         if (!$postId || !$answer) {
             wp_send_json([
-                'state'   => 'error',
-                'message' => esc_html__('Failed to save response (not enough data).', 'customer-feedback')
+                'state' => 'error',
+                'message' => esc_html__('Failed to save response (not enough data).', 'customer-feedback'),
             ], 400);
         }
 
         // Insert response post
         $insertedId = wp_insert_post([
-            'post_type'   => $this->postTypeSlug,
+            'post_type' => $this->postTypeSlug,
             'post_status' => 'publish',
-            'post_title'  => sanitize_text_field(get_the_title($postId))
+            'post_title' => sanitize_text_field(get_the_title($postId)),
         ]);
 
         if ($insertedId) {
@@ -522,14 +522,14 @@ class Responses
             update_post_meta($insertedId, 'customer_feedback_answer', $answer);
 
             wp_send_json([
-                'state'   => 'success',
+                'state' => 'success',
                 'message' => esc_html__('Response saved.', 'customer-feedback'),
-                'data'    => ['id' => $insertedId]
+                'data' => ['id' => $insertedId],
             ], 200);
         } else {
             wp_send_json([
-                'state'   => 'error',
-                'message' => esc_html__('Failed to save response.', 'customer-feedback')
+                'state' => 'error',
+                'message' => esc_html__('Failed to save response.', 'customer-feedback'),
             ], 500);
         }
 
@@ -544,16 +544,16 @@ class Responses
     {
         // Validate input
         $answerId = isset($_POST['answerid']) && is_numeric($_POST['answerid']) ? (int) $_POST['answerid'] : null;
-        $postId   = isset($_POST['postid']) && is_numeric($_POST['postid']) ? (int) $_POST['postid'] : null;
-        $comment  = isset($_POST['comment']) && !empty($_POST['comment']) ? wp_kses_post($_POST['comment']) : null;
-        $email    = isset($_POST['email']) && !empty($_POST['email']) ? sanitize_email($_POST['email']) : null;
-        $topicId  = isset($_POST['topicid']) && is_numeric($_POST['topicid']) ? (int) $_POST['topicid'] : null;
+        $postId = isset($_POST['postid']) && is_numeric($_POST['postid']) ? (int) $_POST['postid'] : null;
+        $comment = isset($_POST['comment']) && !empty($_POST['comment']) ? wp_kses_post($_POST['comment']) : null;
+        $email = isset($_POST['email']) && !empty($_POST['email']) ? sanitize_email($_POST['email']) : null;
+        $topicId = isset($_POST['topicid']) && is_numeric($_POST['topicid']) ? (int) $_POST['topicid'] : null;
 
         // Ensure required fields are present
         if (!$answerId || !$postId) {
             wp_send_json([
-                'state'   => 'error',
-                'message' => esc_html__('Failed to save comment (not enough data).', 'customer-feedback')
+                'state' => 'error',
+                'message' => esc_html__('Failed to save comment (not enough data).', 'customer-feedback'),
             ], 400);
         }
 
@@ -566,21 +566,21 @@ class Responses
 
         // Update post status to pending
         $insertedId = wp_update_post([
-            'ID'         => $answerId,
-            'post_status' => 'pending'
+            'ID' => $answerId,
+            'post_status' => 'pending',
         ]);
 
         if ($insertedId) {
             \CustomerFeedback\Forwarding::maybeForward($answerId, $postId, $comment, $email, $topicId);
             wp_send_json([
-                'state'   => 'success',
+                'state' => 'success',
                 'message' => esc_html__('Response saved.', 'customer-feedback'),
-                'data'    => ['id' => $insertedId]
+                'data' => ['id' => $insertedId],
             ], 200);
         } else {
             wp_send_json([
-                'state'   => 'error',
-                'message' => esc_html__('Failed to save comment.', 'customer-feedback')
+                'state' => 'error',
+                'message' => esc_html__('Failed to save comment.', 'customer-feedback'),
             ], 500);
         }
 

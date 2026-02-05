@@ -12,6 +12,8 @@
  * Text Domain:       customer-feedback
  * Domain Path:       /languages
  */
+use WpService\Implementations\NativeWpService;
+use WpUtilService\WpUtilService;
 
  // Protect agains direct file access
 if (! defined('WPINC')) {
@@ -47,5 +49,8 @@ add_action('plugins_loaded', function () {
     $acfExportManager->import();
 });
 
+$wpService = new NativeWpService();
+$wpUtilService = new WpUtilService($wpService);
+
 // Start application
-new CustomerFeedback\App();
+new CustomerFeedback\App($wpUtilService->enqueue(__DIR__));

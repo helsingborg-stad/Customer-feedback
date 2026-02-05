@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CustomerFeedback;
 
 class Options
@@ -15,22 +17,22 @@ class Options
     {
         if (function_exists('acf_add_options_sub_page')) {
             acf_add_options_sub_page(array(
-                'title'      => __('Feedback options', 'customer-feedback'),
-                'slug'       => 'acf-options-feedback-options',
-                'parent'     => 'edit.php?post_type=customer-feedback',
-                'capability' => 'manage_options'
+                'title' => __('Feedback options', 'customer-feedback'),
+                'slug' => 'acf-options-feedback-options',
+                'parent' => 'edit.php?post_type=customer-feedback',
+                'capability' => 'manage_options',
             ));
         }
 
         // Add needs attention page
-        add_action('admin_menu', function () {
+        add_action('admin_menu', static function () {
             add_submenu_page(
                 'edit.php?post_type=customer-feedback',
                 __('Needs attention', 'customer-feedback'),
                 __('Needs attention', 'customer-feedback'),
                 'edit_posts',
                 'customer-feedback-attention',
-                function () {
+                static function () {
                     echo '<div class="wrap">';
                     echo '<h1>' . __('Needs attention', 'customer-feedback') . '</h1>';
                     echo '<p>' . sprintf(__('This view shows pages that has a negative feedback rate of %s or more. You should consider improving these pages.', 'customer-feedback'), '30%') . '</p>';
@@ -40,7 +42,7 @@ class Options
                     $table->display();
 
                     echo '</div>';
-                }
+                },
             );
         });
     }
@@ -71,7 +73,7 @@ class Options
         }
 
         if (!empty($filter)) {
-            $postTypes = array_filter($postTypes, function ($item) use ($filter) {
+            $postTypes = array_filter($postTypes, static function ($item) use ($filter) {
                 if (substr($item, 0, 4) === 'mod-') {
                     return false;
                 }

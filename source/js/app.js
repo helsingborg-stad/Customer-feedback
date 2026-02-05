@@ -1,5 +1,5 @@
 import Form from './form';
 
-window.addEventListener('DOMContentLoaded', function(event) {
-  Form(); 
+window.addEventListener('DOMContentLoaded', (event) => {
+	Form();
 });
