@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CustomerFeedback;
 
-use Throwable;
 use ComponentLibrary\Init as ComponentLibraryInit;
+use Throwable;
 use WP_Post;
 
 class Form
@@ -13,18 +15,23 @@ class Form
     public function addHooks(): void
     {
         add_action('customer-feedback', array($this, 'appendForm'));
-        
+
         if (defined('CUSTOMER_FEEDBACK_DISABLE_AUTO_LOAD') || is_admin()) {
             return;
         }
 
-        add_filter('is_active_sidebar', function ($shouldRender, $id) {
-            if ($id === $this->sidebarId) {
-                return true;
-            }
+        add_filter(
+            'is_active_sidebar',
+            function ($shouldRender, $id) {
+                if ($id === $this->sidebarId) {
+                    return true;
+                }
 
-            return $shouldRender;
-        }, 11, 2);
+                return $shouldRender;
+            },
+            11,
+            2,
+        );
 
         add_action('dynamic_sidebar_after', function ($index) {
             if ($index !== $this->sidebarId) {
@@ -49,7 +56,7 @@ class Form
 
     /**
      * Check if form should be rendered
-     * 
+     *
      * @return bool
      */
     private function shouldRenderForm(): bool
@@ -74,14 +81,13 @@ class Form
 
     /**
      * Get form data
-     * 
+     *
      * @return array
      */
     public function getFormData(): array
     {
-
         // Fetch form labels and text fields
-        $getField = function ($key, $default = '', $postId = 'option') {
+        $getField = static function ($key, $default = '', $postId = 'option') {
             return function_exists('get_field') && !empty(get_field($key, $postId)) ? get_field($key, $postId) : $default;
         };
 
@@ -91,63 +97,63 @@ class Form
                 'description' => $getField('customer_feedback_main_question_sub', __('Answer the question to help us improve our information.', 'customer-feedback')),
             ],
             'labels' => (object) [
-                
-                'negative'          => $getField('customer_feedback_feedback_label_no', __('No', 'customer-feedback')),
-                'positive'          => $getField('customer_feedback_feedback_label_yes', __('Yes', 'customer-feedback')),
-                
+                'negative' => $getField('customer_feedback_feedback_label_no', __('No', 'customer-feedback')),
+                'positive' => $getField('customer_feedback_feedback_label_yes', __('Yes', 'customer-feedback')),
+
                 'comment' => (object) [
-                    'label'         => __('How can we make the information better?', 'customer-feedback'),
-                    'explain'       => false,
-                    'placeholder'   => false,
-                    'error'         => __('Please enter a comment of minimum 15 characters.', 'customer-feedback'),
+                    'label' => __('How can we make the information better?', 'customer-feedback'),
+                    'explain' => false,
+                    'placeholder' => false,
+                    'error' => __('Please enter a comment of minimum 15 characters.', 'customer-feedback'),
                 ],
 
                 'email' => (object) [
-                    'label'         => __('Email address', 'customer-feedback'),
-                    'explain'       => false,
-                    'error'        => __('Please enter a valid email address.', 'customer-feedback'),
-                    'placeholder'  => __('email@example.com', 'customer-feedback'),
+                    'label' => __('Email address', 'customer-feedback'),
+                    'explain' => false,
+                    'error' => __('Please enter a valid email address.', 'customer-feedback'),
+                    'placeholder' => __('email@example.com', 'customer-feedback'),
                 ],
 
                 'notification' => (object) [
-                    'success'           => $getField('customer_feedback_thanks', __('Thank you', 'customer-feedback')),
-                    'error'             => __('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'),
-                    'alreadysubmitted'  => __('You have already given feedback for this content.', 'customer-feedback'),
-                ],  
+                    'success' => $getField('customer_feedback_thanks', __('Thank you', 'customer-feedback')),
+                    'error' => __('Something went wrong, please try again later. Could not store your response.', 'customer-feedback'),
+                    'alreadysubmitted' => __('You have already given feedback for this content.', 'customer-feedback'),
+                ],
 
                 'topic' => (object) [
-                    'heading'     => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
+                    'heading' => $getField('customer_feedback_label_topic', __('Topic', 'customer-feedback')),
                     'description' => strip_tags(
-                        $getField('customer_feedback_label_topic_description', __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback'))
-                    , '<a>'),
+                        $getField('customer_feedback_label_topic_description', __('Please complete your feedback by selecting a category and entering a comment.', 'customer-feedback')),
+                        '<a>',
+                    ),
                 ],
 
                 'submit' => __('Submit', 'customer-feedback'),
             ],
-            'userEmail'          => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
-            'topics'             => [],
-            'gdpr'               => (object) [
+            'userEmail' => is_user_logged_in() ? get_userdata(get_current_user_id())->user_email : null,
+            'topics' => [],
+            'gdpr' => (object) [
                 'enabled' => !empty($getField('gdpr_complience_notice')),
-                'content' => strip_tags($getField('gdpr_complience_notice_content') ?: '', '<a>')
+                'content' => strip_tags($getField('gdpr_complience_notice_content') ?: '', '<a>'),
             ],
-            'postId'    => $this->getCurrentPostId(),
+            'postId' => $this->getCurrentPostId(),
             'frequency' => (int) $getField('customer_feedback_feedback_frequency', 0, 'option'),
         ];
 
         // Fetch topics
         $topics = get_terms([
-            'taxonomy'   => 'feedback_topic',
+            'taxonomy' => 'feedback_topic',
             'hide_empty' => false,
         ]);
 
-        if(!empty($topics)) {
+        if (!empty($topics)) {
             foreach ($topics as $topic) {
                 $formData['topics'][] = (object) [
-                    'id'                        => $topic->term_id,
-                    'name'                      => $topic->name,
-                    'description'               => $topic->description,
-                    'feedbackCapability'        => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '1',
-                    'feedbackCapabilityEmail'   => $getField('topic_feedback_capability_email', '', 'feedback_topic_' . $topic->term_id) ?: '0',
+                    'id' => $topic->term_id,
+                    'name' => $topic->name,
+                    'description' => $topic->description,
+                    'feedbackCapability' => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '1',
+                    'feedbackCapabilityEmail' => $getField('topic_feedback_capability_email', '', 'feedback_topic_' . $topic->term_id) ?: '0',
                 ];
             }
         }
@@ -160,7 +166,7 @@ class Form
 
     /**
      * Get current post id
-     * 
+     *
      * @return int
      */
     private function getCurrentPostId(): int
@@ -171,7 +177,7 @@ class Form
 
     /**
      * Render view
-     * 
+     *
      * @param string $view
      * @param array $data
      * @return mixed
@@ -180,29 +186,36 @@ class Form
     {
         $blade = $this->getBladeEngine();
 
-        if(!$blade) {
+        if (!$blade) {
             return false;
         }
 
         try {
-            return $blade->makeView($view, $data, [], [
-                constant('CUSTOMERFEEDBACK_TEMPLATE_PATH'),
-            ])->render();
+            return $blade
+                ->makeView(
+                    $view,
+                    $data,
+                    [],
+                    [
+                        constant('CUSTOMERFEEDBACK_TEMPLATE_PATH'),
+                    ],
+                )
+                ->render();
         } catch (Throwable $e) {
-           $blade->errorHandler($e)->print();
+            $blade->errorHandler($e)->print();
         }
 
         return false;
     }
 
     /**
-     * Get blade engine 
-     * 
+     * Get blade engine
+     *
      * @return Blade
      */
     private function getBladeEngine()
     {
-        if(!class_exists(ComponentLibraryInit::class)) {
+        if (!class_exists(ComponentLibraryInit::class)) {
             return false;
         }
         return (new ComponentLibraryInit([]))->getEngine();

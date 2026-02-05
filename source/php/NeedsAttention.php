@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CustomerFeedback;
 
 class NeedsAttention extends \WP_List_Table
@@ -8,8 +10,8 @@ class NeedsAttention extends \WP_List_Table
     {
         parent::__construct([
             'singular' => __('Post', 'customer-feedback'),
-            'plural'   => __('Posts', 'customer-feedback'),
-            'ajax'     => false
+            'plural' => __('Posts', 'customer-feedback'),
+            'ajax' => false,
         ]);
     }
 
@@ -66,8 +68,8 @@ class NeedsAttention extends \WP_List_Table
         // Pagination
         $this->set_pagination_args(array(
             'total_items' => count($items),
-            'per_page'    => 10,
-            'total_pages' => ceil(count($items)/10)
+            'per_page' => 10,
+            'total_pages' => ceil(count($items) / 10),
         ));
 
         // Items
@@ -79,7 +81,7 @@ class NeedsAttention extends \WP_List_Table
         return array(
             'title' => __('Title'),
             'negative' => __('Negative', 'customer-feedback'),
-            'positive' => __('Positive', 'customer-feedback')
+            'positive' => __('Positive', 'customer-feedback'),
         );
     }
 

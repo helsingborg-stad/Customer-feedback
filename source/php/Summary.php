@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CustomerFeedback;
 
 class Summary
 {
-
     public static $resultCache = array();
 
     public function __construct()
@@ -46,8 +47,8 @@ class Summary
                 'customer-feedback/email_summary',
                 array(
                     $summary['email_address'],
-                    $summary['interval']
-                )
+                    $summary['interval'],
+                ),
             );
         }
     }
@@ -61,12 +62,12 @@ class Summary
     {
         $schedules['weekly'] = array(
             'interval' => 604800,
-            'display' => __('weekly', 'customer-feedback')
+            'display' => __('weekly', 'customer-feedback'),
         );
 
         $schedules['monthly'] = array(
             'interval' => 2592000,
-            'display' => __('monthly', 'customer-feedback')
+            'display' => __('monthly', 'customer-feedback'),
         );
 
         return $schedules;
@@ -104,7 +105,7 @@ class Summary
             [$rendered, $hasContent] = $this->renderReport($from, $to, true);
             $report = self::$resultCache[$interval] = $rendered;
         }
-        
+
         //Send non empty reports
         if (!empty($report) && !empty($hasContent)) {
             $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
@@ -114,9 +115,9 @@ class Summary
                 $report,
                 array(
                     'Content-Type: text/html; charset=UTF-8',
-                    'From: ' . get_option('admin_email')
-                )
-            );  
+                    'From: ' . get_option('admin_email'),
+                ),
+            );
         }
     }
 
@@ -142,7 +143,7 @@ class Summary
             __('Summary', 'customer-feedback'),
             'edit_posts',
             'customer-feedback-summary',
-            array($this, 'renderReport')
+            array($this, 'renderReport'),
         );
     }
 
@@ -222,7 +223,7 @@ class Summary
                 'post_id' => get_post_meta($post->ID, 'customer_feedback_page_reference', true),
                 'answer' => get_post_meta($post->ID, 'customer_feedback_answer', true),
                 'comment' => get_post_meta($post->ID, 'customer_feedback_comment', true),
-                'topics' => $feedback_topics
+                'topics' => $feedback_topics,
             );
 
             // Count yes/no
@@ -243,7 +244,7 @@ class Summary
 
         // Get the percentage ratio for $yesno
         $totalAnswers = array_sum($yesno);
-        $yesnoPercent = array_map(function ($item) use ($totalAnswers) {
+        $yesnoPercent = array_map(static function ($item) use ($totalAnswers) {
             if ($totalAnswers === 0) {
                 return 0;
             }
@@ -255,10 +256,10 @@ class Summary
         $data = array(
             'count' => $yesno,
             'percent' => $yesnoPercent,
-            'pending' => $pending
+            'pending' => $pending,
         );
 
-        return [$data, (!empty($yesno['yes']) || !empty($yesno['no']))];
+        return [$data, !empty($yesno['yes']) || !empty($yesno['no'])];
     }
 
     /**
@@ -276,7 +277,7 @@ class Summary
         );
 
         $answerPosts['date_query'] = array(
-            'inclusive' => true
+            'inclusive' => true,
         );
 
         if (!is_null($from)) {

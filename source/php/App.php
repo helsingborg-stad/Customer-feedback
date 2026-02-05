@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CustomerFeedback;
+
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 /**
  * Class App
@@ -11,9 +15,9 @@ class App
     /**
      * App constructor.
      */
-    public function __construct()
-    {
-
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         add_action('admin_enqueue_scripts', array($this, 'adminEnqueue'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'), 30);
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
@@ -45,18 +49,19 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('js/customer-feedback.js', false, '1.0.0', true));
-        wp_localize_script('customer-feedback', 'feedback', array(
-            'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
-            'select_topic' => __('Please select a topic.', 'customer-feedback'),
-            'enter_email' => __('Please enter a valid email.', 'customer-feedback')
-        ));
-
-        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/customer-feedback.css', false, '1.0.0'));
+        $this->wpEnqueue
+            ->add('js/customer-feedback.js', [], '1.0.0', true)
+            ->with()
+            ->translation('feedback', array(
+                'comment_min_characters' => sprintf(__('The comment must be more than %s characters.', 'customer-feedback'), '15'),
+                'select_topic' => __('Please select a topic.', 'customer-feedback'),
+                'enter_email' => __('Please enter a valid email.', 'customer-feedback'),
+            ))
+            ->add('css/customer-feedback.css');
     }
 
     public function adminEnqueue()
     {
-        wp_enqueue_style('customer-feedback', CUSTOMERFEEDBACK_URL . '/dist/' . Helper\CacheBust::name('css/admin-customer-feedback.css', false, '1.0.0'));
+        $this->wpEnqueue->add('css/admin-customer-feedback.css', [], '1.0.0');
     }
 }

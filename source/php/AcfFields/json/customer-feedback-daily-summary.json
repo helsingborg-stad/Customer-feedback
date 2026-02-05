@@ -1,91 +1,90 @@
-[{
-    "key": "group_591c150dd4561",
-    "title": "Summaries",
-    "fields": [
-        {
-            "key": "field_591c15305ade0",
-            "label": "Send summaries to",
-            "name": "customer_feedback_summary",
-            "type": "repeater",
-            "instructions": "Send summaries of feedback to the following email addresses",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "sub_fields": [
-                {
-                    "key": "field_591c155a5ade1",
-                    "label": "Email address",
-                    "name": "email_address",
-                    "type": "email",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_591c50317fdbb",
-                    "label": "Interval",
-                    "name": "interval",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "choices": {
-                        "monthly": "Monthly",
-                        "weekly": "Weekly",
-                        "daily": "Daily"
-                    },
-                    "default_value": [
-                        "weekly"
-                    ],
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "return_format": "value"
-                }
-            ],
-            "min": 0,
-            "max": 0,
-            "layout": "table",
-            "button_label": "",
-            "collapsed": ""
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "options_page",
-                "operator": "==",
-                "value": "acf-options-feedback-options"
-            }
-        ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": 1,
-    "description": ""
-}]
-
+[
+	{
+		"key": "group_591c150dd4561",
+		"title": "Summaries",
+		"fields": [
+			{
+				"key": "field_591c15305ade0",
+				"label": "Send summaries to",
+				"name": "customer_feedback_summary",
+				"type": "repeater",
+				"instructions": "Send summaries of feedback to the following email addresses",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"sub_fields": [
+					{
+						"key": "field_591c155a5ade1",
+						"label": "Email address",
+						"name": "email_address",
+						"type": "email",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "50",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					},
+					{
+						"key": "field_591c50317fdbb",
+						"label": "Interval",
+						"name": "interval",
+						"type": "select",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"multiple": 0,
+						"allow_null": 0,
+						"choices": {
+							"monthly": "Monthly",
+							"weekly": "Weekly",
+							"daily": "Daily"
+						},
+						"default_value": ["weekly"],
+						"ui": 0,
+						"ajax": 0,
+						"placeholder": "",
+						"return_format": "value"
+					}
+				],
+				"min": 0,
+				"max": 0,
+				"layout": "table",
+				"button_label": "",
+				"collapsed": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "options_page",
+					"operator": "==",
+					"value": "acf-options-feedback-options"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": 1,
+		"description": ""
+	}
+]
