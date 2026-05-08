@@ -63,6 +63,10 @@
       opacity: 0;
       animation: customerFeedbackContentSlide 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
+
+    &.u-display--none {
+      display: none;
+    }
   }
 
   .customer-feedback-section.u-display--none > * {
