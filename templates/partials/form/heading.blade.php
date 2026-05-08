@@ -3,8 +3,9 @@
     @typography([
         'element' => 'h2',
         'classList' => [
-            'c-typography__variant--h2',
-            'customer-feedback-main-heading'
+            'c-typography__variant--h4',
+            'customer-feedback-main-heading',
+            'u-margin__top--0'
         ]
     ])
       {{ $question->title }} 

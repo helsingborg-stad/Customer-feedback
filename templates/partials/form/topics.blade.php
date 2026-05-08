@@ -1,6 +1,10 @@
 @typography([
   'element' => 'h2',
-  'variant' => 'h3',
+  'variant' => 'h4',
+  'classList' => [
+    'customer-feedback-topic-heading',
+    'u-margin__top--0'
+  ]
 ])
   {{ $labels->topic->heading }}
 @endtypography
