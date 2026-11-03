@@ -102,14 +102,14 @@ class Form
 
                 'comment' => (object) [
                     'label' => __('How can we make the information better?', 'customer-feedback'),
-                    'explain' => false,
-                    'placeholder' => false,
+                    'explain' => '',
+                    'placeholder' => '',
                     'error' => __('Please enter a comment of minimum 15 characters.', 'customer-feedback'),
                 ],
 
                 'email' => (object) [
                     'label' => __('Email address', 'customer-feedback'),
-                    'explain' => false,
+                    'explain' => '',
                     'error' => __('Please enter a valid email address.', 'customer-feedback'),
                     'placeholder' => __('email@example.com', 'customer-feedback'),
                 ],
@@ -150,6 +150,7 @@ class Form
             foreach ($topics as $topic) {
                 $formData['topics'][] = (object) [
                     'id' => $topic->term_id,
+                    'value' => (string) $topic->term_id,
                     'name' => $topic->name,
                     'description' => $topic->description,
                     'feedbackCapability' => $getField('topic_feedback_capability', '', 'feedback_topic_' . $topic->term_id) ?: '1',
