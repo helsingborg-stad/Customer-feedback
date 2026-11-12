@@ -28,7 +28,7 @@
     @option([
       'id' => 'customer-feedback-topic-' . $topic->id,
       'type' => 'radio',
-      'value' => $topic->id,
+      'value' => $topic->value,
       'attributeList' => [
         'name' => 'topicid',
         'data-js-cf-topic-description' => $topic->description,
