@@ -13,7 +13,6 @@ class Summary
         add_action('admin_menu', array($this, 'addPage'));
 
         // Cron stuff
-        add_filter('cron_schedules', array($this, 'cronSchedules'));
         add_action('customer-feedback/email_summary', array($this, 'emailSummary'), 10, 2);
 
         // Schedule on save
@@ -41,9 +40,8 @@ class Summary
         }
 
         foreach ($summaries as $summary) {
-            wp_schedule_event(
-                strtotime('tomorrow midnight -3 hour'),
-                $summary['interval'],
+            wp_schedule_single_event(
+                $this->getScheduleTimestamp($summary['interval']),
                 'customer-feedback/email_summary',
                 array(
                     $summary['email_address'],
@@ -54,23 +52,46 @@ class Summary
     }
 
     /**
-     * Add weekly and monthly schedules to cron
-     * @param  array $schedules
-     * @return array
+     * Get the next run time for a summary schedule.
+     *
+     * All summaries run at 10:00 in the site's configured timezone. Weekly
+     * summaries are anchored to Monday and monthly summaries to the first day
+     * of the month, rather than to the time the options page was last saved.
+     *
+     * @param string $interval
+     * @return int
      */
-    public function cronSchedules($schedules)
+    private function getScheduleTimestamp(string $interval): int
     {
-        $schedules['weekly'] = array(
-            'interval' => 604800,
-            'display' => __('weekly', 'customer-feedback'),
-        );
+        $now = new \DateTimeImmutable('now', wp_timezone());
 
-        $schedules['monthly'] = array(
-            'interval' => 2592000,
-            'display' => __('monthly', 'customer-feedback'),
-        );
+        if ($interval === 'weekly') {
+            $scheduled = $now->modify('monday this week')->setTime(10, 0);
 
-        return $schedules;
+            if ($scheduled <= $now) {
+                $scheduled = $scheduled->modify('next monday');
+            }
+
+            return $scheduled->getTimestamp();
+        }
+
+        if ($interval === 'monthly') {
+            $scheduled = $now->modify('first day of this month')->setTime(10, 0);
+
+            if ($scheduled <= $now) {
+                $scheduled = $scheduled->modify('first day of next month');
+            }
+
+            return $scheduled->getTimestamp();
+        }
+
+        $scheduled = $now->setTime(10, 0);
+
+        if ($scheduled <= $now) {
+            $scheduled = $scheduled->modify('+1 day');
+        }
+
+        return $scheduled->getTimestamp();
     }
 
     public function emailSummary($email, $interval)
@@ -119,6 +140,12 @@ class Summary
                 ),
             );
         }
+
+        wp_schedule_single_event(
+            $this->getScheduleTimestamp($interval),
+            'customer-feedback/email_summary',
+            array($email, $interval),
+        );
     }
 
     /**
