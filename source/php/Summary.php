@@ -33,22 +33,63 @@ class Summary
         wp_unschedule_hook('customer-feedback/email_summary');
         wp_clear_scheduled_hook('customer-feedback/email_summary');
 
+        $this->scheduleNextSummary($this->getSummaryRecipients());
+    }
+
+    /**
+     * Group summary recipients by interval and remove invalid entries.
+     *
+     * @return array<string, array<int, string>>
+     */
+    private function getSummaryRecipients(): array
+    {
         $summaries = get_field('customer_feedback_summary', 'option');
 
         if (empty($summaries)) {
+            return array();
+        }
+
+        $recipients = array();
+
+        foreach ($summaries as $summary) {
+            if (empty($summary['email_address']) || empty($summary['interval'])) {
+                continue;
+            }
+
+            $recipients[$summary['interval']][] = $summary['email_address'];
+        }
+
+        return $recipients;
+    }
+
+    /**
+     * Schedule the next due summary event. There is only one pending cron job,
+     * even when several summary intervals or recipients are configured.
+     *
+     * @param array<string, array<int, string>> $recipients
+     * @return void
+     */
+    private function scheduleNextSummary(array $recipients): void
+    {
+        if (empty($recipients)) {
             return;
         }
 
-        foreach ($summaries as $summary) {
-            wp_schedule_single_event(
-                $this->getScheduleTimestamp($summary['interval']),
-                'customer-feedback/email_summary',
-                array(
-                    $summary['email_address'],
-                    $summary['interval'],
-                ),
-            );
+        $intervalsByTimestamp = array();
+
+        foreach (array_keys($recipients) as $interval) {
+            $timestamp = $this->getScheduleTimestamp($interval);
+            $intervalsByTimestamp[$timestamp][] = $interval;
         }
+
+        ksort($intervalsByTimestamp, SORT_NUMERIC);
+        $timestamp = array_key_first($intervalsByTimestamp);
+
+        wp_schedule_single_event(
+            $timestamp,
+            'customer-feedback/email_summary',
+            array($intervalsByTimestamp[$timestamp]),
+        );
     }
 
     /**
@@ -94,7 +135,43 @@ class Summary
         return $scheduled->getTimestamp();
     }
 
-    public function emailSummary($email, $interval)
+    /**
+     * Send all summaries that are due and queue the next single cron event.
+     *
+     * @param array<int, string> $intervals
+     * @return void
+     */
+    public function emailSummary($intervals = array()): void
+    {
+        $recipients = $this->getSummaryRecipients();
+
+        // Replace an event created by versions that scheduled one job per
+        // recipient. The next run will use the consolidated event instead.
+        if (!is_array($intervals)) {
+            wp_clear_scheduled_hook('customer-feedback/email_summary');
+            $this->scheduleNextSummary($recipients);
+            return;
+        }
+
+        foreach ($intervals as $interval) {
+            if (empty($recipients[$interval])) {
+                continue;
+            }
+
+            $this->sendSummary($recipients[$interval], $interval);
+        }
+
+        $this->scheduleNextSummary($recipients);
+    }
+
+    /**
+     * Send one summary to all recipients for an interval.
+     *
+     * @param array<int, string> $recipients
+     * @param string $interval
+     * @return void
+     */
+    private function sendSummary(array $recipients, string $interval): void
     {
         $report = null;
         $from = null;
@@ -131,21 +208,16 @@ class Summary
         if (!empty($report) && !empty($hasContent)) {
             $report = '<html><body style="background:#fff;padding: 50px; font-family: Arial, Verdana, sans-serif;">' . $report . '</body></html>';
             wp_mail(
-                $email,
+                get_option('admin_email'),
                 __('Feedback summary', 'customer-feedback') . ' (' . get_option('blogname') . ')',
                 $report,
                 array(
                     'Content-Type: text/html; charset=UTF-8',
                     'From: ' . get_option('admin_email'),
+                    'Bcc: ' . implode(', ', array_unique($recipients)),
                 ),
             );
         }
-
-        wp_schedule_single_event(
-            $this->getScheduleTimestamp($interval),
-            'customer-feedback/email_summary',
-            array($email, $interval),
-        );
     }
 
     /**
